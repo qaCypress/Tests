@@ -26,6 +26,7 @@ describe('AllRight', () => {
     cy.visit('https://allrightcasino.com/en')
   })
 
+// sgo
 
 
   for(let i = 0; i < AllRightCurrinces.length; i++) {
