@@ -15,11 +15,11 @@ function queryFailed() {
   }
 
 
-const AllRightCurrinces = ['USD', 'PLN']
+const AllRightCurrinces = ['USD', 'PLN', 'UAH', 'UZS', 'USD', 'RUB', 'ARS', 'MXN', 'PEN', 'CLP']
 
-const AllRightEmails = ['v.pupkinn.usd@gmail.com', 'v.pupkin.pln@gmail.com']
+const AllRightEmails = ['v.pupkinn.usd@gmail.com', 'v.pupkin.pln@gmail.com', 'v.pupkin.uah@gmail.com', 'v.pupkin.uzs@gmail.com', 'v.pupkinn.usd@gmail.com', 'v.pupkin.rub@outlook.com', 'v.pupkin.ars@outlook.com', 'v.pupkin.mxn@outlook.com', 'v.pupkin.pen@outlook.com', 'v.pupkin.clp@outlook.com']
 
-const AllRightPasswords = ['Vrp8VKMaiG', 'ePXzdyIeZH']
+const AllRightPasswords = ['Vrp8VKMaiG', 'ePXzdyIeZH', 'P6QMU1BdQF', 'MLlXgF3SN6', 'Vrp8VKMaiG', 'Ycr9HyqSgp', 'cCX4W6opNh', 'ktFTixdjC2', 'AUQjkseWfb', 'Xw7olloTWC']
 
 describe('AllRight', () => {
   beforeEach(() => {
@@ -50,51 +50,51 @@ describe('AllRight', () => {
         cy.get('.content')
         .then((body) => {
             if(body.find('form').length > 0) {
-                cy.log('ВСЕ ЄЄЄЄЄ')
-                cy.log('Кіно буде')
-                cy.get('.payment_forms')  
-                .find('form')              
-                .each((form) => {           
-                  const formId = form.attr('id');  
-                  depositFormsIds.push(formId);            
-                })
-                .then(() => {
-                  cy.log(depositFormsIds.length);  
-                
-                  if (depositFormsIds.length > 0) {
+              cy.log('ВСЕ ЄЄЄЄЄ')
+              cy.log('Кіно буде')
+              cy.get('.payment_forms')  
+              .find('form')              
+              .each((form) => {           
+                const formId = form.attr('id');  
+                depositFormsIds.push(formId);            
+              })
+              .then(() => {
+                cy.log(depositFormsIds.length);  
+              
+                if (depositFormsIds.length > 0) {
+        
+                  for(let i = 0; i < depositFormsIds.length; i++) {
+                    cy.get(`[data-key="${i}"] > .payment_item > .footer`)
+                    .click()
+                 
+                    
+                    cy.get(`#${depositFormsIds[i]}`).invoke('text').should('not.include', 't.payment')
+                    
           
-                    for(let i = 0; i < depositFormsIds.length; i++) {
-                      cy.get(`[data-key="${i}"] > .payment_item > .footer`)
-                      .click()
-                   
-                      
-                      cy.get(`#${depositFormsIds[i]}`).invoke('text').should('not.include', 't.payment')
-                      
-            
-                      cy.get(`#${depositFormsIds[i]} > .header > .close > .icon`).click()
-            
-                      // Тут костиль, в процесі виправлення
-                      //cy.visit('https://allrightcasino.com/en')
-                      //cy.get('.header_bar > .actions > .orange').click();       
-                    }
-                          
-                  } else {
-                    cy.log('sho')
+                    cy.get(`#${depositFormsIds[i]} > .header > .close > .icon`).click()
+          
+                    // Тут костиль, в процесі виправлення
+                    //cy.visit('https://allrightcasino.com/en')
+                    //cy.get('.header_bar > .actions > .orange').click();       
                   }
-                
-                })         
+                        
+                } else {
+                  cy.log('sho')
+                }
+              
+              })  
             } else {
                 cy.log('НІЧОГО НЕМА')
             }
         })
+
+
+
+
+
+
    
       
-       
-      
-      
-
-  
-        
   
         cy.visit('https://allrightcasino.com/en#cashbox-withdraw')
   
@@ -104,50 +104,52 @@ describe('AllRight', () => {
         .invoke('text').should('not.include', 't.payment')
   
         let withdrawFormsIds = [];
-  
-        cy.get('div.payment_forms')  
-        .find('form')              
-        .each((form) => {           
-          const formId = form.attr('id');  
-          withdrawFormsIds.push(formId);            
-        })
-        .then(() => {
-          cy.log(withdrawFormsIds.length);  
+
+        cy.get('.content')
+        .then((body) => {
+            if(body.find('form').length > 0) {
+              cy.get('div.payment_forms')  
+              .find('form')              
+              .each((form) => {           
+                const formId = form.attr('id');  
+                withdrawFormsIds.push(formId);            
+              })
+              .then(() => {
+                cy.log(withdrawFormsIds.length);  
+              
+                if (withdrawFormsIds.length > 0) {
         
-          if (withdrawFormsIds.length > 0) {
-  
-            for(let i = 0; i < withdrawFormsIds.length; i++) {
-              cy.get(`[data-key="${i}"] > .payment_item > .footer`)
-              .click()
-           
+                  for(let i = 0; i < withdrawFormsIds.length; i++) {
+                    cy.get(`[data-key="${i}"] > .payment_item > .footer`)
+                    .click()
+                 
+                    
+                    cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.payment')
+                    
+          
+                    cy.get(`#${withdrawFormsIds[i]} > .header > .close > .icon`).click()
+          
+                    // Тут костиль, в процесі виправлення
+                    //cy.visit('https://allrightcasino.com/en')
+                    //cy.get('.header_bar > .actions > .orange').click();
+                    
+          
+                  }
+                  
               
-              cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.payment')
+                }
               
-    
-              cy.get(`#${withdrawFormsIds[i]} > .header > .close > .icon`).click()
-    
-              // Тут костиль, в процесі виправлення
-              //cy.visit('https://allrightcasino.com/en')
-              //cy.get('.header_bar > .actions > .orange').click();
-              
-    
+              });
+            } else {
+                cy.log('НІЧОГО НЕМА')
             }
-            
-        
-          }
-        
-        });
+        })
         
   
-      
-  
+
   
     })
   }
-
-
-
-
 
 
 })
