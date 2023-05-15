@@ -15,11 +15,27 @@ function queryFailed() {
   }
 
 
-const AllRightCurrinces = ['USD', 'PLN', 'UAH', 'UZS', 'USD', 'RUB', 'ARS', 'MXN', 'PEN', 'CLP']
+const AllRightCurrinces = ['USD', 'PLN', 'UAH', 'UZS', 'USD', 'RUB', 'ARS', 'MXN', 'PEN', 'CLP', 'ZAR', 'NOK', 'BRL', 'CAD', 'AUD', 'CHF', 'CZK', 'NZD', 'INR', 'JPY', 'AZN', 'KZT', 'GEL']
 
-const AllRightEmails = ['v.pupkinn.usd@gmail.com', 'v.pupkin.pln@gmail.com', 'v.pupkin.uah@gmail.com', 'v.pupkin.uzs@gmail.com', 'v.pupkinn.usd@gmail.com', 'v.pupkin.rub@outlook.com', 'v.pupkin.ars@outlook.com', 'v.pupkin.mxn@outlook.com', 'v.pupkin.pen@outlook.com', 'v.pupkin.clp@outlook.com']
+const AllRightEmails = 
+['v.pupkinn.usd@gmail.com', 'v.pupkin.pln@gmail.com', 'v.pupkin.uah@gmail.com', 
+'v.pupkin.uzs@gmail.com', 'v.pupkinn.usd@gmail.com', 'v.pupkin.rub@outlook.com', 
+'v.pupkin.ars@outlook.com', 'v.pupkin.mxn@outlook.com', 'v.pupkin.pen@outlook.com', 
+'v.pupkin.clp@outlook.com', 'v.pupkin.zar@outlook.com', 'v.pupkin.nok@outlook.com', 
+'v.pupkin.brl@outlook.com', 'v.pupkin.cad@outlook.com', 'v.pupkin.aud@outlook.com', 
+'v.pupkin.chf@outlook.com', 'v.pupkin.czk@gmail.com', 'v.pupkin.nzd@gmail.com', 
+'v.pupkin.inr@gmail.com', 'v.pupkin.jpy@gmail.com', 'v.pupkin.azn@gmail.com', 
+'v.pupkin.kzt@gmail.com', 'v.pupkin.gel@gmail.com']
 
-const AllRightPasswords = ['Vrp8VKMaiG', 'ePXzdyIeZH', 'P6QMU1BdQF', 'MLlXgF3SN6', 'Vrp8VKMaiG', 'Ycr9HyqSgp', 'cCX4W6opNh', 'ktFTixdjC2', 'AUQjkseWfb', 'Xw7olloTWC']
+const AllRightPasswords = 
+['Vrp8VKMaiG', 'ePXzdyIeZH', 'P6QMU1BdQF', 
+'MLlXgF3SN6', 'Vrp8VKMaiG', 'Ycr9HyqSgp', 
+'cCX4W6opNh', 'ktFTixdjC2', 'AUQjkseWfb', 
+'Xw7olloTWC', 'FEcG0t0TGJ', 'jdQ4ifwurz', 
+'MrQ14AGSJ5', 'gP9VPACbeM', 'xvMOxpzTgf', 
+'jr2mlttDhP', 'mjO2smEJT9', 'f9E99Jz9bP', 
+'pekZiFuf5N', 'GSFzx8Oxo5', 'FotPkD2grg', 
+'pekZiFuf5N', '$ncUy@cwFuF3.yT']
 
 describe('AllRight', () => {
   beforeEach(() => {
@@ -85,6 +101,7 @@ describe('AllRight', () => {
               })  
             } else {
                 cy.log('НІЧОГО НЕМА')
+                cy.get(`.content`).invoke('text').should('not.include', 't.payment')
             }
         })
 
@@ -142,6 +159,7 @@ describe('AllRight', () => {
               });
             } else {
                 cy.log('НІЧОГО НЕМА')
+                cy.get(`.content`).invoke('text').should('not.include', 't.payment')
             }
         })
         
