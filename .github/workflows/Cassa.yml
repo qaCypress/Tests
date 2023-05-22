@@ -21,9 +21,13 @@ jobs:
         
       - name: Set screen resolution
         run: |
-          $Resolution = [Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
-          $Screen = [System.Windows.Forms.Screen]::PrimaryScreen
-          $Screen.Resolution = New-Object System.Drawing.Size(1920, 1080)
+          $resolution = '1920x1080'
+          Install-Module -Name ScreenResolutionUtility -Force -AllowClobber -Scope CurrentUser
+          Import-Module ScreenResolutionUtility -Force
+          Set-DisplayResolution -Width 1920 -Height 1080
 
       - name: Run Cypress tests
         run: npm run test:cypress -- --spec "cypress/e2e/PaymentCheck.cy.js"
+        
+    env:
+      CI: true
