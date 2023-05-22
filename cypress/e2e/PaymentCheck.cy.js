@@ -1,5 +1,10 @@
 import '../support/commands.js';
 
+
+
+
+
+
 const AllRightCurrinces = 
 ['EUR', 'PLN', 'UAH', 
 'UZS', 'USD', 'RUB', 
@@ -155,9 +160,10 @@ describe('AllRight', () => {
   }
 })
 
-describe('LuckyBird', () => {
+describe.only('LuckyBird', () => {
   beforeEach(() => {
     cy.visit('https://luckybirdcasino.com/en')
+    cy.viewport(1920, 1080);
   })
 
   for(let i = 0; i < LuckyBirdCurrinces.length; i++) {
@@ -559,7 +565,7 @@ describe('Spinamba', () => {
   }
 })
 
-describe.only('SpinBounty', () => {
+describe('SpinBounty', () => {
   beforeEach(() => {
     cy.visit('https://spinbounty.com/en')
   })
