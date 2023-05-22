@@ -160,7 +160,7 @@ describe('AllRight', () => {
   }
 })
 
-describe('LuckyBird', () => {
+describe.only('LuckyBird', () => {
   beforeEach(() => {
     cy.visit('https://luckybirdcasino.com/en')
   })
@@ -263,7 +263,7 @@ describe('LuckyBird', () => {
   }
 })
 
-describe.only('Slottica', () => {
+describe('Slottica', () => {
 
   beforeEach(() => {
     cy.visit('https://slottica.com/en')
