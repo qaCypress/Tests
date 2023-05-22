@@ -163,12 +163,11 @@ describe('AllRight', () => {
 describe.only('LuckyBird', () => {
   beforeEach(() => {
     cy.visit('https://luckybirdcasino.com/en')
-    cy.viewport(1920, 1080);
   })
 
   for(let i = 0; i < LuckyBirdCurrinces.length; i++) {
     it(LuckyBirdCurrinces[i],  () => {
-      cy.get(':nth-child(3) > .column > .button').click()
+      cy.get(':nth-child(3) > .column > .button', { timeout: 10000 }).should('be.visible').click()
       cy.get('input[type="email"]').type(LuckyBirdEmails[i])
       cy.get('input[type="password"]').first().type(LuckyBirdPasswords[i])
       cy.get('#form-signin-email > .submit_button > .button').click()
