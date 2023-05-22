@@ -16,7 +16,6 @@ jobs:
         with:
           node-version: 14
           
-          
       - name: Install Cypress
         run: npm install cypress --save-dev   
 
