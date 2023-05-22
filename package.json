@@ -1,11 +1,9 @@
 {
   "devDependencies": {
-    "cypress": "^12.11.0"
+    "cypress": "^12.11.0",
+    "puppeteer": "^20.3.0"
   },
   "scripts": {
     "test:cypress": "cypress run"
   }
 }
-
-
-

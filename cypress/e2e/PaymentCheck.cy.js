@@ -1,5 +1,10 @@
 import '../support/commands.js';
 
+
+
+
+
+
 const AllRightCurrinces = 
 ['EUR', 'PLN', 'UAH', 
 'UZS', 'USD', 'RUB', 
