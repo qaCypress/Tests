@@ -163,6 +163,7 @@ describe('AllRight', () => {
 describe.only('LuckyBird', () => {
   beforeEach(() => {
     cy.visit('https://luckybirdcasino.com/en')
+    cy.viewport(1920, 1080);
   })
 
   for(let i = 0; i < LuckyBirdCurrinces.length; i++) {
