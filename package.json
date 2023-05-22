@@ -4,6 +4,6 @@
     "puppeteer": "^20.3.0"
   },
   "scripts": {
-    "test:cypress:ci": "cypress run --headless"
+    "test:cypress:ci": "cypress run --browser chrome"
   }
 }
