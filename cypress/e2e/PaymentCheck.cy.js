@@ -160,17 +160,17 @@ describe('AllRight', () => {
   }
 })
 
-describe.only('Test check', () => {
+
+
+
+describe.only('LuckyBird', () => {
+  beforeEach(() => {
+    cy.visit('https://luckybirdcasino.com/en')
+  })
+
   it('testtest', () => {
     cy.visit('https://luckybirdcasino.com/en')
     cy.get('.page_main').should('be.visible')
-  })
-})
-
-
-describe('LuckyBird', () => {
-  beforeEach(() => {
-    cy.visit('https://luckybirdcasino.com/en')
   })
 
   for(let i = 0; i < LuckyBirdCurrinces.length; i++) {
