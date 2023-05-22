@@ -160,14 +160,22 @@ describe('AllRight', () => {
   }
 })
 
-describe.only('LuckyBird', () => {
+describe.only('Test check', () => {
+  it('testtest', () => {
+    cy.visit('https://luckybirdcasino.com/en')
+    cy.get('.page_main').should('be.visible')
+  })
+})
+
+
+describe('LuckyBird', () => {
   beforeEach(() => {
     cy.visit('https://luckybirdcasino.com/en')
   })
 
   for(let i = 0; i < LuckyBirdCurrinces.length; i++) {
     it(LuckyBirdCurrinces[i],  () => {
-      cy.visit('https://luckybirdcasino.com/en')
+      
       cy.get(':nth-child(3) > .column > .button', { timeout: 10000 }).should('be.visible').click()
       cy.get('input[type="email"]').type(LuckyBirdEmails[i])
       cy.get('input[type="password"]').first().type(LuckyBirdPasswords[i])
