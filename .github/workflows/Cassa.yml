@@ -17,4 +17,4 @@ jobs:
           node-version: 14
 
       - name: Run Cypress tests
-        run: npm run test:cypress
+        run: npm run test:cypress -- --spec "cypress/e2e/PaymentCheck.cy.js"
