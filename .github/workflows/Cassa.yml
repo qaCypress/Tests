@@ -16,13 +16,6 @@ jobs:
         with:
           node-version: 14
           
-      - name: Set screen resolution
-        run: |
-          sudo apt-get update
-          sudo apt-get install xvfb -y
-          export DISPLAY=:99
-          Xvfb -screen 0 "${{ matrix.screen_resolution }}" &
-          sleep 3 # Allow Xvfb to start    
           
       - name: Install Cypress
         run: npm install cypress --save-dev   
