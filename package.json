@@ -4,6 +4,6 @@
     "puppeteer": "^20.3.0"
   },
   "scripts": {
-    "test:cypress": "cypress run"
+    "test:cypress:ci": "cypress run --headless"
   }
 }
