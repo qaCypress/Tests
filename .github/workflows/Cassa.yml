@@ -28,7 +28,7 @@ jobs:
           $Screen.Bounds.Height = 1080
 
       - name: Run Cypress tests
-        run: npm run test:cypress -- --spec "cypress/e2e/PaymentCheck.cy.js"
+        run: npm run test:cypress:ci -- --spec "cypress/e2e/PaymentCheck.cy.js"
         
     env:
       CI: true
