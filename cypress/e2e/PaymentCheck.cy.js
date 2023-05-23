@@ -160,21 +160,29 @@ describe('AllRight', () => {
   }
 })
 
+
+
+
 describe.only('LuckyBird', () => {
   beforeEach(() => {
     cy.visit('https://luckybirdcasino.com/en')
-    cy.viewport(1920, 1080);
+  })
+
+  it('testtest', () => {
+    cy.visit('https://luckybirdcasino.com/en')
+    cy.get('.page_main').should('be.visible')
   })
 
   for(let i = 0; i < LuckyBirdCurrinces.length; i++) {
     it(LuckyBirdCurrinces[i],  () => {
-      cy.get(':nth-child(3) > .column > .button').click()
+      
+      cy.get(`[class="button fluid button_new primary transparent icon_minimized_only"]`, { timeout: 10000 }).should('be.visible').click()
       cy.get('input[type="email"]').type(LuckyBirdEmails[i])
       cy.get('input[type="password"]').first().type(LuckyBirdPasswords[i])
-      cy.get('#form-signin-email > .submit_button > .button').click()
+      cy.get(`[class="submit_button"]`).first().click()
   
       cy.wait(5000)
-      cy.get('.header > .close > .icon-close').click()
+      cy.get(`[class="icon-close"]`).click()
       cy.visit('https://luckybirdcasino.com/en#cashbox-deposit')
   
       cy.get('.cashbox_content')
