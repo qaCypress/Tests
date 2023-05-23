@@ -11,24 +11,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-          
-      - name: Install Cypress
-        run: npm install cypress --save-dev
-        
-      - name: Set screen resolution
-        run: |
-          $resolution = '1920x1080'
-          [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms") | Out-Null
-          $Screen = [System.Windows.Forms.Screen]::PrimaryScreen
-          $Screen.Bounds.Width = 1920
-          $Screen.Bounds.Height = 1080
-
       - name: Run Cypress tests
-        run: npm run test:cypress:ci -- --spec "cypress/e2e/PaymentCheck.cy.js"
+        uses: cypress-io/github-action@v4
+        with: 
+          command: npm run test:cypress:ci -- --spec "cypress/e2e/PaymentCheck.cy.js"
+          browser: chrome
         
     env:
       CI: true
