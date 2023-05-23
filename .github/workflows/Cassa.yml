@@ -16,7 +16,7 @@ jobs:
         with: 
           command: npm run test:cypress:ci -- --spec "cypress/e2e/PaymentCheck.cy.js"
           browser: chrome
-        working-directory: ${{ github.workspace }}
+    
         
     env:
       CI: true
