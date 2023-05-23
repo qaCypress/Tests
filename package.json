@@ -4,7 +4,7 @@
     "puppeteer": "^20.3.0"
   },
   "scripts": {
-    "test:cypress:ci": "cypress run"
+    "test:cypress": "cypress run"
   },
 
   "browser": "chrome",
