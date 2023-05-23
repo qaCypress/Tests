@@ -4,8 +4,9 @@
     "puppeteer": "^20.3.0"
   },
   "scripts": {
-    "test:cypress:ci": "cypress run --headless"
+    "test:cypress": "cypress run"
   },
 
-  "browser": "chrome"
+  "browser": "chrome",
+  "integrationFolder": "cypress/e2e"
 }
