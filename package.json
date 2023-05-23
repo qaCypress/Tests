@@ -7,5 +7,6 @@
     "test:cypress:ci": "cypress run --headless"
   },
 
-  "browser": "chrome"
+  "browser": "chrome",
+  "integrationFolder": "cypress/e2e"
 }
