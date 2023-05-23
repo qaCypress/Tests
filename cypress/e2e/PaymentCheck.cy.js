@@ -49,9 +49,18 @@ const SpinambaCurrinces = ['EUR', 'PLN', 'USD']
 const SpinambaEmails = ['v.pupkin.eur@gmail.com', 'v.pupkin.pln@gmail.com', 'v.pupkinn.usd@gmail.com']
 const SpinambaPasswords = ['JTFN3W9JM4', 'ePXzdyIeZH', 'Vrp8VKMaiG']
 
-const SpinBountyCurrinces = ['EUR']
-const SpinBountyEmails = ['v.pupkin.eur@gmail.com']
-const SpinBountyPasswords = ['JTFN3W9JM4']
+const SpinBountyCurrinces = ['EUR', 'PLN', 'USD']
+const SpinBountyEmails = ['v.pupkin.eur@gmail.com', 'v.pupkin.pln@gmail.com', 'v.pupkinn.usd@gmail.com']
+const SpinBountyPasswords = ['JTFN3W9JM4', 'ePXzdyIeZH', 'Vrp8VKMaiG']
+
+const ViksCurrinces = ['UZS']
+const ViksEmails = ['v.pupkin.uzs@gmail.com']
+const ViksPasswords = ['MLlXgF3SN6']
+
+const SuperCatCurrinces = ['EUR']
+const SuperCatEmails = ['v.pupkin.eur@gmail.com']
+const SuperCatPasswords = ['JTFN3W9JM4']
+
 describe('AllRight', () => {
   beforeEach(() => {
     cy.visit('https://allrightcasino.com/en')
@@ -160,10 +169,7 @@ describe('AllRight', () => {
   }
 })
 
-
-
-
-describe.only('LuckyBird', () => {
+describe('LuckyBird', () => {
   beforeEach(() => {
     cy.visit('https://luckybirdcasino.com/en')
   })
@@ -611,7 +617,7 @@ describe('SpinBounty', () => {
                     cy.get(`#${depositFormsIds[i]}`).invoke('text').should('not.include', 't.payment')              
                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
 
-                   cy.get(`[data-key="${i}"] > .modal_header > .left > .icon`).click()
+                   cy.get(`[class="action left close toggle_btn"]`).first().click({force: true})
           
                   }
                         
@@ -651,12 +657,226 @@ describe('SpinBounty', () => {
         
                   for(let i = 0; i < withdrawFormsIds.length; i++) {
                     
-                    cy.get(`[data-key="${i}"] > .pay_image`)
+                    cy.get(`[data-key="${i}"] > .payment_item`)
                     .click()               
                     cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.payment')
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+
+                    cy.get(`[class="action left close toggle_btn"]`).first().click({force: true})
                   }
                 }       
+              });
+            } else {
+                cy.log('НІЧОГО НЕМА')
+                cy.get(`.content`).invoke('text').should('not.include', 't.payment')
+                //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+            }
+        })
+  
+    })
+  }
+})
+
+describe('Viks', () => {
+
+  beforeEach(() => {
+    cy.visit('https://viks.com/en/games')
+  })
+
+  for(let i = 0; i < ViksCurrinces.length; i++) {
+    it(ViksCurrinces[i],  () => {
+      cy.get('.extend > .button').click()
+      cy.get('[data-tab="email"] > .label').click()
+      cy.get('input[type="email"]').type(ViksEmails[i])
+      cy.get('input[type="password"]').first().type(ViksPasswords[i])
+      cy.get('#signinform_email > .form > :nth-child(4) > .button').click()
+  
+      cy.wait(5000)
+      cy.visit('https://viks.com/en/games#cashbox-deposit')
+  
+      cy.get('.popup_content')
+        .invoke('text').should('not.include', 't.payment')
+      //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+  
+      let depositFormsIds = [];
+
+
+        cy.get('.payments_gallery')
+        .then((body) => {
+            if(body.find('form').length > 0) {
+              cy.log('Кіно буде')
+              cy.get('.item')  
+              .find('form')              
+              .each((form) => {           
+                const formId = form.attr('id');  
+                depositFormsIds.push(formId);            
+              })
+              .then(() => {
+                cy.log(depositFormsIds.length);  
+              
+                if (depositFormsIds.length > 0) {
+        
+                  for(let i = 0; i < depositFormsIds.length; i++) {
+                    cy.get(`:nth-child(${i + 1}) > .payment_item `)
+                    .click()       
+                    cy.get(`#${depositFormsIds[i]}`).invoke('text').should('not.include', 't.payment')    
+                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)          
+                    cy.get(`[data-trigger="cashbox.close"]`).first().click({force: true})
+                   
+          
+                  }
+                        
+                } else {
+                  cy.log('sho')
+                }
+              
+              })  
+            } else {
+                cy.log('НІЧОГО НЕМА')
+                cy.get(`.popup_content`).invoke('text').should('not.include', 't.payment')
+            }
+        })
+
+        cy.visit('https://viks.com/en/games#cashbox-withdraw')
+  
+        cy.wait(2000)
+  
+        cy.get('.popup_content')
+        .invoke('text').should('not.include', 't.payment')
+        //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+  
+        let withdrawFormsIds = [];
+
+        cy.get('.payments_gallery')
+        .then((body) => {
+            if(body.find('form').length > 0) {
+              cy.get('div.item')  
+              .find('form')              
+              .each((form) => {           
+                const formId = form.attr('id');  
+                withdrawFormsIds.push(formId);            
+              })
+              .then(() => {
+                cy.log(withdrawFormsIds.length);  
+              
+                if (withdrawFormsIds.length > 0) {
+        
+                  for(let i = 0; i < withdrawFormsIds.length; i++) {
+                    cy.get(`:nth-child(${i + 1}) > .payment_item `)
+                    .click({force: true})       
+                    cy.get(`[class="popup_card"]`).invoke('text').should('not.include', 't.payment')    
+                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)          
+                    cy.get(`[data-trigger="cashbox.close"]`).first().click({force: true})
+                   
+                  }
+                }       
+              });
+            } else {
+                cy.log('НІЧОГО НЕМА')
+                cy.get(`.popup_content`).invoke('text').should('not.include', 't.payment')
+                //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+            }
+        })
+  
+    })
+  }
+
+}) 
+
+describe.only('SuperCat', () => {
+  beforeEach(() => {
+    cy.visit('https://supercatcasino67.com/en')
+  })
+
+
+  for(let i = 0; i < SuperCatCurrinces.length; i++) {
+    it(SuperCatCurrinces[i],  () => {
+      cy.get('.guest-header > .button-outlined').click()
+      cy.get('input[type="email"]').type(SuperCatEmails[i])
+      cy.get('input[type="password"]').first().type(SuperCatPasswords[i])
+      cy.get('.sign-in-form > .button').click()
+  
+      cy.wait(5000)
+      cy.visit('https://supercatcasino67.com/en/player/cashbox/deposit')
+      cy.wait(5000)
+      cy.get('.cashbox-content')
+        .invoke('text').should('not.include', 't.payment')
+        //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+  
+  
+        let depositFormsIds = [];
+
+
+        cy.get('.cashbox-content')
+        .then((body) => {
+            if(body.find('.cash-item').length > 0) {
+              cy.log('Кіно буде')
+              cy.get('.cash-item')  
+              .find('.cash-item__logo')              
+              .each((form) => {           
+                const formId = form.attr('alt');  
+                depositFormsIds.push(formId);            
+              })
+              .then(() => {
+                cy.log(depositFormsIds.length);  
+              
+                if (depositFormsIds.length > 0) {
+        
+                  for(let i = 0; i < depositFormsIds.length; i++) {
+                    cy.get(`#cash-item-${depositFormsIds} > .cash-item`)
+                    .click()       
+                    cy.get('.player-modal__content').invoke('text').should('not.include', 't.payment')    
+                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)          
+          
+                  }
+                        
+                } else {
+                  cy.log('sho')
+                }
+              
+              })  
+            } else {
+                cy.log('НІЧОГО НЕМА')
+                cy.get(`.content`).invoke('text').should('not.include', 't.payment')
+                //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+            }
+        })
+
+        cy.visit('https://allrightcasino.com/en#cashbox-withdraw')
+  
+        cy.wait(2000)
+  
+        cy.get('.popup > :nth-child(2)')
+        .invoke('text').should('not.include', 't.payment')
+        //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+  
+        let withdrawFormsIds = [];
+
+        cy.get('.content')
+        .then((body) => {
+            if(body.find('form').length > 0) {
+              cy.get('div.payment__item')  
+              .find('form')              
+              .each((form) => {           
+                const formId = form.attr('id');  
+                withdrawFormsIds.push(formId);            
+              })
+              .then(() => {
+                cy.log(withdrawFormsIds.length);  
+              
+                if (withdrawFormsIds.length > 0) {
+        
+                  for(let i = 0; i < withdrawFormsIds.length; i++) {
+                    cy.get(`[data-key="${i}"] > .payment_item > .footer`)
+                    .click()               
+                    cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.payment')
+                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                    cy.get(`#${withdrawFormsIds[i]} > .header > .close > .icon`).click()
+                  }
+                  
+              
+                }
+              
               });
             } else {
                 cy.log('НІЧОГО НЕМА')
