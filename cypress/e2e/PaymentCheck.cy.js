@@ -171,6 +171,7 @@ describe.only('LuckyBird', () => {
     it(LuckyBirdCurrinces[i],  () => {
       cy.visit('https://luckybirdcasino.com/en')
       cy.get(`[data-modal-id="login-modal"]`, { timeout: 10000 }).eq(1).click({ force: true })
+      cy.get(`[class="content"]`).should('contain', 'Authorization')
       cy.get('input[type="email"]').type(LuckyBirdEmails[i])
       cy.get('input[type="password"]').first().type(LuckyBirdPasswords[i])
       cy.get(`[class="submit_button"]`).first().click()
