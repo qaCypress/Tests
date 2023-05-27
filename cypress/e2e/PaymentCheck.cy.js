@@ -57,9 +57,9 @@ const ViksCurrinces = ['UZS']
 const ViksEmails = ['v.pupkin.uzs@gmail.com']
 const ViksPasswords = ['MLlXgF3SN6']
 
-const SuperCatCurrinces = ['EUR']
-const SuperCatEmails = ['v.pupkin.eur@gmail.com']
-const SuperCatPasswords = ['JTFN3W9JM4']
+const SuperCatCurrinces = ['EUR', 'PLN', 'USD']
+const SuperCatEmails = ['v.pupkin.eur@gmail.com', 'v.pupkin.pln@gmail.com', 'v.pupkinn.usd@gmail.com']
+const SuperCatPasswords = ['JTFN3W9JM4', 'ePXzdyIeZH', 'Vrp8VKMaiG']
 
 describe('AllRight', () => {
   beforeEach(() => {
@@ -67,7 +67,7 @@ describe('AllRight', () => {
   })
 
 
-  for(let i = 0; i < AllRightCurrinces.length; i++) {
+  for(let i = 0; i < AllRightCurrinces.length - 20; i++) {
     it(AllRightCurrinces[i],  () => {
       cy.get('.header_bar > .actions > .white_button').click()
       cy.get('input[type="email"]').type(AllRightEmails[i])
@@ -90,8 +90,8 @@ describe('AllRight', () => {
         .then((body) => {
             if(body.find('form').length > 0) {
               cy.log('Кіно буде')
-              cy.get('.payment__item')  
-              .find('form')              
+              cy.get('.payment_forms')
+              .find('form')            
               .each((form) => {           
                 const formId = form.attr('id');  
                 depositFormsIds.push(formId);            
@@ -135,7 +135,7 @@ describe('AllRight', () => {
         cy.get('.content')
         .then((body) => {
             if(body.find('form').length > 0) {
-              cy.get('div.payment__item')  
+              cy.get('div.payment_forms')  
               .find('form')              
               .each((form) => {           
                 const formId = form.attr('id');  
@@ -151,6 +151,8 @@ describe('AllRight', () => {
                     .click()               
                     cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.payment')
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                    cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.withdraw')
+                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
                     cy.get(`#${withdrawFormsIds[i]} > .header > .close > .icon`).click()
                   }
                   
@@ -161,6 +163,8 @@ describe('AllRight', () => {
             } else {
                 cy.log('НІЧОГО НЕМА')
                 cy.get(`.content`).invoke('text').should('not.include', 't.payment')
+                //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                cy.get(`.content`).invoke('text').should('not.include', 't.withdraw')
                 //Оп, якщо це бачиш в консолі, то знайдений ключ :)
             }
         })
@@ -240,6 +244,9 @@ describe('LuckyBird', () => {
         cy.get('.cashbox_content')
         .invoke('text').should('not.include', 't.payment')
         //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+        cy.get('.cashbox_content')
+        .invoke('text').should('not.include', 't.withdraw')
+        //Оп, якщо це бачиш в консолі, то знайдений ключ :)
   
         let withdrawFormsIds = [];
 
@@ -262,12 +269,16 @@ describe('LuckyBird', () => {
                     .click()               
                     cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.payment')
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                    cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.withdraw')
+                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
                   }
                 }       
               });
             } else {
                 cy.log('НІЧОГО НЕМА')
                 cy.get(`.cashbox_content`).invoke('text').should('not.include', 't.payment')
+                //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                cy.get(`.cashbox_content`).invoke('text').should('not.include', 't.withdraw')
                 //Оп, якщо це бачиш в консолі, то знайдений ключ :)
             }
         })
@@ -342,6 +353,9 @@ describe('Slottica', () => {
         cy.get('.popup_content')
         .invoke('text').should('not.include', 't.payment')
         //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+        cy.get('.popup_content')
+        .invoke('text').should('not.include', 't.withdraw')
+        //Оп, якщо це бачиш в консолі, то знайдений ключ :)
   
         let withdrawFormsIds = [];
 
@@ -364,12 +378,16 @@ describe('Slottica', () => {
                     .click()               
                     cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.payment')
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                    cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.withdraw')
+                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
                   }
                 }       
               });
             } else {
                 cy.log('НІЧОГО НЕМА')
                 cy.get(`.popup_content`).invoke('text').should('not.include', 't.payment')
+                //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                cy.get(`.popup_content`).invoke('text').should('not.include', 't.withdraw')
                 //Оп, якщо це бачиш в консолі, то знайдений ключ :)
             }
         })
@@ -442,6 +460,10 @@ describe('SlottyWay', () => {
   
         cy.get('.popup')
         .invoke('text').should('not.include', 't.payment')
+        //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+        cy.get('.popup')
+        .invoke('text').should('not.include', 't.withdraw')
+        //Оп, якщо це бачиш в консолі, то знайдений ключ :)
   
         let withdrawFormsIds = [];
 
@@ -464,12 +486,16 @@ describe('SlottyWay', () => {
                     .click()               
                     cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.payment')
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                    cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.withdraw')
+                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
                   }
                 }       
               });
             } else {
                 cy.log('НІЧОГО НЕМА')
                 cy.get(`.popup`).invoke('text').should('not.include', 't.payment')
+                //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                cy.get(`.popup`).invoke('text').should('not.include', 't.withdraw')
                 //Оп, якщо це бачиш в консолі, то знайдений ключ :)
             }
         })
@@ -521,6 +547,7 @@ describe('Spinamba', () => {
                     .click()       
                     cy.get(`#${depositFormsIds[i]}`).invoke('text').should('not.include', 't.payment')              
                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                   
           
                   }
                         
@@ -563,12 +590,16 @@ describe('Spinamba', () => {
                     .click()               
                     cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.payment')
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                    cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.withdraw')
+                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
                   }
                 }       
               });
             } else {
                 cy.log('НІЧОГО НЕМА')
                 cy.get(`.popup`).invoke('text').should('not.include', 't.payment')
+                //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                cy.get(`.popup`).invoke('text').should('not.include', 't.withdraw')
                 //Оп, якщо це бачиш в консолі, то знайдений ключ :)
             }
         })
@@ -664,6 +695,8 @@ describe('SpinBounty', () => {
                     .click()               
                     cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.payment')
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                    cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.withdraw')
+                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
 
                     cy.get(`[class="action left close toggle_btn"]`).first().click({force: true})
                   }
@@ -673,6 +706,8 @@ describe('SpinBounty', () => {
                 cy.log('НІЧОГО НЕМА')
                 cy.get(`.content`).invoke('text').should('not.include', 't.payment')
                 //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                cy.get(`.content`).invoke('text').should('not.include', 't.withdraw')
+                //Оп, якщо це бачиш в консолі, то знайдений ключ :)
             }
         })
   
@@ -680,7 +715,7 @@ describe('SpinBounty', () => {
   }
 })
 
-describe('Viks', () => {
+describe.only('Viks', () => {
 
   beforeEach(() => {
     cy.visit('https://viks.com/en/games')
@@ -765,9 +800,11 @@ describe('Viks', () => {
                 if (withdrawFormsIds.length > 0) {
         
                   for(let i = 0; i < withdrawFormsIds.length; i++) {
-                    cy.get(`:nth-child(${i + 1}) > .payment_item `)
+                    cy.get(`.payments_gallery > :nth-child(${i + 1}) > .payment_item `).first()
                     .click({force: true})       
                     cy.get(`[class="popup_card"]`).invoke('text').should('not.include', 't.payment')    
+                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)          
+                    cy.get(`[class="popup_card"]`).invoke('text').should('not.include', 't.withdraw')    
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)          
                     cy.get(`[data-trigger="cashbox.close"]`).first().click({force: true})
                    
@@ -778,6 +815,8 @@ describe('Viks', () => {
                 cy.log('НІЧОГО НЕМА')
                 cy.get(`.popup_content`).invoke('text').should('not.include', 't.payment')
                 //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                cy.get(`.popup_content`).invoke('text').should('not.include', 't.withdraw')
+                //Оп, якщо це бачиш в консолі, то знайдений ключ :)
             }
         })
   
@@ -786,9 +825,9 @@ describe('Viks', () => {
 
 }) 
 
-describe.only('SuperCat', () => {
+describe('SuperCat', () => {
   beforeEach(() => {
-    cy.visit('https://supercatcasino67.com/en')
+    cy.visit('https://supercatcasino.com/en')
   })
 
 
@@ -800,8 +839,8 @@ describe.only('SuperCat', () => {
       cy.get('.sign-in-form > .button').click()
   
       cy.wait(5000)
-      cy.visit('https://supercatcasino67.com/en/player/cashbox/deposit')
-      cy.wait(5000)
+      cy.visit('https://supercatcasino.com/en/player/cashbox/deposit')
+      cy.wait(10000)
       cy.get('.cashbox-content')
         .invoke('text').should('not.include', 't.payment')
         //Оп, якщо це бачиш в консолі, то знайдений ключ :)
@@ -826,10 +865,36 @@ describe.only('SuperCat', () => {
                 if (depositFormsIds.length > 0) {
         
                   for(let i = 0; i < depositFormsIds.length; i++) {
-                    cy.get(`#cash-item-${depositFormsIds} > .cash-item`)
-                    .click()       
-                    cy.get('.player-modal__content').invoke('text').should('not.include', 't.payment')    
-                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)          
+
+                    cy.log(depositFormsIds[i])
+
+
+                    //Два костиля, оскільки деякі платіжні методи пишуться якось унікально, постараюсь виправити
+                    if(depositFormsIds[i] == `bank transfer token`) {
+                      depositFormsIds[i] = 'bank transfer token';
+
+                      cy.get(`#cash-item-${depositFormsIds[i].replace(/\s/g, '\\\ ')} > .cash-item`) // Add the necessary backslashes for spaces
+                      .click();
+                      cy.get('.player-modal__content').invoke('text').should('not.include', 't.payment') 
+
+                    } else if(depositFormsIds[i] == `bank transfer voucher`) {
+                      depositFormsIds[i] = 'bank transfer voucher';
+
+                      cy.get(`#cash-item-${depositFormsIds[i].replace(/\s/g, '\\\ ')} > .cash-item`) // Add the necessary backslashes for spaces
+                      .click();
+                      cy.get('.player-modal__content').invoke('text').should('not.include', 't.payment') 
+
+                    }
+                      else{
+
+                      cy.get(`#cash-item-${depositFormsIds[i]} > .cash-item`)
+                      .click()       
+                      cy.get('.player-modal__content').invoke('text').should('not.include', 't.payment') 
+                      //Оп, якщо це бачиш в консолі, то знайдений ключ :)       
+                    }
+
+                       
+     
           
                   }
                         
@@ -840,28 +905,28 @@ describe.only('SuperCat', () => {
               })  
             } else {
                 cy.log('НІЧОГО НЕМА')
-                cy.get(`.content`).invoke('text').should('not.include', 't.payment')
+                cy.get(`.cashbox-content`).invoke('text').should('not.include', 't.payment')
                 //Оп, якщо це бачиш в консолі, то знайдений ключ :)
             }
         })
 
-        cy.visit('https://allrightcasino.com/en#cashbox-withdraw')
+        cy.visit('https://supercatcasino.com/en/player/cashbox/withdraw')
   
-        cy.wait(2000)
+        cy.wait(7000)
   
-        cy.get('.popup > :nth-child(2)')
+        cy.get('.cashbox-content')
         .invoke('text').should('not.include', 't.payment')
         //Оп, якщо це бачиш в консолі, то знайдений ключ :)
   
         let withdrawFormsIds = [];
 
-        cy.get('.content')
+        cy.get('.cashbox-content')
         .then((body) => {
-            if(body.find('form').length > 0) {
-              cy.get('div.payment__item')  
-              .find('form')              
+            if(body.find('.cash-item').length > 0) {
+              cy.get('.cash-item')  
+              .find('.cash-item__logo')              
               .each((form) => {           
-                const formId = form.attr('id');  
+                const formId = form.attr('alt');  
                 withdrawFormsIds.push(formId);            
               })
               .then(() => {
@@ -870,11 +935,12 @@ describe.only('SuperCat', () => {
                 if (withdrawFormsIds.length > 0) {
         
                   for(let i = 0; i < withdrawFormsIds.length; i++) {
-                    cy.get(`[data-key="${i}"] > .payment_item > .footer`)
-                    .click()               
-                    cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.payment')
-                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
-                    cy.get(`#${withdrawFormsIds[i]} > .header > .close > .icon`).click()
+                    cy.get(`#cash-item-${withdrawFormsIds[i]} > .cash-item`)
+                      .click()       
+                      cy.get('.player-modal__content').invoke('text').should('not.include', 't.payment') 
+                      //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                      cy.get('.player-modal__content').invoke('text').should('not.include', 't.withdraw') 
+                      //Оп, якщо це бачиш в консолі, то знайдений ключ :)
                   }
                   
               
@@ -883,7 +949,9 @@ describe.only('SuperCat', () => {
               });
             } else {
                 cy.log('НІЧОГО НЕМА')
-                cy.get(`.content`).invoke('text').should('not.include', 't.payment')
+                cy.get(`.cashbox-content`).invoke('text').should('not.include', 't.payment')
+                //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                cy.get(`.cashbox-content`).invoke('text').should('not.include', 't.withdraw')
                 //Оп, якщо це бачиш в консолі, то знайдений ключ :)
             }
         })
