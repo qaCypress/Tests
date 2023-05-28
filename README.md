@@ -14,3 +14,7 @@
 **Крок 3: Встановлення Visual Studio Code**
 1. Завантажте Visual Studio Code з офіційного сайту: https://code.visualstudio.com/download
 2. Запустіть виконуваний файл та встановіть Visual Studio Code, керуючись інструкціями на екрані.
+
+**Крок 4: Клонування репозиторію з Github**
+1.Відкрийте термінал (командний рядок) або вікно команд в Visual Studio Code.
+2.Скопіюйте URL-адресу репозиторію з Github.(https://www.dropbox.com/s/10u49nuk5em3bqg/1685292791800.jpg?dl=0)
