@@ -114,7 +114,7 @@ describe('AllRight', () => {
   }
 })
 
-describe.only('LuckyBird', () => {
+describe('LuckyBird', () => {
   beforeEach(() => {
     cy.visit('https://luckybirdcasino.com/en')
   })
