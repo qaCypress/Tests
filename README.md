@@ -24,3 +24,5 @@
 2. Введіть команду '**npm install**' 
 3. Введіть команду '**npm install cypress --save-dev**' 
 4. Введіть команду '**npx cypress open**'
+
+# Нотатки
