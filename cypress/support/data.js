@@ -202,8 +202,8 @@ export const SuperCatPasswords =
 
 
 
-export const testCurr = ['USD', 'ARS', 'NOK', 'BRL', 'CAD', 'CHF', 'INR', 'AZN']
-export const testEmails = ['v.pupkinn.usd@gmail.com', 'v.pupkin.ars@outlook.com', 
-'v.pupkin.nok@outlook.com', 'v.pupkin.brl@outlook.com', 'v.pupkin.cad@outlook.com', 'v.pupkin.chf@outlook.com', 
- 'v.pupkin.inr@gmail.com', 'v.pupkin.azn@gmail.com']
-export const testPass = ['Vrp8VKMaiG', 'cCX4W6opNh', 'jdQ4ifwurz', 'MrQ14AGSJ5', 'gP9VPACbeM', 'jr2mlttDhP', 'pekZiFuf5N', 'FotPkD2grg']
+export const testCurr = [ 'KZT']
+export const testEmails = [
+    'v.pupkin.kzt@gmail.com'
+ ]
+export const testPass = ['pekZiFuf5N']
