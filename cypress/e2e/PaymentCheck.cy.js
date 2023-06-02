@@ -8,18 +8,20 @@ describe('AllRight', () => {
   })
 
 
-  for(let i = 0; i < cur.AllRightCurrinces.length - 20; i++) {
+  for(let i = 0; i < cur.AllRightCurrinces.length ; i++) {
     it(cur.AllRightCurrinces[i],  () => {
-      cy.get('.header_bar > .actions > .white_button').click()
+      cy.get(`[data-href="/en/sign-in"][class="button white_button"]`).click()
       cy.get('input[type="email"]').type(cur.AllRightEmails[i])
       cy.get('input[type="password"]').first().type(cur.AllRightPasswords[i])
       cy.get('#form-signin-email > .submit_button > .button').click()
   
       cy.wait(5000)
       cy.get('.close > .icon-close').click()
-      cy.get('.header_bar > .actions > .orange').click();
+
+      cy.visit('https://allrightcasino.com/en#cashbox-deposit')
+      cy.wait(2000)
   
-      cy.get('.popup > :nth-child(2)')
+      cy.get(`[class="content"]`)
         .invoke('text').should('not.include', 't.payment')
         //Оп, якщо це бачиш в консолі, то знайдений ключ :)
   
@@ -65,9 +67,9 @@ describe('AllRight', () => {
 
         cy.visit('https://allrightcasino.com/en#cashbox-withdraw')
   
-        cy.wait(7000)
+        cy.wait(5000)
   
-        cy.get('.popup > :nth-child(2)')
+        cy.get('.content')
         .invoke('text').should('not.include', 't.payment')
         //Оп, якщо це бачиш в консолі, то знайдений ключ :)
   
@@ -505,7 +507,7 @@ describe('Spinamba', () => {
 
         cy.visit('https://spinamba.com/en#cashbox-withdraw')
   
-        cy.wait(2000)
+        cy.wait(4000)
   
         cy.get('.popup')
         .invoke('text').should('not.include', 't.payment')
@@ -672,7 +674,7 @@ describe('Viks', () => {
   
       cy.wait(5000)
       cy.visit('https://viks.com/en/games#cashbox-deposit')
-  
+      cy.wait(2000)
       cy.get('.popup_content')
         .invoke('text').should('not.include', 't.payment')
       //Оп, якщо це бачиш в консолі, то знайдений ключ :)
