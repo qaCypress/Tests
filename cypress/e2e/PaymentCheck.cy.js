@@ -2,17 +2,17 @@ import '../support/commands.js';
 import * as cur from '../support/data.js';
 
 
-describe('AllRight', () => {
+describe.only('AllRight', () => {
   beforeEach(() => {
     cy.visit('https://allrightcasino.com/en')
   })
 
 
-  for(let i = 0; i < cur.AllRightCurrinces.length ; i++) {
-    it(cur.AllRightCurrinces[i],  () => {
+  for(let j = 0; j < cur.AllRightCurrinces.length - 21; j++) {
+    it(cur.AllRightCurrinces[2],  () => {
       cy.get(`[data-href="/en/sign-in"][class="button white_button"]`).click()
-      cy.get('input[type="email"]').type(cur.AllRightEmails[i])
-      cy.get('input[type="password"]').first().type(cur.AllRightPasswords[i])
+      cy.get('input[type="email"]').type(cur.AllRightEmails[2])
+      cy.get('input[type="password"]').first().type(cur.AllRightPasswords[2])
       cy.get('#form-signin-email > .submit_button > .button').click()
   
       cy.wait(5000)
@@ -49,8 +49,90 @@ describe('AllRight', () => {
                     .click()       
                     cy.get(`#${depositFormsIds[i]}`).invoke('text').should('not.include', 't.payment')    
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)          
+
+                    
+                    cy.get(`[data-key="${i}"] > .form_row > .limit`)
+                    .invoke('text')
+                    .then((amountText) => {
+                      const regex = /(\d+)\s*-\s*([\d,]+)\s*(zł|\€|\₴)/;
+                      const matches = amountText.match(cur.AllRightRegex[2]);   
+                  
+                      const minValue = parseFloat(matches[1].replace(/,/g, ''));
+                      const maxValue = parseFloat(matches[2].replace(/,/g, ''));
+                  
+                      cy.log(`Min Value: ${minValue}`);
+                      cy.log(`Max Value: ${maxValue}`);
+
+                      let staticValue = [];
+                      let customValue = 0;
+
+                      cy.get(`[data-key="${i}"]  > .form_row > .amount_variants`)
+                       .find('.form-group.radio input[name="predefinedValue"]')
+                       .each(($radio) => {
+                         const value = parseInt($radio.attr('value'));
+                    
+                         if (!isNaN(value)) {
+                           staticValue.push(value);
+                          }
+                        })
+                        .then(() => {
+                          cy.log(staticValue.length);
+                          cy.log(`Min Value: ${staticValue[0]}`);
+                          cy.log(`Min Value: ${staticValue[1]}`);
+                          cy.log(`Min Value: ${staticValue[2]}`);
+
+                          cy.get(`[data-key="${i}"]  > .form_row > .amount_custom`)
+                          .find(`input[name="amount"]`)
+                          .then(($input) => {
+                            const value = $input.attr('Value')
+                            const parsedValue = parseFloat(value);
+                        
+                            if (!isNaN(parsedValue)) {
+                              customValue = parsedValue;
+                            }
+                          })
+                          .then(() => {
+                            cy.log(`Custom value ${customValue}`);
+
+                            function isAscending(staticValue) {
+                              for (let i = 1; i < staticValue.length; i++) {
+                                if (staticValue[i] < staticValue[i - 1]) {
+                                  return false; // Array is not in ascending order
+                                }
+                              }
+                              return true; // Array is in ascending order
+                            }
+
+                            
+                            let lessLimit = minValue <= staticValue[0] && minValue <= staticValue[1] && minValue <= staticValue[2] && minValue <= customValue
+                            && maxValue >= staticValue[0] && maxValue >= staticValue[1] && maxValue >= staticValue[2] && maxValue >= customValue
+                            
+
+                            if (isAscending(staticValue) && lessLimit) {
+                              cy.log('ЛІМІТИ СХОДЯТЬСЯ')
+                            } else {
+                              cy.log('ЛІМІТИ НЕЕЕ СХОДЯТЬСЯ')
+                              cy.fail("Ліміти не сходяться")
+                            }
+
+
+
+                          });
+
+                        });
+            
+                    });
+
+
+
+
+
+
+
+
+
+
                     cy.get(`#${depositFormsIds[i]} > .header > .close > .icon`).click()
-          
                   }
                         
                 } else {

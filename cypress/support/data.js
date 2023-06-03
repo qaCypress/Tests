@@ -28,7 +28,11 @@ export const AllRightPasswords =
 'GSFzx8Oxo5', 'FotPkD2grg', 'pekZiFuf5N', 
 '$ncUy@cwFuF3.yT']
 
+export const AllRightRegex = 
+[/(\d+)\s*-\s*([\d,]+)\s*(zł|\€|\₴)/, /(\d+)\s*-\s*([\d,]+)\s*(zł|\€|\₴)/, /(\d+)\s*-\s*([\d,]+)\s*(zł|\€|\₴)/,
+/(\d+(?:,\d+)*)\s*-\s*(\d+(?:,\d+)*)\s*UZS/
 
+]
 
 export const LuckyBirdCurrinces = 
 ['EUR', 'PLN', 'USD',
