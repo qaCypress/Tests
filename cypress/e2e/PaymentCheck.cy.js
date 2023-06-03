@@ -674,7 +674,7 @@ describe('Viks', () => {
   
       cy.wait(5000)
       cy.visit('https://viks.com/en/games#cashbox-deposit')
-      cy.wait(2000)
+      cy.wait(5000)
       cy.get('.popup_content')
         .invoke('text').should('not.include', 't.payment')
       //Оп, якщо це бачиш в консолі, то знайдений ключ :)
@@ -731,8 +731,8 @@ describe('Viks', () => {
         cy.get('.payments_gallery')
         .then((body) => {
             if(body.find('form').length > 0) {
-              cy.get('div.item')  
-              .find('form')              
+              cy.get('.payments_gallery')  
+              .find('.payment_item')              
               .each((form) => {           
                 const formId = form.attr('id');  
                 withdrawFormsIds.push(formId);            
