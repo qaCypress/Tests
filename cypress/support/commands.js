@@ -23,3 +23,9 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.overwrite('screenshot', (originalFn, subject, name, options) => {
+    // Delay for 3 seconds
+    cy.wait(3000).then(() => {
+      originalFn(subject, name, options);
+    });
+  });

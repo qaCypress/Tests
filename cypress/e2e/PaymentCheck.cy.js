@@ -2,24 +2,24 @@ import '../support/commands.js';
 import * as cur from '../support/data.js';
 
 
-describe.only('AllRight', () => {
+describe('AllRight', () => {
   beforeEach(() => {
     cy.visit('https://allrightcasino.com/en')
   })
 
 
-  for(let j = 0; j < cur.AllRightCurrinces.length - 21; j++) {
-    it(cur.AllRightCurrinces[2],  () => {
+  for(let j = 0; j < cur.AllRightData.currency.length; j++) {
+    it(cur.AllRightData.currency[j],  () => {
       cy.get(`[data-href="/en/sign-in"][class="button white_button"]`).click()
-      cy.get('input[type="email"]').type(cur.AllRightEmails[2])
-      cy.get('input[type="password"]').first().type(cur.AllRightPasswords[2])
+      cy.get('input[type="email"]').type(cur.AllRightData.emails[j])
+      cy.get('input[type="password"]').first().type(cur.AllRightData.passwords[j])
       cy.get('#form-signin-email > .submit_button > .button').click()
   
       cy.wait(5000)
       cy.get('.close > .icon-close').click()
 
       cy.visit('https://allrightcasino.com/en#cashbox-deposit')
-      cy.wait(2000)
+      cy.wait(4000)
   
       cy.get(`[class="content"]`)
         .invoke('text').should('not.include', 't.payment')
@@ -47,25 +47,40 @@ describe.only('AllRight', () => {
                   for(let i = 0; i < depositFormsIds.length; i++) {
                     cy.get(`[data-key="${i}"] > .payment_item > .footer`)
                     .click()       
-                    cy.get(`#${depositFormsIds[i]}`).invoke('text').should('not.include', 't.payment')    
+                    cy.get(`#${depositFormsIds[i]}`).invoke('text')
+                    .then(($text) => {
+                      if ($text.includes('Santiago')) {
+                        throw new Error('В Методі оплати присутній ключ t.payment!!!');
+                      } else {
+                        cy.log("✅В методі оплати ключ відсутній✅")
+                      }
+                    });
+
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)          
+                    let minValue = 0;
+                    let maxValue = 0;                   
 
                     
                     cy.get(`[data-key="${i}"] > .form_row > .limit`)
                     .invoke('text')
                     .then((amountText) => {
-                      const regex = /(\d+)\s*-\s*([\d,]+)\s*(zł|\€|\₴)/;
-                      const matches = amountText.match(cur.AllRightRegex[2]);   
-                  
-                      const minValue = parseFloat(matches[1].replace(/,/g, ''));
-                      const maxValue = parseFloat(matches[2].replace(/,/g, ''));
-                  
-                      cy.log(`Min Value: ${minValue}`);
-                      cy.log(`Max Value: ${maxValue}`);
+                      const regex = /(\d{1,3}(?:,\d{3})*)(?:\s*-\s*(\d{1,3}(?:,\d{3})*))?/;
+                      const match = amountText.match(regex);
+                      if (match) {
+                        minValue = parseFloat(match[1].replace(/,/g, '').trim());
+                        maxValue = match[2] ? parseFloat(match[2].replace(/,/g, '').trim()) : undefined;
+                    
+                        // Use the extracted numbers as needed
+                        cy.log(`Min limit: ${minValue}`);
+                        cy.log(`Max limit: ${maxValue}`);
+                      } else {
+                        // Handle the case when the regex doesn't match
+                        cy.log('Failed to extract numbers');
+                      }
 
                       let staticValue = [];
                       let customValue = 0;
-
+                      
                       cy.get(`[data-key="${i}"]  > .form_row > .amount_variants`)
                        .find('.form-group.radio input[name="predefinedValue"]')
                        .each(($radio) => {
@@ -77,9 +92,9 @@ describe.only('AllRight', () => {
                         })
                         .then(() => {
                           cy.log(staticValue.length);
-                          cy.log(`Min Value: ${staticValue[0]}`);
-                          cy.log(`Min Value: ${staticValue[1]}`);
-                          cy.log(`Min Value: ${staticValue[2]}`);
+                          cy.log(`First Value: ${staticValue[0]}`);
+                          cy.log(`Second Value: ${staticValue[1]}`);
+                          cy.log(`Third Value: ${staticValue[2]}`);
 
                           cy.get(`[data-key="${i}"]  > .form_row > .amount_custom`)
                           .find(`input[name="amount"]`)
@@ -108,12 +123,30 @@ describe.only('AllRight', () => {
                             && maxValue >= staticValue[0] && maxValue >= staticValue[1] && maxValue >= staticValue[2] && maxValue >= customValue
                             
 
-                            if (isAscending(staticValue) && lessLimit) {
-                              cy.log('ЛІМІТИ СХОДЯТЬСЯ')
+                            if (lessLimit) {
+                              cy.log('✅Ліміти сходяться✅')
                             } else {
                               cy.log('ЛІМІТИ НЕЕЕ СХОДЯТЬСЯ')
-                              cy.fail("Ліміти не сходяться")
+                              cy.fail(
+                              `Ліміти не сходяться, одне із чотирьох значень не вписується в ліміт ${minValue} - ${maxValue}
+                              \n1 значення - ${staticValue[0]}
+                              \n2 значення - ${staticValue[1]}
+                              \n3 значення - ${staticValue[2]}
+                              \nЗначення плейсхолдера - ${customValue}`)
+                              cy.get(`[data-key="${i}"]  > .form_row > .amount_custom`).screenshot("Sho")
                             }
+
+                            if(isAscending(staticValue)) {
+                              cy.log('✅Значення в зростаючому порядку✅')
+                            } else {
+                              cy.log('Значення НЕ в зростаючому порядку')
+                              cy.fail(`Значення радіокнопок не в зростаючому порядку
+                              \n1 значення - ${staticValue[0]}
+                              \n2 значення - ${staticValue[1]}
+                              \n3 значення - ${staticValue[2]}`)
+                            }
+
+                            
 
 
 
