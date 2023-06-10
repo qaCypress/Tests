@@ -23,9 +23,48 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-Cypress.Commands.overwrite('screenshot', (originalFn, subject, name, options) => {
-    // Delay for 3 seconds
-    cy.wait(3000).then(() => {
-      originalFn(subject, name, options);
-    });
+Cypress.Commands.add('failAndScreenshot', (errorMessage, screenshotName) => {
+  cy.log(errorMessage); // Log the custom failure message
+  cy.screenshot(screenshotName); // Take a screenshot with the specified name
+  throw new Error(errorMessage); // Fail the test with the custom error message
+});
+
+function getAllTextFromElement($element) {
+  let text = '';
+
+  function traverse(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      text += node.textContent.trim();
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      const placeholder = node.getAttribute('placeholder');
+      if (placeholder) {
+        text += placeholder.trim();
+      }
+      for (let i = 0; i < node.childNodes.length; i++) {
+        traverse(node.childNodes[i]);
+      }
+    }
+  }
+
+  traverse($element[0]);
+  return text;
+}
+
+
+Cypress.Commands.add('findKey', (path, key) => {
+  cy.get(path).each(($el) => {
+      const textContent = getAllTextFromElement($el)
+      if (textContent.includes(key)) {
+        cy.failAndScreenshot(`В методі оплати присутній ключ ${key}`);
+      } else {
+        cy.log(textContent);
+        cy.log("✅В методі оплати ключ відсутній✅");
+      }
+
   });
+});
+
+Cypress.Commands.add('bypassCloudflare', () => {
+  cy.setCookie('cf_clearance', 'token'); // Set the cf_clearance cookie with a value
+  cy.setCookie('cf_chl_prog', 'a'); // Set the cf_chl_prog cookie with a value
+});

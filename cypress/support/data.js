@@ -37,41 +37,37 @@ export const testData = {
     passwords: ['MLlXgF3SN6', 'Xw7olloTWC', 'GSFzx8Oxo5', 'jr2mlttDhP']
 }
 
-export const AllRightRegex = 
-[/(\d+)\s*-\s*([\d,]+)\s*(zł|\€|\₴)/, /(\d+)\s*-\s*([\d,]+)\s*(zł|\€|\₴)/, /(\d+)\s*-\s*([\d,]+)\s*(zł|\€|\₴)/,
-/(\d+(?:,\d+)*)\s*-\s*(\d+(?:,\d+)*)\s*UZS/
+export const LuckyBirdData = {
+    currency: 
+    ['EUR', 'PLN', 'USD',
+    'ARS', 'USD', 'RUB', 
+    'KZT', 'MXN', 'PEN',
+    'CLP', 'ZAR', 'NOK', 
+    'BRL', 'CAD', 'AUD', 
+    'CHF', 'NZD', 'INR', 
+    'JPY'
+    ],
+    emails: 
+    ['v.pupkin.eur@gmail.com', 'v.pupkin.pln@gmail.com', 'v.pupkinn.usd@gmail.com',
+    'v.pupkin.ars@outlook.com', 'v.pupkinn.usd@gmail.com', 'v.pupkin.rub@outlook.com', 
+    'v.pupkin.kzt@gmail.com', 'v.pupkin.mxn@outlook.com', 'v.pupkin.pen@outlook.com',
+    'v.pupkin.clp@outlook.com', 'v.pupkin.zar@outlook.com', 'v.pupkin.nok@outlook.com',
+    'v.pupkin.brl@outlook.com', 'v.pupkin.cad@outlook.com', 'v.pupkin.aud@outlook.com', 
+    'v.pupkin.chf@outlook.com', 'v.pupkin.nzd@gmail.com', 'v.pupkin.inr@gmail.com', 
+    'v.pupkin.jpy@gmail.com'
+    ],
+    passwords:
+    ['JTFN3W9JM4', 'ePXzdyIeZH', 'Vrp8VKMaiG',
+    'cCX4W6opNh', 'Vrp8VKMaiG', 'Ycr9HyqSgp', 
+    'pekZiFuf5N', 'ktFTixdjC2', 'AUQjkseWfb', 
+    'Xw7olloTWC', 'FEcG0t0TGJ', 'jdQ4ifwurz', 
+    'MrQ14AGSJ5', 'gP9VPACbeM', 'xvMOxpzTgf', 
+    'jr2mlttDhP', 'f9E99Jz9bP', 'pekZiFuf5N', 
+    'GSFzx8Oxo5'
+    ]
 
-]
+}
 
-export const LuckyBirdCurrinces = 
-['EUR', 'PLN', 'USD',
-'ARS', 'USD', 'RUB', 
-'KZT', 'MXN', 'PEN',
-'CLP', 'ZAR', 'NOK', 
-'BRL', 'CAD', 'AUD', 
-'CHF', 'NZD', 'INR', 
-'JPY'
-]
-
-export const LuckyBirdEmails = 
-['v.pupkin.eur@gmail.com', 'v.pupkin.pln@gmail.com', 'v.pupkinn.usd@gmail.com',
-'v.pupkin.ars@outlook.com', 'v.pupkinn.usd@gmail.com', 'v.pupkin.rub@outlook.com', 
-'v.pupkin.kzt@gmail.com', 'v.pupkin.mxn@outlook.com', 'v.pupkin.pen@outlook.com',
-'v.pupkin.clp@outlook.com', 'v.pupkin.zar@outlook.com', 'v.pupkin.nok@outlook.com',
-'v.pupkin.brl@outlook.com', 'v.pupkin.cad@outlook.com', 'v.pupkin.aud@outlook.com', 
-'v.pupkin.chf@outlook.com', 'v.pupkin.nzd@gmail.com', 'v.pupkin.inr@gmail.com', 
-'v.pupkin.jpy@gmail.com'
-]
-
-export const LuckyBirdPasswords = 
-['JTFN3W9JM4', 'ePXzdyIeZH', 'Vrp8VKMaiG',
-'cCX4W6opNh', 'Vrp8VKMaiG', 'Ycr9HyqSgp', 
-'pekZiFuf5N', 'ktFTixdjC2', 'AUQjkseWfb', 
-'Xw7olloTWC', 'FEcG0t0TGJ', 'jdQ4ifwurz', 
-'MrQ14AGSJ5', 'gP9VPACbeM', 'xvMOxpzTgf', 
-'jr2mlttDhP', 'f9E99Jz9bP', 'pekZiFuf5N', 
-'GSFzx8Oxo5'
-]
 
 
 export const SlotticaCurrinces = 

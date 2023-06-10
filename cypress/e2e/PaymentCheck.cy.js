@@ -8,11 +8,11 @@ describe('AllRight', () => {
   })
 
 
-  for(let j = 0; j < cur.AllRightData.currency.length; j++) {
-    it(cur.AllRightData.currency[j],  () => {
+  for(let j = 0; j < cur.testData.currency.length; j++) {
+    it(cur.testData.currency[j],  () => {
       cy.get(`[data-href="/en/sign-in"][class="button white_button"]`).click()
-      cy.get('input[type="email"]').type(cur.AllRightData.emails[j])
-      cy.get('input[type="password"]').first().type(cur.AllRightData.passwords[j])
+      cy.get('input[type="email"]').type(cur.testData.emails[j])
+      cy.get('input[type="password"]').first().type(cur.testData.passwords[j])
       cy.get('#form-signin-email > .submit_button > .button').click()
   
       cy.wait(5000)
@@ -20,10 +20,10 @@ describe('AllRight', () => {
 
       cy.visit('https://allrightcasino.com/en#cashbox-deposit')
       cy.wait(4000)
-  
-      cy.get(`[class="content"]`)
-        .invoke('text').should('not.include', 't.payment')
+      
+      cy.findKey(`.popup`, 't.payment')
         //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+   
   
   
         let depositFormsIds = [];
@@ -45,16 +45,8 @@ describe('AllRight', () => {
                 if (depositFormsIds.length > 0) {
         
                   for(let i = 0; i < depositFormsIds.length; i++) {
-                    cy.get(`[data-key="${i}"] > .payment_item > .footer`)
-                    .click()       
-                    cy.get(`#${depositFormsIds[i]}`).invoke('text')
-                    .then(($text) => {
-                      if ($text.includes('Santiago')) {
-                        throw new Error('В Методі оплати присутній ключ t.payment!!!');
-                      } else {
-                        cy.log("✅В методі оплати ключ відсутній✅")
-                      }
-                    });
+                    cy.get(`[data-key="${i}"] > .payment_item > .footer`).click()
+                    cy.findKey(`[data-key="${i}"]`, 't.payment')
 
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)          
                     let minValue = 0;
@@ -127,12 +119,13 @@ describe('AllRight', () => {
                               cy.log('✅Ліміти сходяться✅')
                             } else {
                               cy.log('ЛІМІТИ НЕЕЕ СХОДЯТЬСЯ')
-                              cy.fail(
+                              cy.failAndScreenshot(
                               `Ліміти не сходяться, одне із чотирьох значень не вписується в ліміт ${minValue} - ${maxValue}
                               \n1 значення - ${staticValue[0]}
                               \n2 значення - ${staticValue[1]}
                               \n3 значення - ${staticValue[2]}
-                              \nЗначення плейсхолдера - ${customValue}`)
+                              \nЗначення плейсхолдера - ${customValue}`, 'custom-screen')
+                              
                               cy.get(`[data-key="${i}"]  > .form_row > .amount_custom`).screenshot("Sho")
                             }
 
@@ -140,10 +133,10 @@ describe('AllRight', () => {
                               cy.log('✅Значення в зростаючому порядку✅')
                             } else {
                               cy.log('Значення НЕ в зростаючому порядку')
-                              cy.fail(`Значення радіокнопок не в зростаючому порядку
+                              cy.failAndScreenshot(`Значення радіокнопок не в зростаючому порядку
                               \n1 значення - ${staticValue[0]}
                               \n2 значення - ${staticValue[1]}
-                              \n3 значення - ${staticValue[2]}`)
+                              \n3 значення - ${staticValue[2]}`, 'custom-screen')
                             }
 
                             
@@ -156,15 +149,6 @@ describe('AllRight', () => {
             
                     });
 
-
-
-
-
-
-
-
-
-
                     cy.get(`#${depositFormsIds[i]} > .header > .close > .icon`).click()
                   }
                         
@@ -175,17 +159,15 @@ describe('AllRight', () => {
               })  
             } else {
                 cy.log('НІЧОГО НЕМА')
-                cy.get(`.content`).invoke('text').should('not.include', 't.payment')
+                cy.findKey(`.popup`, 't.payment')
                 //Оп, якщо це бачиш в консолі, то знайдений ключ :)
             }
         })
 
         cy.visit('https://allrightcasino.com/en#cashbox-withdraw')
-  
         cy.wait(5000)
   
-        cy.get('.content')
-        .invoke('text').should('not.include', 't.payment')
+        cy.findKey(`.popup`, 't.payment')
         //Оп, якщо це бачиш в консолі, то знайдений ключ :)
   
         let withdrawFormsIds = [];
@@ -207,10 +189,11 @@ describe('AllRight', () => {
                   for(let i = 0; i < withdrawFormsIds.length; i++) {
                     cy.get(`[data-key="${i}"] > .payment_item > .footer`)
                     .click()               
-                    cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.payment')
+                    cy.findKey(`#${withdrawFormsIds[i]}`, 't.payment')
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)
-                    cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.withdraw')
+                    cy.findKey(`#${withdrawFormsIds[i]}`, 't.withdraw')
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                    
                     cy.get(`#${withdrawFormsIds[i]} > .header > .close > .icon`).click()
                   }
                   
@@ -220,9 +203,9 @@ describe('AllRight', () => {
               });
             } else {
                 cy.log('НІЧОГО НЕМА')
-                cy.get(`.content`).invoke('text').should('not.include', 't.payment')
+                cy.findKey(`.popup`, 't.payment')
                 //Оп, якщо це бачиш в консолі, то знайдений ключ :)
-                cy.get(`.content`).invoke('text').should('not.include', 't.withdraw')
+                cy.findKey(`.popup`, 't.withdraw')
                 //Оп, якщо це бачиш в консолі, то знайдений ключ :)
             }
         })
@@ -231,28 +214,28 @@ describe('AllRight', () => {
   }
 })
 
-describe('LuckyBird', () => {
+describe.only('LuckyBird', () => {
   beforeEach(() => {
     cy.visit('https://luckybirdcasino.com/en')
   })
-  for(let i = 0; i < cur.LuckyBirdCurrinces.length; i++) {
-    it(cur.LuckyBirdCurrinces[i],  () => {
+  for(let i = 0; i < cur.LuckyBirdData.currency.length; i++) {
+    it(cur.LuckyBirdData.currency[i],  () => {
 
       cy.visit('https://luckybirdcasino.com/en')
       cy.get(`[data-modal-id="login-modal"]`, { timeout: 10000 }).eq(1).click({ force: true })
       cy.get(`[class="content"]`).should('contain', 'Authorization')
 
       
-      cy.get('input[type="email"]').type(cur.LuckyBirdEmails[i])
-      cy.get('input[type="password"]').first().type(cur.LuckyBirdPasswords[i])
+      cy.get('input[type="email"]').type(cur.LuckyBirdData.emails[i])
+      cy.get('input[type="password"]').first().type(cur.LuckyBirdData.passwords[i])
       cy.get(`[class="submit_button"]`).first().click()
   
       cy.wait(5000)
       cy.get(`[class="icon-close"]`).click()
       cy.visit('https://luckybirdcasino.com/en#cashbox-deposit')
   
-      cy.get('.cashbox_content')
-        .invoke('text').should('not.include', 't.payment')
+
+      cy.findKey(`.cashbox_content`, `t.payment`)
         //Оп, якщо це бачиш в консолі, то знайдений ключ :)
   
   
@@ -277,8 +260,111 @@ describe('LuckyBird', () => {
                   for(let i = 0; i < depositFormsIds.length; i++) {
                     cy.get(`[data-key="${i}"] > .pay_image `)
                     .click()       
-                    cy.get(`#${depositFormsIds[i]}`).invoke('text').should('not.include', 't.payment')        
-                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)      
+                    cy.findKey(`#${depositFormsIds[i]}`, 't.payment')     
+                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                    
+                    let minValue = 0;
+                    let maxValue = 0;                   
+
+                    
+                    cy.get(`[data-key="${i}"] > .footer > .text`)
+                    .invoke('text')
+                    .then((amountText) => {
+                      const regex = /(\d{1,3}(?:,\d{3})*)(?:\s*-\s*(\d{1,3}(?:,\d{3})*))?/;
+                      const match = amountText.match(regex);
+                      if (match) {
+                        minValue = parseFloat(match[1].replace(/,/g, '').trim());
+                        maxValue = match[2] ? parseFloat(match[2].replace(/,/g, '').trim()) : undefined;
+                    
+                        // Use the extracted numbers as needed
+                        cy.log(`Min limit: ${minValue}`);
+                        cy.log(`Max limit: ${maxValue}`);
+                      } else {
+                        // Handle the case when the regex doesn't match
+                        cy.log('Failed to extract numbers');
+                      }
+                      
+                      let staticValue = [];
+                      let customValue = 0;
+                      
+                      cy.get(`#${depositFormsIds[i]}`)
+                       .find('.form-row-amount-variants input[type="radio"][name="predefinedValue"]')
+                       .each(($radio) => {
+                         const value = parseInt($radio.attr('value'));
+                    
+                         if (!isNaN(value)) {
+                           staticValue.push(value);
+                          }
+                        })
+                        .then(() => {
+                          cy.log(staticValue.length);
+                          cy.log(`First Value: ${staticValue[0]}`);
+                          cy.log(`Second Value: ${staticValue[1]}`);
+                          cy.log(`Third Value: ${staticValue[2]}`);
+
+                          cy.get(`#${depositFormsIds[i]} `)
+                          .find(`input[name="amount"]`)
+                          .then(($input) => {
+                            const value = $input.attr('Value')
+                            const parsedValue = parseFloat(value);
+                        
+                            if (!isNaN(parsedValue)) {
+                              customValue = parsedValue;
+                            }
+                          })
+                          .then(() => {
+                            cy.log(`Custom value ${customValue}`);
+
+                            function isAscending(staticValue) {
+                              for (let i = 1; i < staticValue.length; i++) {
+                                if (staticValue[i] < staticValue[i - 1]) {
+                                  return false; // Array is not in ascending order
+                                }
+                              }
+                              return true; // Array is in ascending order
+                            }
+
+                            
+                            let lessLimit = minValue <= staticValue[0] && minValue <= staticValue[1] && minValue <= staticValue[2] && minValue <= customValue
+                            && maxValue >= staticValue[0] && maxValue >= staticValue[1] && maxValue >= staticValue[2] && maxValue >= customValue
+                            
+
+                            if (lessLimit) {
+                              cy.log('✅Ліміти сходяться✅')
+                            } else {
+                              cy.log('ЛІМІТИ НЕЕЕ СХОДЯТЬСЯ')
+                              cy.failAndScreenshot(
+                              `Ліміти не сходяться, одне із чотирьох значень не вписується в ліміт ${minValue} - ${maxValue}
+                              \n1 значення - ${staticValue[0]}
+                              \n2 значення - ${staticValue[1]}
+                              \n3 значення - ${staticValue[2]}
+                              \nЗначення плейсхолдера - ${customValue}`, 'custom-screen')
+                              
+                              cy.get(`[data-key="${i}"]  > .form_row > .amount_custom`).screenshot("Sho")
+                            }
+
+                            if(isAscending(staticValue)) {
+                              cy.log('✅Значення в зростаючому порядку✅')
+                            } else {
+                              cy.log('Значення НЕ в зростаючому порядку')
+                              cy.failAndScreenshot(`Значення радіокнопок не в зростаючому порядку
+                              \n1 значення - ${staticValue[0]}
+                              \n2 значення - ${staticValue[1]}
+                              \n3 значення - ${staticValue[2]}`, 'custom-screen')
+                            }
+
+                            
+
+
+
+                          });
+                          
+
+                        });
+                        
+            
+                    });
+
                    
           
                   }
@@ -290,20 +376,18 @@ describe('LuckyBird', () => {
               })  
             } else {
                 cy.log('НІЧОГО НЕМА')
-                cy.get(`.cashbox_content`).invoke('text').should('not.include', 't.payment')
+                cy.findKey(`.cashbox_content`, 't.payment')  
                 //Оп, якщо це бачиш в консолі, то знайдений ключ :)
             }
         })
 
         cy.visit('https://luckybirdcasino.com/en#cashbox-withdraw')
   
-        cy.wait(2000)
+        cy.wait(4000)
   
-        cy.get('.cashbox_content')
-        .invoke('text').should('not.include', 't.payment')
+        cy.findKey(`.cashbox_content`, 't.payment')  
         //Оп, якщо це бачиш в консолі, то знайдений ключ :)
-        cy.get('.cashbox_content')
-        .invoke('text').should('not.include', 't.withdraw')
+        cy.findKey(`.cashbox_content`, 't.withdraw')  
         //Оп, якщо це бачиш в консолі, то знайдений ключ :)
   
         let withdrawFormsIds = [];
@@ -325,18 +409,18 @@ describe('LuckyBird', () => {
                   for(let i = 0; i < withdrawFormsIds.length; i++) {
                     cy.get(`[data-key="${i}"] > .pay_image`)
                     .click()               
-                    cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.payment')
+                    cy.findKey(`#${withdrawFormsIds[i]}`, 't.payment')   
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)
-                    cy.get(`#${withdrawFormsIds[i]}`).invoke('text').should('not.include', 't.withdraw')
+                    cy.findKey(`#${withdrawFormsIds[i]}`, 't.withdraw')   
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)
                   }
                 }       
               });
             } else {
                 cy.log('НІЧОГО НЕМА')
-                cy.get(`.cashbox_content`).invoke('text').should('not.include', 't.payment')
+                cy.findKey(`.cashbox_content`, 't.payment')  
                 //Оп, якщо це бачиш в консолі, то знайдений ключ :)
-                cy.get(`.cashbox_content`).invoke('text').should('not.include', 't.withdraw')
+                cy.findKey(`.cashbox_content`, 't.withdraw')  
                 //Оп, якщо це бачиш в консолі, то знайдений ключ :)
             }
         })

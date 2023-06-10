@@ -23,21 +23,13 @@ module.exports = defineConfig({
     "viewportWidth": 1920,
     "viewportHeight": 1080,
     "video": false,
-    "chromeWebSecurity": false
+    "chromeWebSecurity": false,
+    "screenshotOnRunFailure": true,
+    "screenshotOnAssertionFailure": true,
+    "screenshotsFolder": "cypress/screenshots"
     
     
-  },
-
-  support: (on, config) => {
-    on("fail", (error, runnable) => {
-      // Capture a screenshot with a delay after a test failure
-      cy.wait(1000).then(() => {
-        cy.screenshot(); // Take a screenshot
-      });
-      throw error; // Re-throw the test failure to fail the test
-    });
-  },
-  
+  }
 });
 
 
