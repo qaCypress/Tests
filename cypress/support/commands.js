@@ -68,3 +68,102 @@ Cypress.Commands.add('bypassCloudflare', () => {
   cy.setCookie('cf_clearance', 'token'); // Set the cf_clearance cookie with a value
   cy.setCookie('cf_chl_prog', 'a'); // Set the cf_chl_prog cookie with a value
 });
+
+
+Cypress.Commands.add('CheckLimits', (getDepositMethod, getDepositFormsIds, getRadiobuttonForm) => {
+
+  let minValue = 0;
+  let maxValue = 0;                   
+
+  
+  cy.get(getDepositMethod)
+  .invoke('text')
+  .then((amountText) => {
+    const regex = /(\d{1,3}(?:,\d{3})*)(?:\s*-\s*(\d{1,3}(?:,\d{3})*))?/;
+    const match = amountText.match(regex);
+    if (match) {
+      minValue = parseFloat(match[1].replace(/,/g, '').trim());
+      maxValue = match[2] ? parseFloat(match[2].replace(/,/g, '').trim()) : undefined;
+  
+      // Use the extracted numbers as needed
+      cy.log(`Min limit: ${minValue}`);
+      cy.log(`Max limit: ${maxValue}`);
+    } else {
+      // Handle the case when the regex doesn't match
+      cy.log('Failed to extract numbers');
+    }
+    
+    let staticValue = [];
+    let customValue = 0;
+    
+    cy.get(getDepositFormsIds)
+     .find(getRadiobuttonForm)
+     .each(($radio) => {
+       const value = parseInt($radio.attr('value'));
+  
+       if (!isNaN(value)) {
+         staticValue.push(value);
+        }
+      })
+      .then(() => {
+        cy.log(staticValue.length);
+        cy.log(`First Value: ${staticValue[0]}`);
+        cy.log(`Second Value: ${staticValue[1]}`);
+        cy.log(`Third Value: ${staticValue[2]}`);
+
+        cy.get(getDepositFormsIds)
+        .find(`input[name="amount"]`)
+        .then(($input) => {
+          const value = $input.attr('Value')
+          const parsedValue = parseFloat(value);
+      
+          if (!isNaN(parsedValue)) {
+            customValue = parsedValue;
+          }
+        })
+        .then(() => {
+          cy.log(`Custom value ${customValue}`);
+
+          function isAscending(staticValue) {
+            for (let i = 1; i < staticValue.length; i++) {
+              if (staticValue[i] < staticValue[i - 1]) {
+                return false; // Array is not in ascending order
+              }
+            }
+            return true; // Array is in ascending order
+          }
+
+          
+          let lessLimit = minValue <= staticValue[0] && minValue <= staticValue[1] && minValue <= staticValue[2] && minValue <= customValue
+          && maxValue >= staticValue[0] && maxValue >= staticValue[1] && maxValue >= staticValue[2] && maxValue >= customValue
+          
+
+          if (lessLimit) {
+            cy.log('✅Ліміти сходяться✅')
+          } else {
+            cy.log('ЛІМІТИ НЕЕЕ СХОДЯТЬСЯ')
+            cy.failAndScreenshot(
+            `Ліміти не сходяться, одне із чотирьох значень не вписується в ліміт ${minValue} - ${maxValue}
+            \n1 значення - ${staticValue[0]}
+            \n2 значення - ${staticValue[1]}
+            \n3 значення - ${staticValue[2]}
+            \nЗначення плейсхолдера - ${customValue}`, 'custom-screen')
+            
+            cy.get(`[data-key="${i}"]  > .form_row > .amount_custom`).screenshot("Sho")
+          }
+
+          if(isAscending(staticValue)) {
+            cy.log('✅Значення в зростаючому порядку✅')
+          } else {
+            cy.log('Значення НЕ в зростаючому порядку')
+            cy.failAndScreenshot(`Значення радіокнопок не в зростаючому порядку
+            \n1 значення - ${staticValue[0]}
+            \n2 значення - ${staticValue[1]}
+            \n3 значення - ${staticValue[2]}`, 'custom-screen')
+          }
+
+        });
+        
+      });
+  });
+})
