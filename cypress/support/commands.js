@@ -111,6 +111,10 @@ Cypress.Commands.add('CheckLimits', (getDepositMethod, getDepositFormsIds, getRa
         cy.log(`Second Value: ${staticValue[1]}`);
         cy.log(`Third Value: ${staticValue[2]}`);
 
+        if (staticValue[3] != undefined) {
+          staticValue.pop()
+        }
+
         cy.get(getDepositFormsIds)
         .find(`input[name="amount"]`)
         .then(($input) => {
@@ -149,7 +153,7 @@ Cypress.Commands.add('CheckLimits', (getDepositMethod, getDepositFormsIds, getRa
             \n3 значення - ${staticValue[2]}
             \nЗначення плейсхолдера - ${customValue}`, 'custom-screen')
             
-            cy.get(`[data-key="${i}"]  > .form_row > .amount_custom`).screenshot("Sho")
+            
           }
 
           if(isAscending(staticValue)) {

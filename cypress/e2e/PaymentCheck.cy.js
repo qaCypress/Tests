@@ -373,7 +373,12 @@ describe('Slottica', () => {
                     cy.get(`[data-key="${i}"] > .payment_card `)
                     .click()       
                     cy.findKey(`#${depositFormsIds[i]}`, 't.payment')  
-                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)          
+                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)      
+                    let deposidMethod = `[data-key="${i}"] > .payment_card `;
+                    let depositForm = `#${depositFormsIds[i]}`;
+                    let radiobutton = '[class="form-group checkbox variant"] input[type="radio"][name="predefinedValue"]';
+
+                    cy.CheckLimits(deposidMethod, depositForm, radiobutton)    
                    
           
                   }
@@ -454,6 +459,8 @@ describe('SlottyWay', () => {
       cy.wait(5000)
       cy.get('.close > .icon-close2').click()
       cy.visit('https://slottyway.com/en#cashbox-deposit')
+
+      cy.wait(2000)
   
       cy.findKey(`.popup`, 't.payment')
       //Оп, якщо це бачиш в консолі, то знайдений ключ :)
@@ -482,6 +489,11 @@ describe('SlottyWay', () => {
                     
                     cy.findKey(`#${depositFormsIds[i]}`, 't.payment')          
                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                   let deposidMethod = `[data-key="${i}"] > .footer `;
+                   let depositForm = `#${depositFormsIds[i]}`;
+                   let radiobutton = '[class="row form-row-amount"] input[type="radio"][name="predefinedValue"]';
+
+                   cy.CheckLimits(deposidMethod, depositForm, radiobutton)   
           
                   }
                         
@@ -588,6 +600,12 @@ describe('Spinamba', () => {
                     .click()        
                     cy.findKey(`#${depositFormsIds[i]}`, 't.payment')             
                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+
+                   let deposidMethod = `[data-key="${i}"] > .footer `;
+                   let depositForm = `#${depositFormsIds[i]}`;
+                   let radiobutton = '[class="row form-row-amount"] input[type="radio"][name="predefinedValue"]';
+
+                   cy.CheckLimits(deposidMethod, depositForm, radiobutton)    
                    
           
                   }
@@ -689,6 +707,12 @@ describe('SpinBounty', () => {
                     .click()       
                     cy.findKey(`#${depositFormsIds[i]}`, `t.payment`)             
                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+
+                   let deposidMethod = `#${depositFormsIds[i]} > .form_header > .info_wrap > .payment_limits`;
+                   let depositForm = `#${depositFormsIds[i]}`;
+                   let radiobutton = '[class="checkbox"] input[type="radio"][name="predefinedValue"]';
+
+                   cy.CheckLimits(deposidMethod, depositForm, radiobutton) 
 
                    cy.get(`[class="action left close toggle_btn"]`).first().click({force: true})
           
