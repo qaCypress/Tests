@@ -373,7 +373,12 @@ describe('Slottica', () => {
                     cy.get(`[data-key="${i}"] > .payment_card `)
                     .click()       
                     cy.findKey(`#${depositFormsIds[i]}`, 't.payment')  
-                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)          
+                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)      
+                    let deposidMethod = `[data-key="${i}"] > .payment_card `;
+                    let depositForm = `#${depositFormsIds[i]}`;
+                    let radiobutton = '[class="form-group checkbox variant"] input[type="radio"][name="predefinedValue"]';
+
+                    cy.CheckLimits(deposidMethod, depositForm, radiobutton)    
                    
           
                   }
@@ -454,6 +459,8 @@ describe('SlottyWay', () => {
       cy.wait(5000)
       cy.get('.close > .icon-close2').click()
       cy.visit('https://slottyway.com/en#cashbox-deposit')
+
+      cy.wait(2000)
   
       cy.findKey(`.popup`, 't.payment')
       //Оп, якщо це бачиш в консолі, то знайдений ключ :)
@@ -482,6 +489,11 @@ describe('SlottyWay', () => {
                     
                     cy.findKey(`#${depositFormsIds[i]}`, 't.payment')          
                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+                   let deposidMethod = `[data-key="${i}"] > .footer `;
+                   let depositForm = `#${depositFormsIds[i]}`;
+                   let radiobutton = '[class="row form-row-amount"] input[type="radio"][name="predefinedValue"]';
+
+                   cy.CheckLimits(deposidMethod, depositForm, radiobutton)   
           
                   }
                         
@@ -588,6 +600,12 @@ describe('Spinamba', () => {
                     .click()        
                     cy.findKey(`#${depositFormsIds[i]}`, 't.payment')             
                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+
+                   let deposidMethod = `[data-key="${i}"] > .footer `;
+                   let depositForm = `#${depositFormsIds[i]}`;
+                   let radiobutton = '[class="row form-row-amount"] input[type="radio"][name="predefinedValue"]';
+
+                   cy.CheckLimits(deposidMethod, depositForm, radiobutton)    
                    
           
                   }
@@ -689,6 +707,12 @@ describe('SpinBounty', () => {
                     .click()       
                     cy.findKey(`#${depositFormsIds[i]}`, `t.payment`)             
                    //Оп, якщо це бачиш в консолі, то знайдений ключ :)
+
+                   let deposidMethod = `#${depositFormsIds[i]} > .form_header > .info_wrap > .payment_limits`;
+                   let depositForm = `#${depositFormsIds[i]}`;
+                   let radiobutton = '[class="checkbox"] input[type="radio"][name="predefinedValue"]';
+
+                   cy.CheckLimits(deposidMethod, depositForm, radiobutton) 
 
                    cy.get(`[class="action left close toggle_btn"]`).first().click({force: true})
           
@@ -796,6 +820,13 @@ describe('Viks', () => {
                     .click()           
                     cy.findKey(`#${depositFormsIds[i]}`, 't.payment')
                     //Оп, якщо це бачиш в консолі, то знайдений ключ :)          
+
+                    let deposidMethod = `.popup > .popup_header > .row > .center > .payment_limits`;
+                    let depositForm = `#modal-${depositFormsIds[i].substring(depositFormsIds[i].indexOf("-") + 1)}`;
+                    let radiobutton = 'input[type="radio"][name="predefinedValue"]';
+                    
+ 
+                    cy.CheckLimits(deposidMethod, depositForm, radiobutton)
                     cy.get(`[data-trigger="cashbox.close"]`).first().click({force: true})
                    
           
@@ -876,7 +907,7 @@ describe('SuperCat', () => {
   
       cy.wait(5000)
       cy.visit('https://supercatcasino.com/en/player/cashbox/deposit')
-      cy.wait(10000)
+      cy.wait(15000)
       cy.findKey('.cashbox-content', 't.payment')
         //Оп, якщо це бачиш в консолі, то знайдений ключ :)
   
@@ -903,21 +934,29 @@ describe('SuperCat', () => {
 
                     cy.log(depositFormsIds[i])
 
+                    let deposidMethod = `#cash-item-${depositFormsIds[i]} > .cash-item > .cash-item__limits`;
+                    let depositForm = `.col-auto`;
+                    let radiobutton = 'input[type="radio"]';
+                    
+ 
+                  
+
                     //Два костиля, оскільки деякі платіжні методи пишуться якось унікально, постараюсь виправити
                     if(depositFormsIds[i] == `bank transfer token`) {
                       depositFormsIds[i] = 'bank transfer token';
+                      deposidMethod = `#cash-item-${depositFormsIds[i].replace(/\s/g, '\\\ ')} > .cash-item > .cash-item__limits`;
 
                       cy.get(`#cash-item-${depositFormsIds[i].replace(/\s/g, '\\\ ')} > .cash-item`) // Add the necessary backslashes for spaces
                       .click();
                       cy.findKey('.player-modal__content', 't.payment')
-
+                      cy.CheckLimits(deposidMethod, depositForm, radiobutton, true)
                     } else if(depositFormsIds[i] == `bank transfer voucher`) {
                       depositFormsIds[i] = 'bank transfer voucher';
-
+                      deposidMethod = `#cash-item-${depositFormsIds[i].replace(/\s/g, '\\\ ')} > .cash-item > .cash-item__limits`;
                       cy.get(`#cash-item-${depositFormsIds[i].replace(/\s/g, '\\\ ')} > .cash-item`) // Add the necessary backslashes for spaces
                       .click();
                       cy.findKey('.player-modal__content', 't.payment')
-
+                      cy.CheckLimits(deposidMethod, depositForm, radiobutton, true)
                     }
                       else{
 
@@ -925,6 +964,7 @@ describe('SuperCat', () => {
                       .click()       
                       cy.findKey('.player-modal__content', 't.payment')
                       //Оп, якщо це бачиш в консолі, то знайдений ключ :)       
+                      cy.CheckLimits(deposidMethod, depositForm, radiobutton, true)
                     }
 
                        
