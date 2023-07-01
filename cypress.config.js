@@ -14,7 +14,10 @@ module.exports = defineConfig({
           }
           return null;
         },
+        
       });
+
+      require('@testomatio/reporter/lib/adapter/cypress-plugin')(on, config);
 
       
     },

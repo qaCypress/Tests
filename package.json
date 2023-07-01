@@ -1,12 +1,12 @@
 {
   "devDependencies": {
-    "cypress": "^12.11.0",
-    "puppeteer": "^20.3.0"
+    "@testomatio/reporter": "^0.7.6",
+    "cypress": "^12.14.0",
+    "puppeteer": "^20.7.1"
   },
   "scripts": {
     "test:cypress": "cypress run"
   },
-
   "browser": "chrome",
   "integrationFolder": "cypress/e2e"
 }

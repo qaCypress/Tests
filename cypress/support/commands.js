@@ -70,7 +70,7 @@ Cypress.Commands.add('bypassCloudflare', () => {
 });
 
 
-Cypress.Commands.add('CheckLimits', (getDepositMethod, getDepositFormsIds, getRadiobuttonForm) => {
+Cypress.Commands.add('CheckLimits', (getDepositMethod, getDepositFormsIds, getRadiobuttonForm, SuperCat = false) => {
 
   let minValue = 0;
   let maxValue = 0;                   
@@ -81,17 +81,42 @@ Cypress.Commands.add('CheckLimits', (getDepositMethod, getDepositFormsIds, getRa
   .then((amountText) => {
     const regex = /(\d{1,3}(?:,\d{3})*)(?:\s*-\s*(\d{1,3}(?:,\d{3})*))?/;
     const match = amountText.match(regex);
-    if (match) {
-      minValue = parseFloat(match[1].replace(/,/g, '').trim());
-      maxValue = match[2] ? parseFloat(match[2].replace(/,/g, '').trim()) : undefined;
+
+    
+
+
+
+
+    if(SuperCat == true) {
+      const regexx = /(\d+(?:\.\d+)?)/g;
+      const numbers = amountText.match(regexx);
+      
+      if (numbers) {
+        const extractedNumbers = numbers.map((match) => parseFloat(match));
+        cy.log(extractedNumbers);
+        minValue = extractedNumbers[0]
+        maxValue =extractedNumbers[1]
+        cy.log(`Min limit: ${minValue}`);
+        cy.log(`Max limit: ${maxValue}`);
+      } else {
+        cy.log('No numbers found');
+      }
   
-      // Use the extracted numbers as needed
-      cy.log(`Min limit: ${minValue}`);
-      cy.log(`Max limit: ${maxValue}`);
-    } else {
-      // Handle the case when the regex doesn't match
-      cy.log('Failed to extract numbers');
+    } else{
+      if (match) {
+        minValue = parseFloat(match[1].replace(/,/g, '').trim());
+        maxValue = match[2] ? parseFloat(match[2].replace(/,/g, '').trim()) : undefined;
+    
+        // Use the extracted numbers as needed
+        cy.log(`Min limit: ${minValue}`);
+        cy.log(`Max limit: ${maxValue}`);
+      } else {
+        // Handle the case when the regex doesn't match
+        cy.log('Failed to extract numbers');
+      }
     }
+    
+
     
     let staticValue = [];
     let customValue = 0;
@@ -116,7 +141,7 @@ Cypress.Commands.add('CheckLimits', (getDepositMethod, getDepositFormsIds, getRa
         }
 
         cy.get(getDepositFormsIds)
-        .find(`input[name="amount"]`)
+        .find(`input[name="amount"], input[name="amnt"]`)
         .then(($input) => {
           const value = $input.attr('Value')
           const parsedValue = parseFloat(value);
