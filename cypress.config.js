@@ -1,7 +1,7 @@
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
-  projectId: 'gn7k45',
+  
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
@@ -17,7 +17,7 @@ module.exports = defineConfig({
         
       });
 
-      require('@testomatio/reporter/lib/adapter/cypress-plugin')(on, config);
+     
 
       
     },
