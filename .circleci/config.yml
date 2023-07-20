@@ -1,10 +1,21 @@
-version: 2.1
+version: '2.1'
 orbs:
   cypress: cypress-io/cypress@3
 workflows:
   use-my-orb:
     jobs:
-      - cypress/run:
-          cypress-command: npx cypress run --browser chrome --spec "cypress/e2e/PaymentCheck.cy.js"
-          install-browsers: true
-          start-command: npm run start:dev
+      - cypress-tests
+
+jobs:
+  cypress-tests:
+    docker:
+      - image: circleci/node:12
+      - image: cypress/browsers:node12.18.0-chrome88-ff84 # Add Cypress-specific image as secondary image
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: Run Cypress Tests
+          command: npx cypress run --browser chrome --spec "cypress/e2e/PaymentCheck.cy.js"
