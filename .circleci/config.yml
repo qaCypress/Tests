@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   cypress-tests:
     docker:
-      - image: cypress/browsers:node12.18.0-chrome88-ff84
+      - image: circleci/node:12
     steps:
       - checkout
       - run:
