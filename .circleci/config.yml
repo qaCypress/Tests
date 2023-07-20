@@ -5,5 +5,5 @@ workflows:
   use-my-orb:
     jobs:
       - cypress/run:
-          cypress-command: npx cypress run --spec "cypress/e2e/first_daily.cy.js"
+          cypress-command: npx cypress run --spec "cypress/e2e/first_daily.cy.js" --headless
           
