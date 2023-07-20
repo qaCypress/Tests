@@ -777,7 +777,7 @@ describe('SpinBounty', () => {
   }
 })
 
-describe('Viks', () => {
+describe.only('Viks', () => {
 
   beforeEach(() => {
     cy.visit('https://viks.com/en/games')
