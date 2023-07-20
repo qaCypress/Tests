@@ -24,9 +24,22 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 Cypress.Commands.add('failAndScreenshot', (errorMessage, screenshotName) => {
-  cy.log(errorMessage); // Log the custom failure message
-  cy.screenshot(screenshotName); // Take a screenshot with the specified name
-  throw new Error(errorMessage); // Fail the test with the custom error message
+  cy.log(errorMessage); 
+  cy.screenshot(screenshotName); 
+  throw new Error(errorMessage); 
+});
+
+Cypress.Commands.add('findKey', (path, key) => {
+  cy.get(path).each(($el) => {
+      const textContent = getAllTextFromElement($el)
+      if (textContent.includes(key)) {
+        cy.failAndScreenshot(` ${key}`);
+      } else {
+        cy.log(textContent);
+        cy.log("✅");
+      }
+
+  });
 });
 
 function getAllTextFromElement($element) {
@@ -51,18 +64,7 @@ function getAllTextFromElement($element) {
 }
 
 
-Cypress.Commands.add('findKey', (path, key) => {
-  cy.get(path).each(($el) => {
-      const textContent = getAllTextFromElement($el)
-      if (textContent.includes(key)) {
-        cy.failAndScreenshot(`В методі оплати присутній ключ ${key}`);
-      } else {
-        cy.log(textContent);
-        cy.log("✅В методі оплати ключ відсутній✅");
-      }
 
-  });
-});
 
 Cypress.Commands.add('bypassCloudflare', () => {
   cy.setCookie('cf_clearance', 'token'); // Set the cf_clearance cookie with a value
