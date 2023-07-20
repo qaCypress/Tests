@@ -1,0 +1,9 @@
+image: cypress/browsers:node12.18.0-chrome88-ff84
+
+stages:
+  - test
+
+cypress_tests:
+  stage: test
+  script:
+    - npx cypress run --spec "cypress/e2e/first_daily.cy.js"
