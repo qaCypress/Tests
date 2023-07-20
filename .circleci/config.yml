@@ -4,6 +4,21 @@ orbs:
 workflows:
   use-my-orb:
     jobs:
-      - cypress/run:
-          cypress-command: npx cypress run --browser electron --spec "cypress/e2e/PaymentCheck.cy.js"
-          start-command: npm run start:dev
+      - cypress-tests
+
+jobs:
+  cypress-tests:
+    docker:
+      - image: circleci/node:12
+      - image: cypress/included:8.0.0 # Use the cypress/included image with Node.js and Cypress included
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: Run Development Server
+          command: npm start  # Replace with the actual command to start your application
+      - run:
+          name: Run Cypress Tests in Electron
+          command: npx cypress run --browser electron --spec "cypress/e2e/PaymentCheck.cy.js"
