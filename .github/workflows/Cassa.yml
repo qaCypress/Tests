@@ -20,7 +20,7 @@ jobs:
         run: npm install cypress --save-dev
 
       - name: Run Cypress tests
-        run: npx cypress run --spec "cypress/e2e/PaymentCheck.cy.js"
+        run: npx cypress run --spec "cypress/e2e/first_daily.cy.js"
         
     env:
       CI: true
