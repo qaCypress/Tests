@@ -9,4 +9,4 @@ workflows:
   build:
     jobs:
       - cypress/run # "run" job comes from "cypress" orb
-          start-command: CYPRESS_SPEC="cypress/e2e/PaymentCheck.cy.js" npx cypress run
+          start-command: `npx cypress run --spec "cypress/e2e/PaymentCheck.cy.js"`
