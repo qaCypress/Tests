@@ -11,3 +11,9 @@ jobs:
       - run:
           name: Run Cypress Tests
           command: CYPRESS_SPEC="cypress/e2e/PaymentCheck.cy.js" npx cypress run
+
+workflows:
+  version: 2
+  cypress-workflow:
+    jobs:
+      - cypress-tests
