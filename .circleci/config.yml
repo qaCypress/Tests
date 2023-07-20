@@ -1,1 +1,13 @@
-
+version: 2.1
+jobs:
+  cypress-tests:
+    docker:
+      - image: cypress/browsers:node12.18.0-chrome88-ff84
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: Run Cypress Tests
+          command: npx cypress run
