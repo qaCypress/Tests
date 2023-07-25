@@ -1,6 +1,6 @@
 describe('sho', () => {
     it('sds', () => {
-      cy.visit('https://slottica136.com/uk')
+      cy.visit('https://allrightcasino.best')
      
     })
   })
