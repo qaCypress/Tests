@@ -33,10 +33,10 @@ Cypress.Commands.add('findKey', (path, key) => {
   cy.get(path).each(($el) => {
       const textContent = getAllTextFromElement($el)
       if (textContent.includes(key)) {
-        cy.failAndScreenshot(` ${key}`);
+        cy.failAndScreenshot(`В методі оплати присутній ключ - ${key}`);
       } else {
         cy.log(textContent);
-        cy.log("✅");
+        cy.log("Ключ відсутній✅");
       }
 
   });
@@ -62,9 +62,6 @@ function getAllTextFromElement($element) {
   traverse($element[0]);
   return text;
 }
-
-
-
 
 Cypress.Commands.add('bypassCloudflare', () => {
   cy.setCookie('cf_clearance', 'token'); // Set the cf_clearance cookie with a value
@@ -197,4 +194,27 @@ Cypress.Commands.add('CheckLimits', (getDepositMethod, getDepositFormsIds, getRa
         
       });
   });
+})
+
+Cypress.Commands.add('CheckImage', (methodId, image)  => {
+  cy.get(methodId)
+  .then(($element) => {
+    if($element.find(image).length > 0) {
+      expect($element).to.exist;
+
+      Cypress.log({
+        name: 'Custom Message',
+        displayName: '✅ Елемент зображення ',
+        message: 'The element exists as expected.',
+        consoleProps: () => {
+          return {
+            Element: $element,
+          };
+        },
+      });
+
+    } else {
+      cy.failAndScreenshot(`В методі оплати відсутнє зображення`)
+    }
+  })
 })
