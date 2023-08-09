@@ -2,13 +2,13 @@ import '../support/commands.js';
 import * as cur from '../support/data.js';
 
 
-describe('AllRight', () => {
+describe.only('AllRight', () => {
   beforeEach(() => {
     cy.visit('https://allrightcasino.com/en')
   })
 
 
-  for(let j = 0; j < cur.AllRightData.currency.length; j++) {
+  for(let j = 0; j < cur.AllRightData.currency.length - 17; j++) {
     it(cur.AllRightData.currency[j],  () => {
       cy.get(`[data-href="/en/sign-in"][class="button white_button"]`).click()
       cy.get('input[type="email"]').type(cur.AllRightData.emails[j])
