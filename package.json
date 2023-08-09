@@ -5,7 +5,8 @@
     "puppeteer": "^20.7.1"
   },
   "scripts": {
-    "test:cypress": "cypress run"
+    "test:cypress": "cypress run",
+    "cassa": "npx cypress run --spec \"cypress/e2e/PaymentCheck.cy.js\""
   },
   "browser": "chrome",
   "integrationFolder": "cypress/e2e"
