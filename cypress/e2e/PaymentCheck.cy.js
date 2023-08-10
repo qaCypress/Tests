@@ -8,23 +8,19 @@ describe('AllRight', () => {
   })
 
 
-  for(let j = 0; j < cur.AllRightData.currency.length - 17; j++) {
+  for(let j = 0; j < cur.AllRightData.currency.length ; j++) {
     it(cur.AllRightData.currency[j],  () => {
-      cy.get(`[data-href="/en/sign-in"][class="button white_button"]`).click()
+      cy.visit('https://allrightcasino.com/en#sign-in')
       cy.get('input[type="email"]').type(cur.AllRightData.emails[j])
       cy.get('input[type="password"]').first().type(cur.AllRightData.passwords[j])
       cy.get('#form-signin-email > .submit_button > .button').click()
-  
-      cy.wait(5000)
-      cy.get('.close > .icon-close').click()
-
-      cy.visit('https://allrightcasino.com/en#cashbox-deposit')
+      
       cy.wait(4000)
+      cy.visit('https://allrightcasino.com/en#cashbox-deposit')
+      cy.wait(2000)
       
       cy.findKey(`.popup`, 't.payment')
    
-  
-  
         let depositFormsIds = [];
 
 
@@ -38,13 +34,13 @@ describe('AllRight', () => {
                 const formId = form.attr('id');  
                 depositFormsIds.push(formId);            
               })
-              .then(() => {
+              .then(() => { 
                 cy.log(depositFormsIds.length);  
               
                 if (depositFormsIds.length > 0) {
         
                   for(let i = 0; i < depositFormsIds.length; i++) {
-                    cy.get(`[data-key="${i}"] > .payment_item > .footer`).click()
+                    
                     cy.findKey(`[data-key="${i}"]`, 't.payment')
                     cy.CheckImage(`[data-key="${i}"]`, `.image`)
 
@@ -53,7 +49,7 @@ describe('AllRight', () => {
                     let radiobutton = '.form-group.radio input[name="predefinedValue"]';
 
                     cy.CheckLimits(deposidMethod, depositForm, radiobutton)
-                    cy.get(`#${depositFormsIds[i]} > .header > .close > .icon`).click()
+                   
                   }
                         
                 } else {
@@ -68,7 +64,7 @@ describe('AllRight', () => {
         })
 
         cy.visit('https://allrightcasino.com/en#cashbox-withdraw')
-        cy.wait(5000)
+        cy.wait(2000)
   
         cy.findKey(`.popup`, 't.payment')
   
@@ -89,16 +85,11 @@ describe('AllRight', () => {
                 if (withdrawFormsIds.length > 0) {
         
                   for(let i = 0; i < withdrawFormsIds.length; i++) {
-                    cy.get(`[data-key="${i}"] > .payment_item > .footer`)
-                    .click()               
+                            
                     cy.findKey(`#${withdrawFormsIds[i]}`, 't.payment')
                     cy.findKey(`#${withdrawFormsIds[i]}`, 't.withdraw')
-                    cy.CheckImage(`[data-key="${i}"]`, `.image`)
-                    
-                    cy.get(`#${withdrawFormsIds[i]} > .header > .close > .icon`).click()
-                  }
-                  
-              
+                    cy.CheckImage(`[data-key="${i}"]`, `.image`)                  
+                  }                        
                 }
               
               });
@@ -120,17 +111,14 @@ describe('LuckyBird', () => {
   for(let i = 0; i < cur.LuckyBirdData.currency.length; i++) {
     it(cur.LuckyBirdData.currency[i],  () => {
 
-      cy.visit('https://luckybirdcasino.com/en')
-      cy.get(`[data-modal-id="login-modal"]`, { timeout: 10000 }).eq(1).click({ force: true })
-      cy.get(`[class="content"]`).should('contain', 'Authorization')
+      cy.visit('https://luckybirdcasino.com/en#sign-in')
+     
 
-      
       cy.get('input[type="email"]').type(cur.LuckyBirdData.emails[i])
       cy.get('input[type="password"]').first().type(cur.LuckyBirdData.passwords[i])
       cy.get(`[class="submit_button"]`).first().click()
   
-      cy.wait(5000)
-      cy.get(`[class="icon-close"]`).click()
+      cy.wait(3000)
       cy.visit('https://luckybirdcasino.com/en#cashbox-deposit')
   
       cy.findKey(`.cashbox_content`, `t.payment`)
@@ -153,9 +141,7 @@ describe('LuckyBird', () => {
               
                 if (depositFormsIds.length > 0) {
         
-                  for(let i = 0; i < depositFormsIds.length; i++) {
-                    cy.get(`[data-key="${i}"] > .pay_image `)
-                    .click()       
+                  for(let i = 0; i < depositFormsIds.length; i++) {  
                     cy.findKey(`#${depositFormsIds[i]}`, 't.payment')     
                     cy.CheckImage(`[data-key="${i}"]`, `.image`)
                     
@@ -180,7 +166,7 @@ describe('LuckyBird', () => {
 
         cy.visit('https://luckybirdcasino.com/en#cashbox-withdraw')
   
-        cy.wait(4000)
+        cy.wait(3000)
   
         cy.findKey(`.cashbox_content`, 't.payment')  
         cy.findKey(`.cashbox_content`, 't.withdraw')  
@@ -201,9 +187,7 @@ describe('LuckyBird', () => {
               
                 if (withdrawFormsIds.length > 0) {
         
-                  for(let i = 0; i < withdrawFormsIds.length; i++) {
-                    cy.get(`[data-key="${i}"] > .pay_image`)
-                    .click()               
+                  for(let i = 0; i < withdrawFormsIds.length; i++) {              
                     cy.findKey(`#${withdrawFormsIds[i]}`, 't.payment')   
                     cy.findKey(`#${withdrawFormsIds[i]}`, 't.withdraw') 
                     cy.CheckImage(`[data-key="${i}"]`, `.image`)
@@ -234,7 +218,7 @@ describe('Slottica', () => {
       cy.get('input[type="password"]').first().type(cur.SlotticaData.passwords[i])
       cy.get('#signinform_email > .form > :nth-child(4) > .button').click()
   
-      cy.wait(5000)
+      cy.wait(3000)
       cy.get('.popup_close > .icon-close').click()
       cy.visit('https://slottica.com/en#cashbox-deposit')
   
@@ -260,8 +244,7 @@ describe('Slottica', () => {
                 if (depositFormsIds.length > 0) {
         
                   for(let i = 0; i < depositFormsIds.length; i++) {
-                    cy.get(`[data-key="${i}"] > .payment_card `)
-                    .click()       
+                   
                     cy.findKey(`#${depositFormsIds[i]}`, 't.payment')  
                     cy.CheckImage(`[data-key="${i}"]`, `img`)
 
@@ -270,8 +253,7 @@ describe('Slottica', () => {
                     let radiobutton = '[class="form-group checkbox variant"] input[type="radio"][name="predefinedValue"]';
 
                     cy.CheckLimits(deposidMethod, depositForm, radiobutton)    
-                   
-          
+       
                   }
                         
                 } else {
@@ -285,10 +267,9 @@ describe('Slottica', () => {
                 
             }
         })
-
         cy.visit('https://slottica.com/en#cashbox-withdraw')
   
-        cy.wait(5000)
+        cy.wait(3000)
   
         cy.findKey(`.popup_content`, 't.payment')  
         cy.findKey(`.popup_content`, 't.withdraw')  
@@ -310,7 +291,6 @@ describe('Slottica', () => {
                 if (withdrawFormsIds.length > 0) {
         
                   for(let i = 0; i < withdrawFormsIds.length; i++) {
-                    cy.get(`[data-key="${i}"] > .payment_card`).click()   
                     cy.CheckImage(`[data-key="${i}"]`, `img`)
 
                     cy.findKey(`#${withdrawFormsIds[i]}`, 't.payment')  
@@ -337,12 +317,12 @@ describe('SlottyWay', () => {
 
   for(let i = 0; i < cur.SlottyWayData.currency.length; i++) {
     it(cur.SlottyWayData.currency[i],  () => {
-      cy.get('.login > :nth-child(2) > .button').click()
+      cy.visit('https://slottyway.com/en#sign-in')
       cy.get('input[type="email"]').type(cur.SlottyWayData.emails[i])
       cy.get('input[type="password"]').first().type(cur.SlottyWayData.passwords[i])
       cy.get(':nth-child(8) > .button').click()
   
-      cy.wait(5000)
+      cy.wait(3000)
       cy.get('.close > .icon-close2').click()
       cy.visit('https://slottyway.com/en#cashbox-deposit')
 
@@ -368,9 +348,7 @@ describe('SlottyWay', () => {
               
                 if (depositFormsIds.length > 0) {
         
-                  for(let i = 0; i < depositFormsIds.length; i++) {
-                    cy.get(`[data-key="${i}"] > .pay_image `)
-                    .click()       
+                  for(let i = 0; i < depositFormsIds.length; i++) {     
                     cy.CheckImage(`[data-key="${i}"]`, `.image`)
                     cy.findKey(`#${depositFormsIds[i]}`, 't.payment') 
 
@@ -416,11 +394,8 @@ describe('SlottyWay', () => {
               
                 if (withdrawFormsIds.length > 0) {
         
-                  for(let i = 0; i < withdrawFormsIds.length; i++) {
-                    cy.get(`[data-key="${i}"] > .pay_image`)
-                    .click()           
+                  for(let i = 0; i < withdrawFormsIds.length; i++) {        
                     cy.CheckImage(`[data-key="${i}"]`, `.image`)    
-                    
                     cy.findKey(`#${withdrawFormsIds[i]}`, 't.payment')
                     cy.findKey(`#${withdrawFormsIds[i]}`, 't.withdraw')
                   }
@@ -444,13 +419,12 @@ describe('Spinamba', () => {
 
   for(let i = 0; i < cur.SpinambaData.currency.length; i++) {
     it(cur.SpinambaData.currency[i],  () => {
-      cy.get('.row > .login > :nth-child(2) > .button').click()
+      cy.visit('https://spinamba.com/en#sign-in')
       cy.get('#form-signin-email > .group-name-login > .control-label').type(cur.SpinambaData.emails[i])
       cy.get('#form-signin-email > .group-name-password > .control-label').type(cur.SpinambaData.passwords[i])
       cy.get('#form-signin-email > .submit_button > .button').click()
   
-      cy.wait(5000)
-      cy.get('.icon-close').click()
+      cy.wait(3000)
       cy.visit('https://spinamba.com/en#cashbox-deposit')
 
       cy.findKey('.popup', 't.payment')
@@ -473,9 +447,7 @@ describe('Spinamba', () => {
               
                 if (depositFormsIds.length > 0) {
         
-                  for(let i = 0; i < depositFormsIds.length; i++) {
-                    cy.get(`[data-key="${i}"] > .pay_image `)
-                    .click()        
+                  for(let i = 0; i < depositFormsIds.length; i++) {      
                     cy.findKey(`#${depositFormsIds[i]}`, 't.payment')             
                     cy.CheckImage(`[data-key="${i}"]`, `.image`)
 
@@ -520,9 +492,7 @@ describe('Spinamba', () => {
                 cy.log(withdrawFormsIds.length);       
                 if (withdrawFormsIds.length > 0) {
         
-                  for(let i = 0; i < withdrawFormsIds.length; i++) {
-                    cy.get(`[data-key="${i}"] > .pay_image`)
-                    .click()               
+                  for(let i = 0; i < withdrawFormsIds.length; i++) {        
                     cy.findKey(`#${withdrawFormsIds[i]}`, 't.payment')
                     cy.findKey(`#${withdrawFormsIds[i]}`, 't.withdraw')
                     cy.CheckImage(`[data-key="${i}"]`, `.image`)
@@ -547,15 +517,16 @@ describe('SpinBounty', () => {
 
   for(let i = 0; i < cur.SpinBountyData.currency.length; i++) {
     it(cur.SpinBountyData.currency[i],  () => {
-      cy.get('.actions > .primary').click()
+      cy.visit('https://spinbounty.com/en#sign-in')
       cy.get('input[type="email"]').type(cur.SpinBountyData.emails[i])
       cy.get('input[type="password"]').first().type(cur.SpinBountyData.passwords[i])
       cy.get('#signinform > .submit').click()
   
       cy.wait(5000)
       cy.visit('https://spinbounty.com/en#cashbox-deposit')
+      cy.wait(4000)
   
-      cy.findKey(`.content`, `t.payment`)
+      cy.findKey(`#profile-modal`, `t.payment`)
  
       let depositFormsIds = [];
 
@@ -575,19 +546,15 @@ describe('SpinBounty', () => {
               
                 if (depositFormsIds.length > 0) {
         
-                  for(let i = 0; i < depositFormsIds.length; i++) {
-                    cy.get(`[data-key="${i}"] > .payment_item  `)
-                    .click()       
+                  for(let i = 0; i < depositFormsIds.length; i++) { 
                     cy.findKey(`#${depositFormsIds[i]}`, `t.payment`)             
                     cy.CheckImage(`[data-key="${i}"]`, `img`)
 
                    let deposidMethod = `#${depositFormsIds[i]} > .form_header > .info_wrap > .payment_limits`;
                    let depositForm = `#${depositFormsIds[i]}`;
-                   let radiobutton = '[class="checkbox"] input[type="radio"][name="predefinedValue"]';
+                   let radiobutton = '[class="checkbox"] input[type="radio"][name="PaymentForm[predefinedValue]"]';
 
                    cy.CheckLimits(deposidMethod, depositForm, radiobutton) 
-
-                   cy.get(`[class="action left close toggle_btn"]`).first().click({force: true})
           
                   }
                         
@@ -598,15 +565,13 @@ describe('SpinBounty', () => {
               })  
             } else {
                 cy.log('НІЧОГО НЕМА')
-                cy.findKey(`.content`, `t.payment`)
+                cy.findKey(`#profile-modal`, `t.payment`)
             }
         })
 
         cy.visit('https://spinbounty.com/en#cashbox-withdraw')
-  
-        cy.wait(4000)
-  
-        cy.findKey(`.content`, `t.payment`)
+        cy.wait(2000)
+        cy.findKey(`#profile-modal`, `t.payment`)
   
         let withdrawFormsIds = [];
 
@@ -625,21 +590,16 @@ describe('SpinBounty', () => {
                 if (withdrawFormsIds.length > 0) {
         
                   for(let i = 0; i < withdrawFormsIds.length; i++) {
-                    
-                    cy.get(`[data-key="${i}"] > .payment_item`)
-                    .click()               
                     cy.findKey(`#${withdrawFormsIds[i]}`, `t.payment`)
                     cy.findKey(`#${withdrawFormsIds[i]}`, `t.withdraw`)
                     cy.CheckImage(`[data-key="${i}"]`, `img`)
-
-                    cy.get(`[class="action left close toggle_btn"]`).first().click({force: true})
                   }
                 }       
               });
             } else {
                 cy.log('НІЧОГО НЕМА')
-                cy.findKey(`.content`, `t.payment`)
-                cy.findKey(`.content`, `t.withdraw`)
+                cy.findKey(`#profile-modal`, `t.payment`)
+                cy.findKey(`#profile-modal`, `t.withdraw`)
             }
         })
   
@@ -655,7 +615,7 @@ describe('Viks', () => {
 
   for(let i = 0; i < cur.ViksData.currency.length; i++) {
     it(cur.ViksData.currency[i],  () => {
-      cy.get('.extend > .button').click()
+      cy.visit('https://viks.com/en#sign-in')
       cy.get('[data-tab="email"] > .label').click()
       cy.get('input[type="email"]').type(cur.ViksData.emails[i])
       cy.get('input[type="password"]').first().type(cur.ViksData.passwords[i])
@@ -685,9 +645,7 @@ describe('Viks', () => {
                 if (depositFormsIds.length > 0) {
         
                   for(let i = 0; i < depositFormsIds.length; i++) {
-                    cy.CheckImage(`:nth-child(${i + 1}) > .payment_item `, `img`)   
-                    cy.get(`:nth-child(${i + 1}) > .payment_item `)
-                    .click()             
+                    cy.CheckImage(`:nth-child(${i + 1}) > .payment_item `, `img`)              
                     cy.findKey(`#${depositFormsIds[i]}`, 't.payment')
                      
 
@@ -697,7 +655,6 @@ describe('Viks', () => {
                     
  
                     cy.CheckLimits(deposidMethod, depositForm, radiobutton)
-                    cy.get(`[data-trigger="cashbox.close"]`).first().click({force: true})
                    
           
                   }
@@ -760,20 +717,20 @@ describe('Viks', () => {
 
 describe('SuperCat', () => {
   beforeEach(() => {
-    cy.visit('https://supercatcasino.com/en')
+    cy.visit('https://supercatcasino67.com/en')
   })
 
 
   for(let i = 0; i < cur.SuperCatData.currency.length; i++) {
     it(cur.SuperCatData.currency[i],  () => {
-      cy.get('.guest-header > .button-outlined').click()
+      cy.visit('https://supercatcasino67.com/en/sign-in')
       cy.get('input[type="email"]').type(cur.SuperCatData.emails[i])
       cy.get('input[type="password"]').first().type(cur.SuperCatData.passwords[i])
       cy.get('.sign-in-form > .button').click()
   
       cy.wait(5000)
-      cy.visit('https://supercatcasino.com/en/player/cashbox/deposit')
-      cy.wait(15000)
+      cy.visit('https://supercatcasino67.com/en/player/cashbox/deposit')
+      cy.wait(5000)
       cy.findKey('.cashbox-content', 't.payment')
 
         let depositFormsIds = [];
@@ -842,7 +799,7 @@ describe('SuperCat', () => {
             }
         })
 
-        cy.visit('https://supercatcasino.com/en/player/cashbox/withdraw')
+        cy.visit('https://supercatcasino67.com/en/player/cashbox/withdraw')
   
         cy.wait(7000)
   

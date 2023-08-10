@@ -9,6 +9,19 @@ export const AllRightData = {
     'CHF', 'NZD', 'INR', 
     'JPY', 'AZN', 'KZT', 
     'GEL'],
+
+    login:
+    [
+        'cypress_test_eur@gmail.com', 'cypress_test_pln@gmail.com', 'cypress_test_uah@gmail.com',
+        'cypress_test_uzs@gmail.com', 'cypress_test_uzd@gmail.com', 'cypress_test_rub@gmail.com',
+        'cypress_test_ars@gmail.com', 'cypress_test_mxn@gmail.com', 'cypress_test_pen@gmail.com',
+        'cypress_test_clp@gmail.com', 'cypress_test_zar@gmail.com', 'cypress_test_nok@gmail.com',
+        'cypress_test_brl@gmail.com', 'cypress_test_cad@gmail.com', 'cypress_test_aud@gmail.com',
+        'cypress_test_chf@gmail.com', 'cypress_test_nzd@gmail.com', 'cypress_test_inr@gmail.com',
+        'cypress_test_jpy@gmail.com', 'cypress_test_azn@gmail.com', 'cypress_test_kzt@gmail.com',
+        'cypress_test_gel@gmail.com'
+
+    ],
     
     emails: 
     ['v.pupkin.eur@gmail.com', 'v.pupkin.pln@gmail.com', 'v.pupkin.uah@gmail.com', 
@@ -32,21 +45,36 @@ export const AllRightData = {
 }
 
 export const testData = {
-    currency: ['UZS'],
-    emails: [ 'v.pupkin.uzs@gmail.com'],
-    passwords: ['MLlXgF3SN6']
+    currency: ['AUD', 'CHF', 'INR'],
+    emails: [ 'v.pupkin.aud@outlook.com', 'v.pupkin.chf@outlook.com', 'v.pupkin.inr@gmail.com'],
+    passwords: ['xvMOxpzTgf', 'jr2mlttDhP', 'pekZiFuf5N']
 }
 
 export const LuckyBirdData = {
     currency: 
     ['EUR', 'PLN', 'USD',
-    'ARS', 'USD', 'RUB', 
+    'ARS', 'TRY', 'RUB', 
     'KZT', 'MXN', 'PEN',
     'CLP', 'ZAR', 'NOK', 
     'BRL', 'CAD', 'AUD', 
     'CHF', 'NZD', 'INR', 
     'JPY'
     ],
+
+    login:
+    [
+        'cypress_test_eur@gmail.com', 'cypress_test_pln@gmail.com', 'cypress_test_usd@gmail.com',
+        'cypress_test_ars@gmail.com', 'cypress_test_try@gmail.com', 'cypress_test_rub@gmail.com',
+        'cypress_test_kzt@gmail.com', 'cypress_test_mxn@gmail.com', 'cypress_test_pen@gmail.com',
+        'cypress_test_clp@gmail.com', 'cypress_test_zar@gmail.com', 'cypress_test_nok@gmail.com',
+        'cypress_test_brl@gmail.com', 'cypress_test_cad@gmail.com', 'cypress_test_aud@gmail.com',
+        'cypress_test_chf@gmail.com', 'cypress_test_nzd@gmail.com', 'cypress_test_inr@gmail.com',
+        'cypress_test_jpy@gmail.com'
+
+    ],
+    
+
+
     emails: 
     ['v.pupkin.eur@gmail.com', 'v.pupkin.pln@gmail.com', 'v.pupkinn.usd@gmail.com',
     'v.pupkin.ars@outlook.com', 'v.pupkinn.usd@gmail.com', 'v.pupkin.rub@outlook.com', 

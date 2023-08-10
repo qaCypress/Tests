@@ -140,7 +140,7 @@ Cypress.Commands.add('CheckLimits', (getDepositMethod, getDepositFormsIds, getRa
         }
 
         cy.get(getDepositFormsIds)
-        .find(`input[name="amount"], input[name="amnt"]`)
+        .find(`input[name="amount"], input[name="amnt"], input[name="PaymentForm[amount]"]`)
         .then(($input) => {
           const value = $input.attr('Value')
           const parsedValue = parseFloat(value);
