@@ -2,7 +2,7 @@ import '../support/commands.js';
 import * as cur from '../support/data.js';
 
 
-describe.only('AllRight', () => {
+describe('AllRight', () => {
   beforeEach(() => {
     cy.visit('https://allrightcasino.com/en')
   })
