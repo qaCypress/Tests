@@ -11,8 +11,8 @@ describe('AllRight', () => {
   for(let j = 0; j < cur.AllRightData.currency.length ; j++) {
     it(cur.AllRightData.currency[j],  () => {
       cy.visit('https://allrightcasino.com/en#sign-in')
-      cy.get('input[type="email"]').type(cur.AllRightData.emails[j])
-      cy.get('input[type="password"]').first().type(cur.AllRightData.passwords[j])
+      cy.get('input[type="email"]').type(cur.AllRightData.login[j])
+      cy.get('input[type="password"]').first().type(cur.AllRightData.login[j])
       cy.get('#form-signin-email > .submit_button > .button').click()
       
       cy.wait(4000)
@@ -114,8 +114,8 @@ describe('LuckyBird', () => {
       cy.visit('https://luckybirdcasino.com/en#sign-in')
      
 
-      cy.get('input[type="email"]').type(cur.LuckyBirdData.emails[i])
-      cy.get('input[type="password"]').first().type(cur.LuckyBirdData.passwords[i])
+      cy.get('input[type="email"]').type(cur.LuckyBirdData.login[i])
+      cy.get('input[type="password"]').first().type(cur.LuckyBirdData.login[i])
       cy.get(`[class="submit_button"]`).first().click()
   
       cy.wait(3000)
@@ -214,8 +214,8 @@ describe('Slottica', () => {
   for(let i = 0; i < cur.SlotticaData.currency.length; i++) {
     it(cur.SlotticaData.currency[i],  () => {
       cy.get('.extend > .button').click()
-      cy.get('input[type="email"]').type(cur.SlotticaData.emails[i])
-      cy.get('input[type="password"]').first().type(cur.SlotticaData.passwords[i])
+      cy.get('input[type="email"]').type(cur.SlotticaData.login[i])
+      cy.get('input[type="password"]').first().type(cur.SlotticaData.login[i])
       cy.get('#signinform_email > .form > :nth-child(4) > .button').click()
   
       cy.wait(3000)
@@ -318,8 +318,8 @@ describe('SlottyWay', () => {
   for(let i = 0; i < cur.SlottyWayData.currency.length; i++) {
     it(cur.SlottyWayData.currency[i],  () => {
       cy.visit('https://slottyway.com/en#sign-in')
-      cy.get('input[type="email"]').type(cur.SlottyWayData.emails[i])
-      cy.get('input[type="password"]').first().type(cur.SlottyWayData.passwords[i])
+      cy.get('input[type="email"]').type(cur.SlottyWayData.login[i])
+      cy.get('input[type="password"]').first().type(cur.SlottyWayData.login[i])
       cy.get(':nth-child(8) > .button').click()
   
       cy.wait(3000)
@@ -420,8 +420,8 @@ describe('Spinamba', () => {
   for(let i = 0; i < cur.SpinambaData.currency.length; i++) {
     it(cur.SpinambaData.currency[i],  () => {
       cy.visit('https://spinamba.com/en#sign-in')
-      cy.get('#form-signin-email > .group-name-login > .control-label').type(cur.SpinambaData.emails[i])
-      cy.get('#form-signin-email > .group-name-password > .control-label').type(cur.SpinambaData.passwords[i])
+      cy.get('#form-signin-email > .group-name-login > .control-label').type(cur.SpinambaData.login[i])
+      cy.get('#form-signin-email > .group-name-password > .control-label').type(cur.SpinambaData.login[i])
       cy.get('#form-signin-email > .submit_button > .button').click()
   
       cy.wait(3000)
@@ -518,8 +518,8 @@ describe('SpinBounty', () => {
   for(let i = 0; i < cur.SpinBountyData.currency.length; i++) {
     it(cur.SpinBountyData.currency[i],  () => {
       cy.visit('https://spinbounty.com/en#sign-in')
-      cy.get('input[type="email"]').type(cur.SpinBountyData.emails[i])
-      cy.get('input[type="password"]').first().type(cur.SpinBountyData.passwords[i])
+      cy.get('input[type="email"]').type(cur.SpinBountyData.login[i])
+      cy.get('input[type="password"]').first().type(cur.SpinBountyData.login[i])
       cy.get('#signinform > .submit').click()
   
       cy.wait(5000)
@@ -615,10 +615,10 @@ describe('Viks', () => {
 
   for(let i = 0; i < cur.ViksData.currency.length; i++) {
     it(cur.ViksData.currency[i],  () => {
-      cy.visit('https://viks.com/en#sign-in')
+      cy.visit('https://viks.com/games/en#sign-in')
       cy.get('[data-tab="email"] > .label').click()
-      cy.get('input[type="email"]').type(cur.ViksData.emails[i])
-      cy.get('input[type="password"]').first().type(cur.ViksData.passwords[i])
+      cy.get('input[type="email"]').type(cur.ViksData.login[i])
+      cy.get('input[type="password"]').first().type(cur.ViksData.login[i])
       cy.get('#signinform_email > .form > :nth-child(4) > .button').click()
   
       cy.wait(5000)
@@ -724,8 +724,8 @@ describe('SuperCat', () => {
   for(let i = 0; i < cur.SuperCatData.currency.length; i++) {
     it(cur.SuperCatData.currency[i],  () => {
       cy.visit('https://supercatcasino67.com/en/sign-in')
-      cy.get('input[type="email"]').type(cur.SuperCatData.emails[i])
-      cy.get('input[type="password"]').first().type(cur.SuperCatData.passwords[i])
+      cy.get('input[type="email"]').type(cur.SuperCatData.login[i])
+      cy.get('input[type="password"]').first().type(cur.SuperCatData.login[i])
       cy.get('.sign-in-form > .button').click()
   
       cy.wait(5000)
