@@ -2,6 +2,11 @@ language: node_js
 node_js:
   - 20.3.1 # Use the Node.js version your project requires
 
+branches:
+  only:
+    - master
+    - manual-trigger
+
 install:
   - npm install # Install dependencies
   - npm install -g cypress # Install Cypress globally
