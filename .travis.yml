@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - 20.3.1 # Use the Node.js version your project requires
+
+install:
+  - npm install # Install dependencies
+  - npm install -g cypress # Install Cypress globally
+
+script:
+  - npx cypress run --spec "cypress/e2e/first_daily.cy.js"  # Or whatever command you use to run tests
+
+addons:
+  chrome: stable # Use the stable version of Chrome browser
+
+cache:
+  directories:
+    - ~/.npm
+    - ~/.cache
