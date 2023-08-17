@@ -22,17 +22,7 @@ jobs:
           npm install -g http-server
 
       - name: Start Local Server
-        run: http-server -p 8080 &
-
-      - name: Wait for Server to Start
-        run: |
-          Start-Sleep -Seconds 5 # Adjust if needed
-          $portOpen = $false
-          while (-not $portOpen) {
-            $connection = Test-NetConnection -ComputerName '127.0.0.1' -Port 8080
-            $portOpen = $connection.TcpTestSucceeded
-            Start-Sleep -Seconds 1
-          }
+         run: http-server -p 8080 &
 
       - name: Run Cypress tests
         run: npx cypress run --config baseUrl=http://127.0.0.1:8080 --spec "cypress/e2e/first_daily.cy.js"
