@@ -24,7 +24,7 @@ jobs:
       - name: Start Local Server
         run: |
           # Start your local server, for example:
-          # npm start
+          # npm start & sleep 30
 
           # Start ngrok to expose local server
           ngrok http 8080 > /dev/null &
