@@ -6,7 +6,8 @@
   },
   "scripts": {
     "test:cypress": "cypress run",
-    "cassa": "npx cypress run --spec \"cypress/e2e/PaymentCheck.cy.js\""
+    "cassa": "npx cypress run --spec \"cypress/e2e/PaymentCheck.cy.js\"",
+    "start-local-server": "http-server"
   },
   "browser": "chrome",
   "integrationFolder": "cypress/e2e"
