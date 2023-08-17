@@ -1,34 +1,31 @@
-name: Cassa
+name: Run Cypress Tests
 
-on:
-  workflow_dispatch:
+on: [push]
 
 jobs:
-  test:
-    runs-on: windows-latest
+  setup-and-run-tests:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-
-      - name: Install Dependencies
-        run: |
-          npm install cypress --save-dev
-          npm install -g http-server
-
       - name: Start Local Server
-        run: http-server -p 8080 
+        run: |
+          # Start your local server, for example:
+          # npm start
 
-      - name: Run Cypress tests
-        run: npx cypress run --config baseUrl=http://localhost:8080 --spec "cypress/e2e/first_daily.cy.js"
+          # Start ngrok to expose local server
+          ngrok http 8080 > /dev/null &
+
+          # Wait for ngrok to generate the public URL
+          sleep 10
+          echo "Public URL: $$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')"
+
+      - name: Run Cypress Tests
+        run: npx cypress run --spec "cypress/e2e/first_daily.cy.js" --headless --config baseUrl=https://your-ngrok-url
 
       - name: Stop Local Server
-        run: Stop-Process -Name "http-server" -Force
+        run: |
+          # Stop the local server
+          # pkill -f "http-server"
 
-    env:
-      CI: true
+          # Stop ngrok
+          pkill -f "ngrok"
