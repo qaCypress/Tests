@@ -2,18 +2,26 @@ version: 2.1
 orbs:
   cypress: cypress-io/cypress@3.1.2
 
+jobs:
+  setup-local-server:
+    executor: my-executor
+    steps:
+      - checkout
+      - run:
+          name: Start Local Server
+          command: npm start & sleep 10
+
 workflows:
   use-my-orb:
     jobs:
+      - setup-local-server
       - cypress/run:
-          docker:
-            - image: cypress/base:12
-          steps:
-            - checkout
-            - run:
-                name: Start Local Server
-                command: npm start & sleep 10
-            - cypress/run:
-                requires:
-                  - start-local-server
-                cypress-command: npx cypress run --spec "cypress/e2e/first_daily.cy.js" --headless --config baseUrl=http://localhost:3000
+          requires:
+            - setup-local-server
+          executor: my-executor
+          cypress-command: npx cypress run --spec "cypress/e2e/first_daily.cy.js" --headless --config baseUrl=http://localhost:3000
+
+executors:
+  my-executor:
+    docker:
+      - image: circleci/node:14
