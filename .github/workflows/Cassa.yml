@@ -18,6 +18,8 @@ jobs:
 
       - name: Install Cypress
         run: npm install cypress --save-dev
+      
+      - name: Install server
         run: npm install -g http-server
 
       - name: Start Local Server
