@@ -16,20 +16,20 @@ jobs:
         with:
           node-version: 14
 
-      - name: Install Cypress
-        run: npm install cypress --save-dev
-      
-      - name: Install server
-        run: npm install -g http-server
+      - name: Install Dependencies
+        run: |
+          npm install cypress --save-dev
+          npm install -g http-server
 
       - name: Start Local Server
-        run: npm run start-local-server # Replace with your start server command
+        run: http-server -p 8080 # Adjust the port as needed
 
       - name: Wait for Server to Start
-        run: sleep 10 # Adjust as needed to give the server time to start
+        run: |
+          while ! nc -z localhost 8080; do sleep 1; done
 
       - name: Run Cypress tests
-        run: npx cypress run --spec "cypress/e2e/first_daily.cy.js --config baseUrl=http://10.107.2.79:8080"
+        run: npx cypress run --spec "cypress/e2e/first_daily.cy.js"
         
     env:
       CI: true
