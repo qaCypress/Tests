@@ -25,9 +25,6 @@ jobs:
         run: http-server -p 8080 &
         timeout-minutes: 1 # Adjust the port as needed
 
-      - name: Wait for Server to Start
-        run: |
-          while ! nc -z localhost 8080; do sleep 1; done
 
       - name: Run Cypress tests
         run: npx cypress run --spec "cypress/e2e/first_daily.cy.js"
