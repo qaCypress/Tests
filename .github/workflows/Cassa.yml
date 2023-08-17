@@ -23,19 +23,19 @@ jobs:
 
       - name: Start Local Server
         run: http-server -p 8080 &
-        timeout-minutes: 1 # Adjust the port as needed
 
+      - name: Wait for Server to Start
+        run: |
+          Start-Sleep -Seconds 5 # Adjust if needed
+          $portOpen = $false
+          while (-not $portOpen) {
+            $connection = Test-NetConnection -ComputerName '127.0.0.1' -Port 8080
+            $portOpen = $connection.TcpTestSucceeded
+            Start-Sleep -Seconds 1
+          }
 
       - name: Run Cypress tests
-        run: |
-           Start-Process http-server -ArgumentList '-p', '8080' -PassThru
-           $portOpen = $false
-           while (-not $portOpen) {
-             $connection = Test-NetConnection -ComputerName 'localhost' -Port 8080
-             $portOpen = $connection.TcpTestSucceeded
-             Start-Sleep -Seconds 1
-           }
-           npx cypress run --config baseUrl=http://localhost:8080 --spec "cypress/e2e/first_daily.cy.js"
+        run: npx cypress run --config baseUrl=http://127.0.0.1:8080 --spec "cypress/e2e/first_daily.cy.js"
 
       - name: Stop Local Server
         run: Stop-Process -Name "http-server" -Force
