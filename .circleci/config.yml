@@ -5,9 +5,15 @@ orbs:
 workflows:
   use-my-orb:
     jobs:
-      - setup-local-server:
-          executor: local
       - cypress/run:
-          requires:
-            - setup-local-server
-          cypress-command: npx cypress run --spec "cypress/e2e/first_daily.cy.js" --headless --config baseUrl=http://localhost:3000
+          docker:
+            - image: cypress/base:12
+          steps:
+            - checkout
+            - run:
+                name: Start Local Server
+                command: npm start & sleep 10
+            - cypress/run:
+                requires:
+                  - start-local-server
+                cypress-command: npx cypress run --spec "cypress/e2e/first_daily.cy.js" --headless --config baseUrl=http://localhost:3000
