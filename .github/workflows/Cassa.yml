@@ -22,7 +22,7 @@ jobs:
           npm install -g http-server
 
       - name: Start Local Server
-        run: start /B http-server -p 8080 
+        run: start cmd /c "http-server -p 8080"
 
       - name: Run Cypress tests
         run: npx cypress run --config baseUrl=http://localhost:8080 --spec "cypress/e2e/first_daily.cy.js"
