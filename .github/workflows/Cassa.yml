@@ -22,7 +22,8 @@ jobs:
           npm install -g http-server
 
       - name: Start Local Server
-        run: http-server -p 8080 # Adjust the port as needed
+        run: http-server -p 8080 &
+        timeout-minutes: 1 # Adjust the port as needed
 
       - name: Wait for Server to Start
         run: |
@@ -30,6 +31,9 @@ jobs:
 
       - name: Run Cypress tests
         run: npx cypress run --spec "cypress/e2e/first_daily.cy.js"
+
+      - name: Stop Local Server
+        run: pkill -f "http-server" || true # Stop the server
         
     env:
       CI: true
