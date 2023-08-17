@@ -1,12 +1,26 @@
-name: Run Cypress Tests
+name: Cassa
 
-on: [push]
+on:
+  workflow_dispatch:
 
 jobs:
-  setup-and-run-tests:
-    runs-on: ubuntu-latest
+  test:
+    runs-on: windows-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install Dependencies
+        run: |
+          npm install cypress --save-dev
+          npm install -g http-server
+
       - name: Start Local Server
         run: |
           # Start your local server, for example:
@@ -29,3 +43,6 @@ jobs:
 
           # Stop ngrok
           pkill -f "ngrok"
+
+    env:
+      CI: true
