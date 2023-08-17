@@ -19,13 +19,13 @@ jobs:
        - name: Start Local Server
          run: http-server -p 8080 &
 
-      - name: Wait for Server to Start
-        run: |
-         Start-Sleep -Seconds 5
-         for ((i=0; i<30; i++)); do
-           nc -zv 127.0.0.1 8080 && break
-           sleep 1
-         done
+       - name: Wait for Server to Start
+         run: |
+          Start-Sleep -Seconds 5
+          for ((i=0; i<30; i++)); do
+            nc -zv 127.0.0.1 8080 && break
+            sleep 1
+          done
 
 
       - name: Run Cypress tests
