@@ -16,6 +16,11 @@ jobs:
         with:
           node-version: 14
 
+      - name: Install Dependencies
+        run: |
+          npm install cypress --save-dev
+          npm install -g http-server
+
       - name: Start Local Server
         run: http-server -p 8080 
 
