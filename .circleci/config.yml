@@ -2,42 +2,12 @@ version: 2.1
 orbs:
   cypress: cypress-io/cypress@3.1.2
 
-jobs:
-  build:
-    executor:
-      name: node/default
-    steps:
-      - checkout
-
-      - run:
-          name: Install Dependencies
-          command: |
-            npm install cypress --save-dev
-            npm install -g http-server
-
-      - run:
-          name: Start Local Server
-          command: http-server -p 8080
-          background: true
-
-      - run:
-          name: Wait for Server to Start
-          command: |
-            sleep 5
-            for i in $(seq 1 30); do
-              nc -zv 127.0.0.1 8080 && break
-              sleep 1
-            done
-
-      - run:
-          name: Run Cypress tests
-          command: npx cypress run --config baseUrl=http://localhost:8080 --spec "cypress/e2e/first_daily.cy.js" --headless
-
-      - run:
-          name: Stop Local Server
-          command: killall http-server || true
-
 workflows:
   use-my-orb:
     jobs:
-      - build
+      - setup-local-server:
+          executor: local
+      - cypress/run:
+          requires:
+            - setup-local-server
+          cypress-command: npx cypress run --spec "cypress/e2e/first_daily.cy.js" --headless --config baseUrl=http://localhost:3000
