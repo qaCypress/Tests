@@ -20,29 +20,20 @@ jobs:
         run: |
           npm install cypress --save-dev
           npm install -g http-server
+        env:
+          SERVER_URL: ${{ env.SERVER_URL }} 
 
       - name: Start Local Server
-        run: |
-          # Start your local server, for example:
-          # npm start & sleep 30
+        run: http-server -p 8080 |
+          echo "SERVER_URL=http://localhost:8080" >> $GITHUB_ENV
+        env:
+          SERVER_URL: ${{ env.SERVER_URL }}
+        
+      - name: Wait for Server to Start
+        run: sleep 10
 
-          # Start ngrok to expose local server
-          ngrok http 8080 > /dev/null &
-
-          # Wait for ngrok to generate the public URL
-          sleep 10
-          echo "Public URL: $$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')"
-
-      - name: Run Cypress Tests
-        run: npx cypress run --spec "cypress/e2e/first_daily.cy.js" --headless --config baseUrl=https://your-ngrok-url
-
-      - name: Stop Local Server
-        run: |
-          # Stop the local server
-          # pkill -f "http-server"
-
-          # Stop ngrok
-          pkill -f "ngrok"
-
+      - name: Run Cypress tests
+        run: npx cypress run --spec "cypress/e2e/first_daily.cy.js"
+        
     env:
       CI: true
