@@ -29,16 +29,17 @@ Cypress.Commands.add('failAndScreenshot', (errorMessage, screenshotName) => {
   throw new Error(errorMessage); 
 });
 
-Cypress.Commands.add('findKey', (path, key) => {
+Cypress.Commands.add('findKey', (path, keys) => {
   cy.get(path).each(($el) => {
-      const textContent = getAllTextFromElement($el)
-      if (textContent.includes(key)) {
-        cy.failAndScreenshot(`В методі оплати присутній ключ - ${key}`);
-      } else {
-        cy.log(textContent);
-        cy.log("Ключ відсутній✅");
-      }
+    const textContent = getAllTextFromElement($el);
+    const foundKeys = keys.filter(key => textContent.includes(key));
 
+    if (foundKeys.length > 0) {
+      cy.failAndScreenshot(`В методі оплати присутній ключ: ${foundKeys.join(', ')}`);
+    } else {
+      cy.log(textContent);
+      cy.log("Ключі відсутні✅");
+    }
   });
 });
 

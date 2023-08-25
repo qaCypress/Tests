@@ -1,4 +1,9 @@
 
+export const KEYS = ['t.deposit', 't.make', 't.payment', 't.withdraw', 't.profile', 'error.', 'payment.error', 'payment.validation', 't.limits', 't.total', 't.apply',
+                     't.identifier', 't.securityCode']
+
+
+
 export const AllRightData = {
     currency: 
     ['EUR', 'PLN', 'UAH', 
