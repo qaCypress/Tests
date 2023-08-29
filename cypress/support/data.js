@@ -1,10 +1,12 @@
 
 export const KEYS = ['t.deposit', 't.make', 't.payment', 't.withdraw', 't.profile', 'error.', 'payment.error', 'payment.validation', 't.limits', 't.total', 't.apply',
-                     't.identifier', 't.securityCode']
+                     't.identifier', 't.securityCode',]
 
 
 
 export const AllRightData = {
+    lang: ['en', 'ru', 'de', 'es', 'pl', 'no', 'pt', 'fi', 'ja', 'sv', 'fr', 'tr'],
+
     currency: 
     ['EUR', 'PLN', 'UAH', 
     'UZS', 'USD', 'RUB', 
@@ -57,6 +59,8 @@ export const testData = {
 }
 
 export const LuckyBirdData = {
+    lang: ['en', 'ru', 'de', 'es', 'pl', 'no', 'pt', 'fi', 'tr'],
+
     currency: 
     ['EUR', 'PLN', 'USD',
     'ARS', 'TRY', 'RUB', 
@@ -103,6 +107,8 @@ export const LuckyBirdData = {
 }
 
 export const SlotticaData = {
+    lang: ['en', 'ru', 'uk', 'de', 'es', 'pl', 'pt', 'fi', 'no', 'sv', 'ja', 'fr', 'kk', 'hi', 'tr'],
+
     currency:
     ['EUR', 'PLN', 'UAH', 
     'UZS', 'USD', 'RUB', 
@@ -146,6 +152,8 @@ export const SlotticaData = {
 }
 
 export const SlottyWayData = {
+    lang: ['en', 'ru', 'de', 'es', 'pl', 'pt', 'fi', 'no', 'sv', 'tr'],
+
     currency: 
     ['EUR', 'PLN', 'USD',
     'ARS', 'TRY', 'RUB', 
@@ -189,6 +197,8 @@ export const SlottyWayData = {
 }
 
 export const SpinambaData = {
+    lang: ['en', 'ru', 'de', 'es', 'pl', 'pt', 'fi', 'no', 'sv', 'tr'],
+
     currency: 
     ['EUR', 'PLN', 'USD',
     'ARS', 'TRY', 'RUB', 
@@ -232,6 +242,7 @@ export const SpinambaData = {
 }
 
 export const SpinBountyData = {
+    lang: ['en', 'ru', 'pl', 'de', 'fr'],
 
     currency:
     [
@@ -279,6 +290,8 @@ export const SpinBountyData = {
 }
 
 export const ViksData = {
+lang: ['en', 'ru', 'uz'], 
+
 currency : ['UZS'],
 
 login: [ 'cypress_test_uzs@gmail.com' ],
@@ -290,6 +303,7 @@ passwords : ['MLlXgF3SN6']
 }
 
 export const SuperCatData = {
+    lang: ['en', 'ru', 'de', 'pt', 'fi', 'no', 'pl', 'tr', 'es'],
 
     currency:
     ['EUR', 'PLN', 'USD',

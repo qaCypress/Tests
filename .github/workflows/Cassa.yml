@@ -17,20 +17,7 @@ jobs:
           node-version: 14
 
       - name: Install Dependencies
-        run: |
-          npm install cypress --save-dev
-          npm install -g http-server
-        env:
-          SERVER_URL: ${{ env.SERVER_URL }} 
-
-      - name: Start Local Server
-        run: http-server -p 8080 |
-          echo "SERVER_URL=http://localhost:8080" >> $GITHUB_ENV
-        env:
-          SERVER_URL: ${{ env.SERVER_URL }}
-        
-      - name: Wait for Server to Start
-        run: sleep 10
+        run: npm install cypress --save-dev
 
       - name: Run Cypress tests
         run: npx cypress run --spec "cypress/e2e/first_daily.cy.js"
