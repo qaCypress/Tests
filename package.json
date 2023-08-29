@@ -7,8 +7,15 @@
   "scripts": {
     "test:cypress": "cypress run",
     "cassa": "npx cypress run --spec \"cypress/e2e/PaymentCheck.cy.js\"",
-    "start-local-server": "http-server"
+    "start-local-server": "http-server",
+
+    "all_lang": "npx cypress run --spec \"cypress/e2e/TestPayment.cy.js\" --env all=true",
+    "not_all_lang": "npx cypress run --spec \"cypress/e2e/TestPayment.cy.js\" --env all=false"
   },
+
+  "env": {
+    "all": true 
+  }, 
   "browser": "chrome",
   "integrationFolder": "cypress/e2e"
 }

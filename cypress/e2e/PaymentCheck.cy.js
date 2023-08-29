@@ -8,7 +8,8 @@ describe('AllRight', () => {
   })
 
 
-  for(let j = 0; j < cur.AllRightData.currency.length ; j++) {
+  for(let j = 0; j < cur.AllRightData.currency.length; j++) {
+
     it(cur.AllRightData.currency[j],  () => {
       cy.visit('https://allrightcasino.com/en#sign-in')
       cy.get('input[type="email"]').type(cur.AllRightData.login[j])
@@ -109,7 +110,7 @@ describe('LuckyBird', () => {
   for(let i = 0; i < cur.LuckyBirdData.currency.length; i++) {
     it(cur.LuckyBirdData.currency[i],  () => {
 
-      cy.visit('https://luckybirdcasino.com/en#sign-in')
+      cy.visit('https://luckybirdcasino.com/#sign-in')
      
 
       cy.get('input[type="email"]').type(cur.LuckyBirdData.login[i])
