@@ -2,7 +2,7 @@ import '../support/commands.js';
 import * as cur from '../support/data.js';
 
 
-let AllLang = true;
+let AllLang = Cypress.env('all');
 
 
 
