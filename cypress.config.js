@@ -30,8 +30,9 @@ module.exports = defineConfig({
     "chromeWebSecurity": false,
     "screenshotOnRunFailure": true,
     "screenshotOnAssertionFailure": true,
-    "screenshotsFolder": "cypress/screenshots"
-    
+    "screenshotsFolder": "cypress/screenshots",
+    experimentalMemoryManagement: true,
+    numTestsKeptInMemory: 0,
     
   }
 });
