@@ -1,12 +1,16 @@
 {
   "devDependencies": {
     "@testomatio/reporter": "^0.7.6",
+    "@types/opn": "^5.5.0",
     "cypress": "^12.17.4",
+    "cypress-mochawesome-reporter": "^3.6.0",
+    "fs": "^0.0.1-security",
+    "opn": "^6.0.0",
     "puppeteer": "^20.7.1"
   },
   "scripts": {
     "test:cypress": "cypress run",
-    "cassa": "npx cypress run --spec \"cypress/e2e/PaymentCheck.cy.js\"",
+    "cassa": "npx cypress run --spec \"cypress/e2e/PaymentCheck.cy.js\" && node cypress/support/open_report.js",
     "start-local-server": "http-server",
     "all_lang": "npx cypress run --spec \"cypress/e2e/TestPayment.cy.js\" --env all=true",
     "not_all_lang": "npx cypress run --spec \"cypress/e2e/TestPayment.cy.js\" --env all=false"
@@ -15,5 +19,9 @@
     "all": true
   },
   "browser": "chrome",
-  "integrationFolder": "cypress/e2e"
+  "integrationFolder": "cypress/e2e",
+  "dependencies": {
+    "glob": "^10.3.10",
+    "open": "^9.1.0"
+  }
 }
