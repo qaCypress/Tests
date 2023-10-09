@@ -10,10 +10,11 @@
   },
   "scripts": {
     "test:cypress": "cypress run",
-    "cassa": "npx cypress run --spec \"cypress/e2e/PaymentCheck.cy.js\" && node cypress/support/open_report.js",
+    "cassa": "npx cypress run --spec \"cypress/e2e/PaymentCheck.cy.js\" && node cypress/support/open_report.js || node cypress/support/open_report.js",
     "start-local-server": "http-server",
     "all_lang": "npx cypress run --spec \"cypress/e2e/TestPayment.cy.js\" --env all=true",
-    "not_all_lang": "npx cypress run --spec \"cypress/e2e/TestPayment.cy.js\" --env all=false"
+    "not_all_lang": "npx cypress run --spec \"cypress/e2e/TestPayment.cy.js\" --env all=false",
+    "updateAll": "del package-lock.json && rmdir /s /q node_modules && npm install"
   },
   "env": {
     "all": true

@@ -32,7 +32,14 @@ Cypress.Commands.add('failAndScreenshot', (errorMessage, screenshotName) => {
 Cypress.Commands.add('findKey', (path, keys) => {
   cy.get(path).each(($el) => {
     const textContent = getAllTextFromElement($el);
-    const foundKeys = keys.filter(key => textContent.includes(key));
+    const foundKeys = keys.map(key => {
+      if (key instanceof RegExp) {
+        const match = textContent.match(key);
+        return match ? match[0] : null;
+      } else {
+        return textContent.includes(key) ? key : null;
+      }
+    }).filter(Boolean); // Filter out null values
 
     if (foundKeys.length > 0) {
       cy.failAndScreenshot(`В методі оплати присутній ключ: ${foundKeys.join(', ')}`);

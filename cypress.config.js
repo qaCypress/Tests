@@ -16,6 +16,10 @@ module.exports = defineConfig({
     experimentalMemoryManagement: true,
     numTestsKeptInMemory: 0,
   },
+  "retries": {
+    "runMode": 2,
+    "openMode": 2
+  },
 
   reporterOptions: {
     "reportDir": "cypress/reports",

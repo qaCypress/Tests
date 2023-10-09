@@ -3,6 +3,7 @@ export const KEYS = ['t.deposit', 't.make', 't.payment', 't.withdraw', 't.profil
                      't.identifier', 't.securityCode']
 
 
+// /\w+(\.\w+){2,}/
 
 export const AllRightData = {
     lang: ['en', 'ru', 'de', 'es', 'pl', 'no', 'pt', 'fi', 'ja', 'sv', 'fr', 'tr'],

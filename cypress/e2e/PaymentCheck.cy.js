@@ -120,7 +120,7 @@ describe('LuckyBird', () => {
       cy.wait(3000)
       cy.visit('https://luckybirdcasino.com/en#cashbox-deposit')
   
-      cy.findKey(`.cashbox_content`, cur.KEYS)
+      cy.findKey(`.cashbox_content > .payment__gallery`, cur.KEYS)
   
       let depositFormsIds = [];
 
@@ -159,7 +159,7 @@ describe('LuckyBird', () => {
               })  
             } else {
                 cy.log('НІЧОГО НЕМА')
-                cy.findKey(`.cashbox_content`, cur.KEYS)  
+                cy.findKey(`.cashbox_content > .payment__gallery`, cur.KEYS)  
             }
         })
 
@@ -167,7 +167,7 @@ describe('LuckyBird', () => {
   
         cy.wait(3000)
   
-        cy.findKey(`.cashbox_content`, cur.KEYS)  
+        cy.findKey(`.cashbox_content > .payment__gallery`, cur.KEYS)  
   
         let withdrawFormsIds = [];
 
@@ -193,7 +193,7 @@ describe('LuckyBird', () => {
               });
             } else {
                 cy.log('НІЧОГО НЕМА')
-                cy.findKey(`.cashbox_content`, cur.KEYS)  
+                cy.findKey(`.cashbox_content > .payment__gallery`, cur.KEYS)  
             }
         })
   
@@ -321,7 +321,7 @@ describe('SlottyWay', () => {
 
       cy.wait(2000)
   
-      cy.findKey(`.popup`, cur.KEYS)
+      cy.findKey(`.popup > .content > .modal_profile_content > .cashbox_content > .payment__gallery`, cur.KEYS)
   
       let depositFormsIds = [];
 
@@ -360,7 +360,7 @@ describe('SlottyWay', () => {
               })  
             } else {
                 cy.log('НІЧОГО НЕМА')
-                cy.findKey(`.popup`, cur.KEYS)
+                cy.findKey(`.popup > .content > .modal_profile_content > .cashbox_content > .payment__gallery`, cur.KEYS)
             }
         })
 
@@ -368,7 +368,7 @@ describe('SlottyWay', () => {
   
         cy.wait(2000)
   
-        cy.findKey(`.popup`, cur.KEYS)
+        cy.findKey(`.popup > .content > .modal_profile_content > .cashbox_content > .payment__gallery`, cur.KEYS)
   
         let withdrawFormsIds = [];
 
@@ -394,7 +394,7 @@ describe('SlottyWay', () => {
               });
             } else {
                 cy.log('НІЧОГО НЕМА')
-                cy.findKey(`.popup`, cur.KEYS)
+                cy.findKey(`.popup > .content > .modal_profile_content > .cashbox_content > .payment__gallery`, cur.KEYS)
             }
         })
   
@@ -514,7 +514,7 @@ describe('SpinBounty', () => {
       cy.visit('https://spinbounty.com/en#cashbox-deposit')
       cy.wait(4000)
   
-      cy.findKey(`#profile-modal`, cur.KEYS)
+      cy.findKey(`#profile-modal > .content > .payments_gallery_wrap`, cur.KEYS)
  
       let depositFormsIds = [];
 
@@ -553,13 +553,13 @@ describe('SpinBounty', () => {
               })  
             } else {
                 cy.log('НІЧОГО НЕМА')
-                cy.findKey(`#profile-modal`, cur.KEYS)
+                cy.findKey(`#profile-modal > .content > .payments_gallery_wrap`, cur.KEYS)
             }
         })
 
         cy.visit('https://spinbounty.com/en#cashbox-withdraw')
         cy.wait(2000)
-        cy.findKey(`#profile-modal`, cur.KEYS)
+        cy.findKey(`#profile-modal > .content > .payments_gallery_wrap`, cur.KEYS)
   
         let withdrawFormsIds = [];
 
@@ -585,7 +585,7 @@ describe('SpinBounty', () => {
               });
             } else {
                 cy.log('НІЧОГО НЕМА')
-                cy.findKey(`#profile-modal`, cur.KEYS)
+                cy.findKey(`#profile-modal > .content > .payments_gallery_wrap`, cur.KEYS)
             }
         })
   
