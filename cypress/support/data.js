@@ -1,6 +1,7 @@
 
+
 export const KEYS = ['t.deposit', 't.make', 't.payment', 't.withdraw', 't.profile', 'error.', 'payment.error', 'payment.validation', 't.limits', 't.total', 't.apply',
-                     't.identifier', 't.securityCode']
+                     't.identifier', 't.securityCode',]
 
 
 // /\w+(\.\w+){2,}/
@@ -345,5 +346,28 @@ export const SuperCatData = {
 
 }
 
-
+export const Magic365Data = {
+    lang: ['en', 'ru', 'pl'],
+  
+    currency: [
+      'PLN', 'AUD', 'AZN',
+      'BRL', 'CAD', 'CHF',
+      'CLP', 'EUR', 'INR',
+      'JPY', 'KZT', 'MXN',
+      'NOK', 'NZD', 'PEN',
+      'ARS', 'RUB', 'TRY',
+      'USD', 'USZ', 'ZAR'
+    ],
+  
+    login: [
+      'cypress_test_pln@gmail.com', 'cypress_test_aud@gmail.com', 'cypress_test_azn@gmail.com',
+      'cypress_test_brl@gmail.com', 'cypress_test_cad@gmail.com', 'cypress_test_chf@gmail.com',
+      'cypress_test_clp@gmail.com', 'cypress_test_eur@gmail.com', 'cypress_test_inr@gmail.com',
+      'cypress_test_jpy@gmail.com', 'cypress_test_kzt@gmail.com', 'cypress_test_mxn@gmail.com1',
+      'cypress_test_nok@gmail.com', 'cypress_test_nzd@gmail.com', 'cypress_test_pen@gmail.com',
+      'cypress_test_ars@gmail.com', 'cypress_test_rub@gmail.com', 'cypress_test_try@gmail.com',
+      'cypress_test_usd@gmail.com', 'cypress_test_uzs@gmail.com', 'cypress_test_zar@gmail.com'
+  
+    ]
+  }
 
