@@ -13,6 +13,7 @@
   "scripts": {
     "test:cypress": "cypress run",
     "cassa": "npx cypress run --spec \"cypress/e2e/PaymentCheck.cy.js\" && node cypress/support/open_report.js || node cypress/support/open_report.js",
+    "slider": "cypress run --spec \"cypress/e2e/CuracaoFunctionalFourDaily.cy.js\" --env viewportWidth=1920 --env viewportHeight=1080 && node cypress/support/open_Image.js || node cypress/support/open_Image.js",
     "start-local-server": "http-server",
     "all_lang": "npx cypress run --spec \"cypress/e2e/TestPayment.cy.js\" --env all=true",
     "not_all_lang": "npx cypress run --spec \"cypress/e2e/TestPayment.cy.js\" --env all=false",
