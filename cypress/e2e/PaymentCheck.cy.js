@@ -1,7 +1,9 @@
 import '../support/commands.js';
 import * as cur from '../support/data.js';
 import getExelKeys from '../support/exel_key_export.js';
-
+import '../cassa_help/login_projects.js'
+import '../cassa_help/check_dep.js'
+import '../cassa_help/check_wihdraw.js'
 
 
 describe('AllRight', () => {
@@ -738,135 +740,38 @@ describe('Viks', () => {
 
 }) 
 
-describe('SuperCat', () => {
+describe.only('SuperCat', () => {
+  
   beforeEach(async () => {
     const keys = await getExelKeys();
     Cypress.env('savedKeys', keys);
     cy.log(keys)
   })
 
-
   for(let i = 0; i < cur.SuperCatData.currency.length; i++) {
     it(cur.SuperCatData.currency[i],  () => {
       const savedKeys = Cypress.env('savedKeys');
+      cy.loginSuperCat('https://supercatcasino67.com/en/sign-in', i)
 
-
-      cy.visit('https://supercatcasino67.com/en/sign-in')
-      cy.get('input[type="email"]').type(cur.SuperCatData.login[i])
-      cy.get('input[type="password"]').first().type(cur.SuperCatData.login[i])
-      cy.get('.sign-in-form > .button').click()
-  
       cy.wait(5000)
       cy.visit('https://supercatcasino67.com/en/player/cashbox/deposit')
       cy.wait(5000)
       cy.findKey('.cashbox-content', savedKeys)
 
-        let depositFormsIds = [];
+      cy.depSuperCat(savedKeys)
 
-        cy.get('.cashbox-content')
-        .then((body) => {
-            if(body.find('.cash-item').length > 0) {
-              cy.log('Кіно буде')
-              cy.get('.cash-item')  
-              .find('.cash-item__logo')              
-              .each((form) => {           
-                const formId = form.attr('alt');  
-                depositFormsIds.push(formId);            
-              })
-              .then(() => {
-                cy.log(depositFormsIds.length);  
-              
-                if (depositFormsIds.length > 0) {
-        
-                  for(let i = 0; i < depositFormsIds.length; i++) {
-
-                    cy.log(depositFormsIds[i])
-
-                    let deposidMethod = `#cash-item-${depositFormsIds[i]} > .cash-item > .cash-item__limits`;
-                    let depositForm = `.col-auto`;
-                    let radiobutton = 'input[type="radio"]';
-                    
-                    //Два костиля, оскільки деякі платіжні методи пишуться якось унікально, постараюсь виправити
-                    if(depositFormsIds[i] == `bank transfer token`) {
-                      depositFormsIds[i] = 'bank transfer token';
-                      deposidMethod = `#cash-item-${depositFormsIds[i].replace(/\s/g, '\\\ ')} > .cash-item > .cash-item__limits`;
-
-                      cy.get(`#cash-item-${depositFormsIds[i].replace(/\s/g, '\\\ ')} > .cash-item`).click();
-                      cy.findKey('.player-modal__content', savedKeys)
-                      cy.CheckImage(`#cash-item-${depositFormsIds[i].replace(/\s/g, '\\\ ')}`, `img`)
-                      cy.CheckLimits(deposidMethod, depositForm, radiobutton, true)
-                    } 
-                    
-                    else if(depositFormsIds[i] == `bank transfer voucher`) {
-                      depositFormsIds[i] = 'bank transfer voucher';
-                      deposidMethod = `#cash-item-${depositFormsIds[i].replace(/\s/g, '\\\ ')} > .cash-item > .cash-item__limits`;
-
-                      cy.get(`#cash-item-${depositFormsIds[i].replace(/\s/g, '\\\ ')} > .cash-item`).click();
-                      cy.findKey('.player-modal__content', savedKeys)
-                      cy.CheckImage(`#cash-item-${depositFormsIds[i].replace(/\s/g, '\\\ ')}`, `img`)
-                      cy.CheckLimits(deposidMethod, depositForm, radiobutton, true)
-                    }
-                    
-                    else{
-
-                      cy.get(`#cash-item-${depositFormsIds[i]} > .cash-item`).click()       
-                      cy.findKey('.player-modal__content', savedKeys)     
-                      cy.CheckImage(`#cash-item-${depositFormsIds[i]}`, `img`)
-                      cy.CheckLimits(deposidMethod, depositForm, radiobutton, true)
-                    }
-                  }
-                        
-                } else {
-                  cy.log('sho')
-                }
-              
-              })  
-            } else {
-                cy.log('НІЧОГО НЕМА')
-                cy.findKey('.cashbox-content', savedKeys)
-            }
-        })
-
-        cy.visit('https://supercatcasino67.com/en/player/cashbox/withdraw')
+      cy.visit('https://supercatcasino67.com/en/player/cashbox/withdraw')
+      cy.wait(7000)
+      cy.findKey('.cashbox-content', savedKeys)
   
-        cy.wait(7000)
-  
-        cy.findKey('.cashbox-content', savedKeys)
-  
-        let withdrawFormsIds = [];
-
-        cy.get('.cashbox-content')
-        .then((body) => {
-            if(body.find('.cash-item').length > 0) {
-              cy.get('.cash-item')  
-              .find('.cash-item__logo')              
-              .each((form) => {           
-                const formId = form.attr('alt');  
-                withdrawFormsIds.push(formId);            
-              })
-              .then(() => {
-                cy.log(withdrawFormsIds.length);  
-              
-                if (withdrawFormsIds.length > 0) {
-        
-                  for(let i = 0; i < withdrawFormsIds.length; i++) {
-                    cy.get(`#cash-item-${withdrawFormsIds[i]} > .cash-item`)
-                      .click()       
-                      cy.findKey('.player-modal__content', savedKeys)
-                  }
-                }
-              });
-            } else {
-                cy.log('НІЧОГО НЕМА')
-                cy.findKey('.cashbox-content', savedKeys)
-            }
-        })
-  
+      cy.withdrawSuperCat(savedKeys)
     })
   }
+
 })
 
 describe('Magic365', () => {
+
   beforeEach(async () => {
     const keys = await getExelKeys();
     Cypress.env('savedKeys', keys);
@@ -876,83 +781,51 @@ describe('Magic365', () => {
   for (let i = 0; i < cur.Magic365Data.currency.length; i++) {
     it(cur.Magic365Data.currency[i], () => {
       const savedKeys = Cypress.env('savedKeys');
-      cy.visit('https://magic365.com/en#sign-in')
-      cy.get('input[type="email"]').type(cur.Magic365Data.login[i])
-      cy.get('input[type="password"]').first().type(cur.Magic365Data.login[i])
-      cy.get('#signinform > .submit').click()
+      cy.loginMagic365('https://magic365.com/en#sign-in', i)
 
       cy.wait(5000)
       cy.visit('https://magic365.com/en#cashbox-deposit')
       cy.wait(4000)
+      cy.findKey('#profile-modal', savedKeys)
 
-      cy.findKey('#profile-modal > .content > .payments_gallery_wrap', savedKeys)
-
-      const depositFormsIds = []
-
-      cy.get('.payments_gallery_wrap')
-        .then((body) => {
-          if (body.find('form').length > 0) {
-            cy.log('Кіно буде')
-            cy.get('.item')
-              .find('form')
-              .each((form) => {
-                const formId = form.attr('id')
-                depositFormsIds.push(formId)
-              })
-              .then(() => {
-                cy.log(depositFormsIds.length)
-
-                if (depositFormsIds.length > 0) {
-                  for (let i = 0; i < depositFormsIds.length; i++) {
-                    cy.findKey(`#${depositFormsIds[i]}`, savedKeys)
-                    cy.CheckImage(`[data-key="${i}"]`, 'img')
-
-                    const deposidMethod = `#${depositFormsIds[i]} > .form_header > .info_wrap > .payment_limits`
-                    const depositForm = `#${depositFormsIds[i]}`
-                    const radiobutton = '[class="checkbox"] input[type="radio"][name="PaymentForm[predefinedValue]"]'
-
-                    cy.CheckLimits(deposidMethod, depositForm, radiobutton)
-                  }
-                } else {
-                  cy.log('sho')
-                }
-              })
-          } else {
-            cy.log('НІЧОГО НЕМА')
-            cy.findKey('#profile-modal > .content > .payments_gallery_wrap', savedKeys)
-          }
-        })
+      cy.depMagic365(savedKeys)
 
       cy.visit('https://magic365.com/en#cashbox-withdraw')
       cy.wait(2000)
-      cy.findKey('#profile-modal > .content > .payments_gallery_wrap', savedKeys)
+      cy.findKey('#profile-modal', savedKeys)
 
-      const withdrawFormsIds = []
-
-      cy.get('.payments_gallery_wrap')
-        .then((body) => {
-          if (body.find('form').length > 0) {
-            cy.get('div.item')
-              .find('form')
-              .each((form) => {
-                const formId = form.attr('id')
-                withdrawFormsIds.push(formId)
-              })
-              .then(() => {
-                cy.log(withdrawFormsIds.length)
-
-                if (withdrawFormsIds.length > 0) {
-                  for (let i = 0; i < withdrawFormsIds.length; i++) {
-                    cy.findKey(`#${withdrawFormsIds[i]}`, savedKeys)
-                    cy.CheckImage(`[data-key="${i}"]`, 'img')
-                  }
-                }
-              })
-          } else {
-            cy.log('НІЧОГО НЕМА')
-            cy.findKey('#profile-modal > .content > .payments_gallery_wrap', savedKeys)
-          }
-        })
+      cy.withdrawMagic365(savedKeys)
     })
   }
+
+})
+
+describe('Spinado', () => {
+
+  beforeEach(async () => {
+    const keys = await getExelKeys();
+    Cypress.env('savedKeys', keys);
+    cy.log(keys)
+  })
+
+  for(let i = 0; i < cur.SpinadoData.currency.length; i++) {
+    it(cur.SpinadoData.currency[i],  () => {
+      const savedKeys = Cypress.env('savedKeys');
+      cy.loginSpinado('https://spinado1.com/en#sign-in', i)
+
+      cy.wait(3000)
+      cy.visit('https://spinado1.com/en#cashbox-deposit')
+      cy.wait(3000)
+      cy.findKey('.popup_content', savedKeys)
+
+      cy.depSpinado(savedKeys)
+
+      cy.visit('https://spinado1.com/en#cashbox-withdraw')
+      cy.wait(2000)
+      cy.findKey('.popup_content', savedKeys)
+
+      cy.withdrawSpinado(savedKeys) 
+    })
+  }
+
 })

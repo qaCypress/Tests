@@ -371,3 +371,12 @@ export const Magic365Data = {
     ]
   }
 
+export const SpinadoData = {
+    lang: ['ru', 'en', 'pt', 'pl', 'kk', 'es'],
+    
+    currency: ['BRL'],
+
+    login: ['cypress_test_brl@gmail.com'],
+
+    passwords: ['111111']
+}
