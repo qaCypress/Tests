@@ -5,6 +5,8 @@ module.exports = defineConfig({
     reporter: 'cypress-mochawesome-reporter',
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
+      require('@cypress/grep/src/plugin')(config);
+      return config;
     },
     "viewportWidth": 1920,
     "viewportHeight": 1080,
@@ -17,8 +19,8 @@ module.exports = defineConfig({
     numTestsKeptInMemory: 0,
   },
   "retries": {
-    "runMode": 2,
-    "openMode": 2
+    "runMode": 1,
+    "openMode": 1
   },
 
   reporterOptions: {

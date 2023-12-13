@@ -2,31 +2,306 @@ import '../support/commands.js';
 
 
 Cypress.Commands.add('depAllright', (keys) => { 
+  let depositFormsIds = [];
+  cy.get('.content')
+  .then((body) => {
+      if(body.find('form').length > 0) {
+        cy.log('Кіно буде')
+        cy.get('.payment_forms')
+        .find('form')            
+        .each((form) => {           
+          const formId = form.attr('id');  
+          depositFormsIds.push(formId);            
+        })
+        .then(() => { 
+          cy.log(depositFormsIds.length);  
+        
+          if (depositFormsIds.length > 0) {
+  
+            for(let i = 0; i < depositFormsIds.length; i++) {
+              
+              cy.findKey(`[data-key="${i}"]`, keys)
+              cy.CheckImage(`[data-key="${i}"]`, `.image`)
 
+              let deposidMethod = `[data-key="${i}"] > .form_row > .limit`;
+              let depositForm = `#${depositFormsIds[i]}`;
+              let radiobutton = '.form-group.radio input[name="predefinedValue"]';
+
+              cy.CheckLimits(deposidMethod, depositForm, radiobutton)
+             
+            }
+                  
+          } else {
+            cy.log('sho')
+          }
+        
+        })  
+      } else {
+          cy.log('НІЧОГО НЕМА')
+          cy.findKey(`.popup`, keys)
+      }
+  })
 })
 
 Cypress.Commands.add('depLuckyBird', (keys) => { 
+  let depositFormsIds = [];
 
+
+  cy.get('.cashbox_content')
+  .then((body) => {
+      if(body.find('form').length > 0) {
+        cy.log('Кіно буде')
+        cy.get('.payment__item')  
+        .find('form')              
+        .each((form) => {           
+          const formId = form.attr('id');  
+          depositFormsIds.push(formId);            
+        })
+        .then(() => {
+          cy.log(depositFormsIds.length);  
+        
+          if (depositFormsIds.length > 0) {
+  
+            for(let i = 0; i < depositFormsIds.length; i++) {  
+              cy.findKey(`#${depositFormsIds[i]}`, keys)     
+              cy.CheckImage(`[data-key="${i}"]`, `.image`)
+              
+              let deposidMethod = `[data-key="${i}"] > .footer > .text`;
+              let depositForm = `#${depositFormsIds[i]}`;
+              let radiobutton = '.form-row-amount-variants input[type="radio"][name="predefinedValue"]';
+
+              cy.CheckLimits(deposidMethod, depositForm, radiobutton)
+
+            }
+                  
+          } else {
+            cy.log('sho')
+          }
+        
+        })  
+      } else {
+          cy.log('НІЧОГО НЕМА')
+          cy.findKey(`.cashbox_content > .payment__gallery`, keys)  
+      }
+  })
 })
 
 Cypress.Commands.add('depSlottica', (keys) => { 
+  let depositFormsIds = [];
 
+
+  cy.get('.payments_gallery_wrap')
+  .then((body) => {
+      if(body.find('form').length > 0) {
+        cy.log('Кіно буде')
+        cy.get('.item')  
+        .find('form')              
+        .each((form) => {           
+          const formId = form.attr('id');  
+          depositFormsIds.push(formId);            
+        })
+        .then(() => {
+          cy.log(depositFormsIds.length);  
+        
+          if (depositFormsIds.length > 0) {
+  
+            for(let i = 0; i < depositFormsIds.length; i++) {
+             
+              cy.findKey(`#${depositFormsIds[i]}`, keys)  
+              cy.CheckImage(`[data-key="${i}"]`, `img`)
+
+              let deposidMethod = `[data-key="${i}"] > .payment_card `;
+              let depositForm = `#${depositFormsIds[i]}`;
+              let radiobutton = '[class="form-group checkbox variant"] input[type="radio"][name="predefinedValue"]';
+
+              cy.CheckLimits(deposidMethod, depositForm, radiobutton)    
+ 
+            }
+                  
+          } else {
+            cy.log('sho')
+          }
+        
+        })  
+      } else {
+          cy.log('НІЧОГО НЕМА')
+          cy.findKey(`.popup_content`, keys)  
+          
+      }
+  })
 })
 
 Cypress.Commands.add('depSlottyWay', (keys) => { 
+  let depositFormsIds = [];
+  cy.get('.payment__gallery')
+  .then((body) => {
+      if(body.find('form').length > 0) {
+        cy.log('Кіно буде')
+        cy.get('.item')  
+        .find('form')              
+        .each((form) => {           
+          const formId = form.attr('id');  
+          depositFormsIds.push(formId);            
+        })
+        .then(() => {
+          cy.log(depositFormsIds.length);  
+        
+          if (depositFormsIds.length > 0) {
+  
+            for(let i = 0; i < depositFormsIds.length; i++) {     
+              cy.CheckImage(`[data-key="${i}"]`, `.image`)
+              cy.findKey(`#${depositFormsIds[i]}`, keys) 
 
+             let deposidMethod = `[data-key="${i}"] > .footer `;
+             let depositForm = `#${depositFormsIds[i]}`;
+             let radiobutton = '[class="row form-row-amount"] input[type="radio"][name="predefinedValue"]';
+
+             cy.CheckLimits(deposidMethod, depositForm, radiobutton)   
+    
+            }
+                  
+          } else {
+            cy.log('sho')
+          }
+        
+        })  
+      } else {
+          cy.log('НІЧОГО НЕМА')
+          cy.findKey(`.popup > .content > .modal_profile_content > .cashbox_content > .payment__gallery`, keys)
+      }
+  })
 })
 
 Cypress.Commands.add('depSpinamba', (keys) => { 
+  let depositFormsIds = [];
 
+
+  cy.get('.payment__gallery')
+  .then((body) => {
+      if(body.find('form').length > 0) {
+        cy.log('Кіно буде')
+        cy.get('.item')  
+        .find('form')              
+        .each((form) => {           
+          const formId = form.attr('id');  
+          depositFormsIds.push(formId);            
+        })
+        .then(() => {
+          cy.log(depositFormsIds.length);  
+        
+          if (depositFormsIds.length > 0) {
+  
+            for(let i = 0; i < depositFormsIds.length; i++) {      
+              cy.findKey(`#${depositFormsIds[i]}`, keys)             
+              cy.CheckImage(`[data-key="${i}"]`, `.image`)
+
+             let deposidMethod = `[data-key="${i}"] > .footer `;
+             let depositForm = `#${depositFormsIds[i]}`;
+             let radiobutton = '[class="row form-row-amount"] input[type="radio"][name="predefinedValue"]';
+
+             cy.CheckLimits(deposidMethod, depositForm, radiobutton)    
+             
+    
+            }
+                  
+          } else {
+            cy.log('sho')
+          }
+        
+        })  
+      } else {
+          cy.log('НІЧОГО НЕМА')
+          cy.findKey(`.popup`, keys)   
+      }
+  })
 })
 
 Cypress.Commands.add('depSpinBounty', (keys) => { 
+ 
+  let depositFormsIds = [];
 
+
+  cy.get('.payments_gallery_wrap')
+  .then((body) => {
+      if(body.find('form').length > 0) {
+        cy.log('Кіно буде')
+        cy.get('.item')  
+        .find('form')              
+        .each((form) => {           
+          const formId = form.attr('id');  
+          depositFormsIds.push(formId);            
+        })
+        .then(() => {
+          cy.log(depositFormsIds.length);  
+        
+          if (depositFormsIds.length > 0) {
+  
+            for(let i = 0; i < depositFormsIds.length; i++) { 
+              cy.findKey(`#${depositFormsIds[i]}`, keys)             
+              cy.CheckImage(`[data-key="${i}"]`, `img`)
+
+             let deposidMethod = `#${depositFormsIds[i]} > .form_header > .info_wrap > .payment_limits`;
+             let depositForm = `#${depositFormsIds[i]}`;
+             let radiobutton = '[class="checkbox"] input[type="radio"][name="PaymentForm[predefinedValue]"]';
+
+             cy.CheckLimits(deposidMethod, depositForm, radiobutton) 
+    
+            }
+                  
+          } else {
+            cy.log('sho')
+          }
+        
+        })  
+      } else {
+          cy.log('НІЧОГО НЕМА')
+          cy.findKey(`#profile-modal > .content > .payments_gallery_wrap`, keys)
+      }
+  })
 })
 
 Cypress.Commands.add('depViks', (keys) => { 
+  let depositFormsIds = [];
+  cy.get('.payments_gallery')
+  .then((body) => {
+      if(body.find('form').length > 0) {
+        cy.log('Кіно буде')
+        cy.get('.item')  
+        .find('form')              
+        .each((form) => {           
+          const formId = form.attr('id');  
+          depositFormsIds.push(formId);            
+        })
+        .then(() => {
+          cy.log(depositFormsIds.length);  
+        
+          if (depositFormsIds.length > 0) {
+  
+            for(let i = 0; i < depositFormsIds.length; i++) {
+              cy.CheckImage(`:nth-child(${i + 1}) > .payment_item `, `img`)              
+              cy.findKey(`#${depositFormsIds[i]}`, keys)
+               
 
+              let deposidMethod = `:nth-child(${i + 1}) > .payment_item > .payment_limits`;
+              let depositForm = `#modal-${depositFormsIds[i].substring(depositFormsIds[i].indexOf("-") + 1)}`;
+              let radiobutton = 'input[type="radio"][name="predefinedValue"]';
+              
+
+              cy.CheckLimits(deposidMethod, depositForm, radiobutton)
+             
+    
+            }
+                  
+          } else {
+            cy.log('sho')
+          }
+        
+        })  
+      } else {
+          cy.log('НІЧОГО НЕМА')
+          cy.findKey('.popup_content', keys)
+      }
+  })
 })
 
 Cypress.Commands.add('depSuperCat', (keys) => { 

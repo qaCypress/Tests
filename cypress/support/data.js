@@ -7,6 +7,8 @@ export const KEYS = ['t.deposit', 't.make', 't.payment', 't.withdraw', 't.profil
 // /\w+(\.\w+){2,}/
 
 export const AllRightData = {
+    url: 'https://allrightcasino.com',
+
     lang: ['en', 'ru', 'de', 'es', 'pl', 'no', 'pt', 'fi', 'ja', 'sv', 'fr', 'tr'],
 
     currency: 
@@ -17,7 +19,8 @@ export const AllRightData = {
     'BRL', 'CAD', 'AUD', 
     'CHF', 'NZD', 'INR', 
     'JPY', 'AZN', 'KZT', 
-    'GEL'],
+    'GEL'
+    ],
 
     login:
     [
@@ -61,6 +64,8 @@ export const testData = {
 }
 
 export const LuckyBirdData = {
+    url: 'https://luckybirdcasino.com',
+
     lang: ['en', 'ru', 'de', 'es', 'pl', 'no', 'pt', 'fi', 'tr'],
 
     currency: 
@@ -78,7 +83,7 @@ export const LuckyBirdData = {
         'cypress_test_eur@gmail.com', 'cypress_test_pln@gmail.com', 'cypress_test_usd@gmail.com',
         'cypress_test_ars@gmail.com', 'cypress_test_try@gmail.com', 'cypress_test_rub@gmail.com',
         'cypress_test_kzt@gmail.com', 'cypress_test_mxn@gmail.com', 'cypress_test_pen@gmail.com',
-        'cypress_test_clp@gmail.com', 'cypress_test_zar@gmail.com', 'cypress_test_nok@gmail.com',
+       'cypress_test_clp@gmail.com', 'cypress_test_zar@gmail.com', 'cypress_test_nok@gmail.com',
         'cypress_test_brl@gmail.com', 'cypress_test_cad@gmail.com', 'cypress_test_aud@gmail.com',
         'cypress_test_chf@gmail.com', 'cypress_test_nzd@gmail.com', 'cypress_test_inr@gmail.com',
         'cypress_test_jpy@gmail.com'
@@ -109,7 +114,11 @@ export const LuckyBirdData = {
 }
 
 export const SlotticaData = {
-    lang: ['en', 'ru', 'uk', 'de', 'es', 'pl', 'pt', 'fi', 'no', 'sv', 'ja', 'fr', 'kk', 'hi', 'tr'],
+    url: 'https://slottica.com',
+
+    lang: [
+    'en', 'ru', 'de', 
+    'es', 'pl', 'pt', 'fi', 'no', 'sv', 'ja', 'fr', 'kk', 'hi', 'tr', 'bn', 'az'],
 
     currency:
     ['EUR', 'PLN', 'UAH', 
@@ -119,7 +128,8 @@ export const SlotticaData = {
     'BRL', 'CAD', 'AUD', 
     'CHF', 'NZD', 'INR', 
     'JPY', 'AZN', 'KZT',
-    'TRY'],
+    'TRY'
+],
 
 
     login: [
@@ -130,7 +140,7 @@ export const SlotticaData = {
         'cypress_test_brl@gmail.com', 'cypress_test_cad@gmail.com', 'cypress_test_aud@gmail.com',
         'cypress_test_chf@gmail.com', 'cypress_test_nzd@gmail.com', 'cypress_test_inr@gmail.com',
         'cypress_test_jpy@gmail.com', 'cypress_test_azn@gmail.com', 'cypress_test_kzt@gmail.com',
-        'cypress_test_try@gmail.com'
+       'cypress_test_try@gmail.com'
     ],
 
     emails:
@@ -154,6 +164,8 @@ export const SlotticaData = {
 }
 
 export const SlottyWayData = {
+    url: 'https://slottyway.com',
+
     lang: ['en', 'ru', 'de', 'es', 'pl', 'pt', 'fi', 'no', 'sv', 'tr'],
 
     currency: 
@@ -199,15 +211,17 @@ export const SlottyWayData = {
 }
 
 export const SpinambaData = {
+    url: 'https://spinamba.com',
+
     lang: ['en', 'ru', 'de', 'es', 'pl', 'pt', 'fi', 'no', 'sv', 'tr'],
 
     currency: 
     ['EUR', 'PLN', 'USD',
-    'ARS', 'TRY', 'RUB', 
+   'ARS', 'TRY', 'RUB', 
     'KZT', 'MXN', 'PEN',
     'CLP', 'ZAR', 'NOK', 
     'BRL', 'CAD', 'AUD', 
-    'CHF', 'NZD', 'INR', 
+   'CHF', 'NZD', 'INR', 
     'JPY'
     ],
 
@@ -244,6 +258,8 @@ export const SpinambaData = {
 }
 
 export const SpinBountyData = {
+    url: 'https://spinbounty.com',
+
     lang: ['en', 'ru', 'pl', 'de', 'fr'],
 
     currency:
@@ -262,10 +278,10 @@ export const SpinBountyData = {
     [
         'cypress_test_eur@gmail.com', 'cypress_test_pln@gmail.com', 'cypress_test_pln@gmail.com',
         'cypress_test_uzs@gmail.com', 'cypress_test_usd@gmail.com', 'cypress_test_rub@gmail.com',
-        'cypress_test_ars@gmail.com', 'cypress_test_mxn@gmail.com', 'cypress_test_pen@gmail.com',
+       'cypress_test_ars@gmail.com', 'cypress_test_mxn@gmail.com', 'cypress_test_pen@gmail.com',
         'cypress_test_clp@gmail.com', 'cypress_test_zar@gmail.com', 'cypress_test_nok@gmail.com',
         'cypress_test_brl@gmail.com', 'cypress_test_cad@gmail.com', 'cypress_test_aud@gmail.com',
-        'cypress_test_chf@gmail.com', 'cypress_test_nzd@gmail.com', 'cypress_test_inr@gmail.com',
+       'cypress_test_chf@gmail.com', 'cypress_test_nzd@gmail.com', 'cypress_test_inr@gmail.com',
         'cypress_test_jpy@gmail.com', 'cypress_test_azn@gmail.com', 'cypress_test_kzt@gmail.com',
         'cypress_test_try@gmail.com'
     ],
@@ -292,6 +308,8 @@ export const SpinBountyData = {
 }
 
 export const ViksData = {
+url: 'https://viks.com',
+
 lang: ['en', 'ru', 'uz'], 
 
 currency : ['UZS'],
@@ -305,12 +323,14 @@ passwords : ['MLlXgF3SN6']
 }
 
 export const SuperCatData = {
+    url: 'https://supercatcasino67.com',
+
     lang: ['en', 'ru', 'de', 'pt', 'fi', 'no', 'pl', 'tr', 'es'],
 
     currency:
     ['EUR', 'PLN', 'USD',
     'ARS', 'TRY', 'RUB', 
-    'KZT', 'MXN', 'PEN',
+   'KZT', 'MXN', 'PEN',
     'CLP', 'ZAR', 'NOK', 
     'BRL', 'CAD', 'AUD', 
     'CHF'
@@ -319,9 +339,9 @@ export const SuperCatData = {
     login:
     [
         'cypress_test_eur@gmail.com', 'cypress_test_pln@gmail.com', 'cypress_test_usd@gmail.com',
-        'cypress_test_ars@gmail.com', 'cypress_test_try@gmail.com', 'cypress_test_rub@gmail.com',
-        'cypress_test_kzt@gmail.com', 'cypress_test_mxn@gmail.com', 'cypress_test_pen@gmail.com',
-        'cypress_test_clp@gmail.com', 'cypress_test_zar@gmail.com', 'cypress_test_nok@gmail.com',
+       'cypress_test_ars@gmail.com', 'cypress_test_try@gmail.com', 'cypress_test_rub@gmail.com',
+       'cypress_test_kzt@gmail.com', 'cypress_test_mxn@gmail.com', 'cypress_test_pen@gmail.com',
+       'cypress_test_clp@gmail.com', 'cypress_test_zar@gmail.com', 'cypress_test_nok@gmail.com',
         'cypress_test_brl@gmail.com', 'cypress_test_cad@gmail.com', 'cypress_test_aud@gmail.com',
         'cypress_test_chf@gmail.com'
     ],
@@ -347,7 +367,11 @@ export const SuperCatData = {
 }
 
 export const Magic365Data = {
-    lang: ['en', 'ru', 'pl'],
+
+    url: 'https://magic365.com',
+
+    lang: ['en', 
+    'ru', 'pl'],
   
     currency: [
       'PLN', 'AUD', 'AZN',
@@ -372,7 +396,9 @@ export const Magic365Data = {
   }
 
 export const SpinadoData = {
-    lang: ['ru', 'en', 'pt', 'pl', 'kk', 'es'],
+    url: 'https://spinado1.com',
+
+    lang: ['en', 'ru', 'pt', 'pl', 'kk', 'es'],
     
     currency: ['BRL'],
 

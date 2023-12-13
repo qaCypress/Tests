@@ -2,6 +2,7 @@
   "devDependencies": {
     "@babel/core": "^7.23.5",
     "@babel/preset-env": "^7.23.5",
+    "@cypress/grep": "^4.0.1",
     "@testomatio/reporter": "^0.7.6",
     "@types/opn": "^5.5.0",
     "cypress": "^12.17.4",
@@ -12,17 +13,24 @@
   },
   "scripts": {
     "test:cypress": "cypress run",
-    "cassa": "npx cypress run --spec \"cypress/e2e/PaymentCheck.cy.js\" && node cypress/support/open_report.js || node cypress/support/open_report.js",
+    "cassa": "npx cypress run --spec \"cypress/e2e/PaymentCheck.cy.js\" --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js",
     "slider": "cypress run --spec \"cypress/e2e/CuracaoFunctionalFourDaily.cy.js\" --env viewportWidth=1920 --env viewportHeight=1080 && node cypress/support/open_Image.js || node cypress/support/open_Image.js",
     "start-local-server": "http-server",
     "all_lang": "npx cypress run --spec \"cypress/e2e/TestPayment.cy.js\" --env all=true",
     "not_all_lang": "npx cypress run --spec \"cypress/e2e/TestPayment.cy.js\" --env all=false",
-    "updateAll": "del package-lock.json && rmdir /s /q node_modules && npm install"
+    "updateAll": "del package-lock.json && rmdir /s /q node_modules && npm install",
+
+    "AllRight": "npx cypress run --env grepTags=\"@AR\" --env AllLang='true' --spec \"cypress/e2e/PaymentCheck.cy.js\" && node cypress/support/open_report.js || node cypress/support/open_report.js",
+    
+    "Slottica": "npx cypress run --env AllLang=true --spec cypress/e2e/PaymentCheck.cy.js && node cypress/support/open_report.js || node cypress/support/open_report.js",
+
+
+    "Magic": "npx cypress run --env grepTags=\"@Magic\" --env AllLang='true' --spec \"cypress/e2e/PaymentCheck.cy.js\" && node cypress/support/open_report.js || node cypress/support/open_report.js"
   },
   "env": {
-    "all": true
+    "AllLang": false
   },
-  "browser": "chrome",
+  "browser": "electron",
   "integrationFolder": "cypress/e2e",
   "dependencies": {
     "glob": "^10.3.10",
