@@ -20,12 +20,17 @@
     "not_all_lang": "npx cypress run --spec \"cypress/e2e/TestPayment.cy.js\" --env all=false",
     "updateAll": "del package-lock.json && rmdir /s /q node_modules && npm install",
 
-    "AllRight": "npx cypress run --env grepTags=\"@AR\" --env AllLang='true' --spec \"cypress/e2e/PaymentCheck.cy.js\" && node cypress/support/open_report.js || node cypress/support/open_report.js",
+    "AllRightCassa": "npx cypress run --env AllLang=true,grepTags=\"@AR\" --spec \"cypress/e2e/PaymentCheck.cy.js\" --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js",
+    "LuckyBirdCassa": "npx cypress run --env AllLang=true,grepTags=\"@LB\" --spec cypress/e2e/PaymentCheck.cy.js --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js",
+    "SlotticaCassa": "npx cypress run --env AllLang=true,grepTags=\"@Sl\" --spec cypress/e2e/PaymentCheck.cy.js --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js",
+    "SlottyWayCassa": "npx cypress run --env AllLang=true,grepTags=\"@SW\" --spec \"cypress/e2e/PaymentCheck.cy.js\" --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js",
+    "SpinambaCassa": "npx cypress run --env AllLang=true,grepTags=\"@Spinamba\" --spec cypress/e2e/PaymentCheck.cy.js --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js",
+    "SpinBountyCassa": "npx cypress run --env AllLang=true,grepTags=\"@SB\" --spec \"cypress/e2e/PaymentCheck.cy.js\" --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js",
+    "ViksCassa": "npx cypress run --env AllLang=true,grepTags=\"@Viks\" --spec cypress/e2e/PaymentCheck.cy.js --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js",
+    "SuperCatCassa": "npx cypress run --env AllLang=true,grepTags=\"@SC\" --spec \"cypress/e2e/PaymentCheck.cy.js\" --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js",
+    "Magic365Cassa": "npx cypress run --env AllLang=true,grepTags=\"@Magic\" --spec cypress/e2e/PaymentCheck.cy.js --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js",
+    "SpinadoCassa": "npx cypress run --env AllLang=true,grepTags=\"@Spinado\" --spec \"cypress/e2e/PaymentCheck.cy.js\" --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js"
     
-    "Slottica": "npx cypress run --env AllLang=true --spec cypress/e2e/PaymentCheck.cy.js && node cypress/support/open_report.js || node cypress/support/open_report.js",
-
-
-    "Magic": "npx cypress run --env grepTags=\"@Magic\" --env AllLang='true' --spec \"cypress/e2e/PaymentCheck.cy.js\" && node cypress/support/open_report.js || node cypress/support/open_report.js"
   },
   "env": {
     "AllLang": false
