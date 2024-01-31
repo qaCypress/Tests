@@ -8,8 +8,8 @@ import '../cassa_help/check_wihdraw.js'
 const { AllRightData, LuckyBirdData, SlotticaData, SlottyWayData, SpinambaData, 
   SpinBountyData, ViksData, SuperCatData, Magic365Data, SpinadoData } = ProjectsData;
 
-const AllLang = Cypress.env('AllLang');
-//const AllLang = false;
+//const AllLang = Cypress.env('AllLang');
+const AllLang = true;
 
 
 before(async () => {

@@ -1,7 +1,7 @@
 
 
 export const KEYS = ['t.deposit', 't.make', 't.payment', 't.withdraw', 't.profile', 'error.', 'payment.error', 'payment.validation', 't.limits', 't.total', 't.apply',
-                     't.identifier', 't.securityCode',]
+                     't.identifier', 't.securityCode', 't.cashbox']
 
 
 // /\w+(\.\w+){2,}/
@@ -117,8 +117,8 @@ export const SlotticaData = {
     url: 'https://slottica.com',
 
     lang: [
-    'en', 'ru', 'de', 
-    'es', 'pl', 'pt', 'fi', 'no', 'sv', 'ja', 'fr', 'kk', 'hi', 'tr', 'bn', 'az'],
+    'en', 'ru', 'de',  'es', 'pl', 'pt', 'fi', 'no', 
+    'sv', 'ja', 'fr', 'kk', 'hi', 'tr', 'bn', 'az'],
 
     currency:
     ['EUR', 'PLN', 'UAH', 
