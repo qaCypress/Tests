@@ -126,7 +126,7 @@ Cypress.Commands.add('withdrawSlottyWay', (keys) => {
 Cypress.Commands.add('withdrawSpinamba', (keys) => { 
   let withdrawFormsIds = [];
 
-  cy.get('.payment__gallery')
+  cy.get('.modal_profile_content')
   .then((body) => {
       if(body.find('form').length > 0) {
         cy.get('div.payment__item')  

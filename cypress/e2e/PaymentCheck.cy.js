@@ -12,6 +12,7 @@ const { AllRightData, LuckyBirdData, SlotticaData, SlottyWayData, SpinambaData,
 const AllLang = true;
 
 
+
 before(async () => {
   const keys = await getExelKeys();
   Cypress.env('savedKeys', keys);
@@ -140,7 +141,7 @@ describe('SlottyWay', {tags: '@SW'},() => {
 
 })
 
-describe('Spinamba', {tags: '@Spinamba'},() => { 
+describe.only('Spinamba', {tags: '@Spinamba'},() => { 
 
   for(let j = 0; j < (AllLang ? SpinambaData.lang.length : 1); j++){
     describe(SpinambaData.lang[j], () => {
