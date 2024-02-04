@@ -141,7 +141,7 @@ describe('SlottyWay', {tags: '@SW'},() => {
 
 })
 
-describe.only('Spinamba', {tags: '@Spinamba'},() => { 
+describe('Spinamba', {tags: '@Spinamba'},() => { 
 
   for(let j = 0; j < (AllLang ? SpinambaData.lang.length : 1); j++){
     describe(SpinambaData.lang[j], () => {
