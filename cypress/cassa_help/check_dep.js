@@ -176,7 +176,7 @@ Cypress.Commands.add('depSpinamba', (keys) => {
   let depositFormsIds = [];
 
 
-  cy.get('.payment__gallery')
+  cy.get('.modal_profile_content')
   .then((body) => {
       if(body.find('form').length > 0) {
         cy.log('Кіно буде')
