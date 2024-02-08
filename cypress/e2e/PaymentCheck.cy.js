@@ -12,6 +12,7 @@ const { AllRightData, LuckyBirdData, SlotticaData, SlottyWayData, SpinambaData,
 const AllLang = true;
 
 
+
 before(async () => {
   const keys = await getExelKeys();
   Cypress.env('savedKeys', keys);
