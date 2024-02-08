@@ -27,9 +27,9 @@
     "ViksCassa": "npx cypress run --env AllLang=true,grepTags=\"@Viks\" --spec cypress/e2e/PaymentCheck.cy.js --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js",
     "SuperCatCassa": "npx cypress run --env AllLang=true,grepTags=\"@SC\" --spec \"cypress/e2e/PaymentCheck.cy.js\" --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js",
     "Magic365Cassa": "npx cypress run --env AllLang=true,grepTags=\"@Magic\" --spec cypress/e2e/PaymentCheck.cy.js --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js",
-    "SpinadoCassa": "npx cypress run --env AllLang=true,grepTags=\"@Spinado\" --spec \"cypress/e2e/PaymentCheck.cy.js\" --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js"
-     "sliderMob": "cypress run --spec \"cypress/e2e/FourDailyMob.cy.js\" --env viewportWidth=1920 --env viewportHeight=1080 && node cypress/support/open_Image.js || node cypress/support/open_Image.js",
-    "sliderDesk": "cypress run --spec \"cypress/e2e/FourDailyDesk.cy.js\" --env viewportWidth=1920 --env viewportHeight=1080 && node cypress/support/open_Image.js || node cypress/support/open_Image.js",
+    "SpinadoCassa": "npx cypress run --env AllLang=true,grepTags=\"@Spinado\" --spec \"cypress/e2e/PaymentCheck.cy.js\" --browser chrome --headless && node cypress/support/open_report.js || node cypress/support/open_report.js",
+    "sliderMob": "cypress run --spec \"cypress/e2e/FourDailyMob.cy.js\" --env viewportWidth=1920 --env viewportHeight=1080 && node cypress/support/open_Image.js || node cypress/support/open_Image.js",
+    "sliderDesk": "cypress run --spec \"cypress/e2e/FourDailyDesk.cy.js\" --env viewportWidth=1920 --env viewportHeight=1080 && node cypress/support/open_Image.js || node cypress/support/open_Image.js"
   },
   "env": {
     "AllLang": false
