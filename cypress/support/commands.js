@@ -45,6 +45,7 @@ Cypress.Commands.add('findKey', (path, keys) => {
     }).filter(Boolean); // Filter out null values
 
     if (foundKeys.length > 0) {
+      cy.log(textContent)
       cy.failAndScreenshot(`В методі оплати присутній ключ: ${foundKeys.join(', ')}`);
     } else {
       cy.log(textContent);
@@ -89,7 +90,8 @@ Cypress.Commands.add('CheckLimits', (getDepositMethod, getDepositFormsIds, getRa
   cy.get(getDepositMethod)
   .invoke('text')
   .then((amountText) => {
-    const regex = /(\d{1,3}(?:,\d{3})*)(?:\s*-\s*(\d{1,3}(?:,\d{3})*))?/;
+    //const regex = /(\d+)\s*-\s*([\d,.]+(?:\s*|\&nbsp\;)?\d*(?:\.\d+)?(?:\s*|\&nbsp\;)?[\d,.]+)/;
+    const regex = /\s*([\d,.]+(?:\s*|\&nbsp\;)?\d*(?:\.\d+)?(?:\s*|\&nbsp\;)?[\d,.]+) -\s*([\d,.]+(?:\s*|\&nbsp\;)?\d*(?:\.\d+)?(?:\s*|\&nbsp\;)?[\d,.]+)/;
     const match = amountText.match(regex);
 
     
@@ -105,7 +107,7 @@ Cypress.Commands.add('CheckLimits', (getDepositMethod, getDepositFormsIds, getRa
         const extractedNumbers = numbers.map((match) => parseFloat(match));
         cy.log(extractedNumbers);
         minValue = extractedNumbers[0]
-        maxValue =extractedNumbers[1]
+        maxValue = extractedNumbers[1]
         cy.log(`Min limit: ${minValue}`);
         cy.log(`Max limit: ${maxValue}`);
       } else {
@@ -114,8 +116,8 @@ Cypress.Commands.add('CheckLimits', (getDepositMethod, getDepositFormsIds, getRa
   
     } else{
       if (match) {
-        minValue = parseFloat(match[1].replace(/,/g, '').trim());
-        maxValue = match[2] ? parseFloat(match[2].replace(/,/g, '').trim()) : undefined;
+        minValue = match[1].replace(/\s|\&nbsp\;|,|\./g, '')
+        maxValue = match[2].replace(/\s|\&nbsp\;|,|\./g, '')
     
         // Use the extracted numbers as needed
         cy.log(`Min limit: ${minValue}`);
