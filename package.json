@@ -6,19 +6,20 @@
     "@types/opn": "^5.5.0",
     "cypress": "^12.17.4",
     "cypress-mochawesome-reporter": "^3.6.0",
-    "fs": "^0.0.1-security",
     "opn": "^6.0.0",
     "puppeteer": "^20.7.1"
   },
   "scripts": {
     "test:cypress": "cypress run",
     "cassa": "npx cypress run --spec \"cypress/e2e/PaymentCheck.cy.js\" && node cypress/support/open_report.js || node cypress/support/open_report.js",
-    "slider": "cypress run --spec \"cypress/e2e/CuracaoFunctionalFourDaily.cy.js\" --env viewportWidth=1920 --env viewportHeight=1080 && node cypress/support/open_Image.js || node cypress/support/open_Image.js",
+    "sliderMob": "cypress run --spec \"cypress/e2e/FourDailyMob.cy.js\" --env viewportWidth=1920 --env viewportHeight=1080 && node cypress/support/open_Image.js || node cypress/support/open_Image.js",
+    "sliderDesk": "cypress run --spec \"cypress/e2e/FourDailyDesk.cy.js\" --env viewportWidth=1920 --env viewportHeight=1080 && node cypress/support/open_Image.js || node cypress/support/open_Image.js",
     "start-local-server": "http-server",
     "all_lang": "npx cypress run --spec \"cypress/e2e/TestPayment.cy.js\" --env all=true",
     "not_all_lang": "npx cypress run --spec \"cypress/e2e/TestPayment.cy.js\" --env all=false",
     "updateAll": "del package-lock.json && rmdir /s /q node_modules && npm install"
-  },
+  }
+  ,
   "env": {
     "all": true
   },
