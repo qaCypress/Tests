@@ -65,6 +65,7 @@ describe('LuckyBird', () => {
       const elementSelector = "[id^=slick-slide-control0]";
       cy.get(elementSelector).each(($element, index, $list) => {
         cy.get(`#slick-slide-control0${index}`).click({ force: true });
+        cy.wait(1000);
         cy.screenshot(`LuckyBirdMob/slide_${index + 1}_language_${lang}`, {
           capture: 'viewport',
         });
@@ -125,7 +126,7 @@ describe('Slottica', () => {
           cy.get($element).trigger('mouseup', { button: 0, clientX: endX, clientY: endY }, { force: true });
 
           cy.scrollTo('top');
-          cy.wait(250);
+          cy.wait(1000);
           cy.screenshot(`SlotticaMob/slide_${i + 1}_language_${lang}`, {
             capture: 'viewport',
           });
@@ -194,7 +195,7 @@ describe('SlottyWay', () => {
               console.log('Click successful');
             });
 
-          cy.wait(500);
+            cy.wait(1000);
           cy.screenshot(`SlottyWayMob/slide_${index + 1}_language_${lang}`, {
             capture: 'viewport',
           });
@@ -235,7 +236,7 @@ describe('Spinamba', () => {
                 console.log('Element found:', $el);
               })
               .click({ force: true });
-            cy.wait(500);
+              cy.wait(1000);
             cy.screenshot(`SpinambaMob/slide_${index + 1}_language_${lang}`, {
               capture: 'viewport',
             });
@@ -272,7 +273,7 @@ describe('SpinBounty', () => {
     it(`SpinBounty Mob ${lang}`, () => {
       cy.viewport(390, 844);
       loginSpinBounty();
-      for (let t = 0; t < languagesSpinBounty.length; t++) {
+    
         cy.visit(`https://spinbounty.com/${lang}`);
 
         cy.get('.item_banner > .game_info > .btn_block > .button').its("length").then((length) => {
@@ -285,13 +286,13 @@ describe('SpinBounty', () => {
           for (let swipeCount = 0; swipeCount < expectedCount; swipeCount++) {
             cy.get(`.ds-track:first`).scrollTo(currentScrollLeft, 0, { duration: 250 });
             cy.wait(captureInterval);
+            cy.wait(1000);
             cy.screenshot(`SpinBountyMob/slide_swipe_${swipeCount + 1}_language_${lang}`, {
               capture: 'viewport',
             });
             currentScrollLeft += scrollDistance; // Обновляем currentScrollLeft с учетом scrollDistance
           }
         });
-      }
     });
   }
 });
@@ -316,6 +317,7 @@ describe('SuperCat', () => {
       for (let v = 0; v <= 9; v++) {
         cy.get('.slick-next').each(($button, index) => {
           cy.wrap($button).click({ force: true });
+          cy.wait(1000);
           cy.screenshot(`SuperCatMob/slide_${index + 1}_language_${lang}.png`, {
             capture: 'viewport',
           });
@@ -367,6 +369,7 @@ describe('Magic365', () => {
         for (let swipeCount = 0; swipeCount < expectedCount; swipeCount++) {
           cy.get(`.ds-track:first`).scrollTo(currentScrollLeft, 0, { duration: 250 });
           cy.wait(captureInterval);
+          cy.wait(1000);
           cy.screenshot(`Magic365Mob/slide_swipe_${swipeCount + 1}_language_${lang}`, {
             capture: 'viewport',
           });
@@ -428,6 +431,7 @@ describe('Viks', () => {
           cy.get($element).trigger('mouseup', { button: 0, clientX: endX, clientY: endY }, { force: true });
 
           cy.scrollTo('top');
+          cy.wait(1000);
           cy.screenshot(`ViksMob/slide_${i + 1}_language_${lang}`, {
             capture: 'viewport',
           });
@@ -495,6 +499,7 @@ describe('Spinado', () => {
           cy.get($element).trigger('mouseup', { button: 0, clientX: endX, clientY: endY }, { force: true });
 
           cy.scrollTo('top');
+          cy.wait(1000);
           cy.screenshot(`SpinadoMob/slide_${i + 1}_language_${lang}`, {
             capture: 'viewport',
           });

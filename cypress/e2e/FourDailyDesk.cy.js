@@ -79,7 +79,8 @@ describe('LuckyBird', () => {
           .invoke('text')
           .then((text) => {
             const paragraphCount = text.split('\n').filter(Boolean).length;
-            if (paragraphCount < 3) {
+            cy.log(paragraphCount);
+            if (paragraphCount !== 3) {
               cy.fail(`Ошибка: Некорректное количество абзацев на ${lang} языке`);
             }
             cy.wait(500);
@@ -91,7 +92,7 @@ describe('LuckyBird', () => {
   }
 });
 
-describe.only('Slottica', () => {
+describe('Slottica', () => {
 
   function loginSlottica() {
     cy.visit(`https://slottica.com`);
@@ -106,7 +107,7 @@ describe.only('Slottica', () => {
   var languagesSlottica = ["ru", "en", "de", "es", "pl", "pt", "fi", "no", "sv", "ja", "kk", "fr", "hi", "bn", "az", "tr"];
   
   for (let lang of languagesSlottica) {
-    it.only(`Slottica Desk ${lang}`, () => {
+    it(`Slottica Desk ${lang}`, () => {
       cy.viewport(1920, 1080);
       loginSlottica();
       cy.visit(`https://slottica.com/${lang}`);
@@ -123,10 +124,10 @@ describe.only('Slottica', () => {
           .invoke('text')
           .then((text) => {
             const paragraphCount = text.split('\n').filter(Boolean).length;
+            cy.log(paragraphCount);
             if (paragraphCount > 3) {
               cy.fail(`Ошибка: Некорректное количество абзацов на ${lang} языке`);
             }
-            cy.log(paragraphCount);
             cy.wait(500);
             cy.get(`#slick-slide0${index} > :nth-child(1) > .item > .text_block > .button_row > .desktop`).click({ force: true });
             cy.go(-1);
@@ -137,22 +138,22 @@ describe.only('Slottica', () => {
 });
 
 describe('SlottyWay', () => {
+
   function loginSlottyWay() {
     cy.visit(`https://slottyway.com`);
     cy.get('.login > :nth-child(2) > .button').click({ force: true });
-    cy.get('.group-name-login').type("new_test_eur@gmail.com");
-    cy.get('.group-name-password').type("new_test_eur@gmail.com");
-    cy.wait(500);
-    cy.get(':nth-child(8) > .button').click({ force: true });
-    cy.wait(500);
-    cy.get('.close > .icon-close2').click({ force: true });
-  }
+    cy.get('.group-name-login').should('be.visible').type("new_test_eur@gmail.com");
+    cy.get('.group-name-password').should('be.visible').type("new_test_eur@gmail.com");
+    cy.get('#signinform_email > .form > :nth-child(4) > .button').click({ force: true });
+    cy.get('.close > .icon-close').should('be.visible').click({ force: true });
+}
 
   var languagesSlottyway = ["ru", "en", "de", "es", "pl", "pt", "fi", "no", "sv", "tr"];
 
   for (let lang of languagesSlottyway) {
     it(`SlottyWay Desk ${lang}`, () => {
       cy.viewport(1920, 1080);
+      cy.wait(500);
       loginSlottyWay();
       cy.visit(`https://slottyway.com/${lang}`);
       cy.get('[id^=slick-slide-control]').each(($element, index) => {
@@ -169,6 +170,7 @@ describe('SlottyWay', () => {
           .invoke('text')
           .then((text) => {
             const paragraphCount = text.split('\n').filter(Boolean).length;
+            
             /*
             if (paragraphCount > 7) {
               cy.fail(`Ошибка: Некорректное количество абзацев на ${lang} языке`);
@@ -211,10 +213,11 @@ describe('Spinamba', () => {
             capture: 'runner',
           });
           cy.wait(500);
-          cy.get(`[id$=${index}] > .item > .overlay > :nth-child(1) > .text > .desktop`)
+          cy.get(`#slick-slide2${index + 1} > .item > .overlay > :nth-child(1) > .text > .desktop`)
             .invoke('text')
             .then((text) => {
               const paragraphCount = text.split('\n').filter(Boolean).length;
+              console.log(paragraphCount)
               if (paragraphCount < 3) {
                 cy.log(`Ошибка: Некорректное количество абзацев на ${lang} языке`);
               }
