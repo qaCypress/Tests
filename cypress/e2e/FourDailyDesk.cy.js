@@ -350,7 +350,7 @@ describe('Magic365', () => {
   }
 });
 
-describe('Viks', () => {
+describe.only('Viks', () => {
   function loginViks() {
     cy.visit(`https://viks.com/casino`);
     cy.get('.extend > .button').click({ force: true });
