@@ -65,6 +65,7 @@ describe('LuckyBird', () => {
       const elementSelector = "[id^=slick-slide-control0]";
       cy.get(elementSelector).each(($element, index, $list) => {
         cy.get(`#slick-slide-control0${index}`).click({ force: true });
+        cy.wait(1000);
         cy.screenshot(`LuckyBirdMob/slide_${index + 1}_language_${lang}`, {
           capture: 'viewport',
         });
@@ -125,7 +126,7 @@ describe('Slottica', () => {
           cy.get($element).trigger('mouseup', { button: 0, clientX: endX, clientY: endY }, { force: true });
 
           cy.scrollTo('top');
-          cy.wait(250);
+          cy.wait(1000);
           cy.screenshot(`SlotticaMob/slide_${i + 1}_language_${lang}`, {
             capture: 'viewport',
           });
@@ -139,16 +140,7 @@ describe('Slottica', () => {
 });
 
 describe('SlottyWay', () => {
-  function loginSlottyWay() {
-    cy.visit(`https://slottyway.com`);
-    cy.get('.login > :nth-child(2) > .button').click({ force: true });
-    cy.get('.group-name-login').type("new_test_eur@gmail.com");
-    cy.get('.group-name-password').type("new_test_eur@gmail.com");
-    cy.wait(500);
-    cy.get(':nth-child(8) > .button').click({ force: true });
-    cy.wait(500);
-    cy.get('.close > .icon-close2').click({ force: true });
-  }
+  
 
   var languagesSlottyway = ["ru", "en", "de", "es", "pl", "pt", "fi", "no", "sv", "tr"];
 
@@ -157,7 +149,7 @@ describe('SlottyWay', () => {
 
     it(`SlottyWay Mob ${lang}`, () => {
       cy.viewport(390, 844);
-      loginSlottyWay();
+      
       cy.visit(`https://slottyway.com/${lang}`);
 
       cy.wait(500);
@@ -194,7 +186,7 @@ describe('SlottyWay', () => {
               console.log('Click successful');
             });
 
-          cy.wait(500);
+            cy.wait(1000);
           cy.screenshot(`SlottyWayMob/slide_${index + 1}_language_${lang}`, {
             capture: 'viewport',
           });
@@ -235,7 +227,7 @@ describe('Spinamba', () => {
                 console.log('Element found:', $el);
               })
               .click({ force: true });
-            cy.wait(500);
+              cy.wait(1000);
             cy.screenshot(`SpinambaMob/slide_${index + 1}_language_${lang}`, {
               capture: 'viewport',
             });
@@ -272,7 +264,7 @@ describe('SpinBounty', () => {
     it(`SpinBounty Mob ${lang}`, () => {
       cy.viewport(390, 844);
       loginSpinBounty();
-      for (let t = 0; t < languagesSpinBounty.length; t++) {
+    
         cy.visit(`https://spinbounty.com/${lang}`);
 
         cy.get('.item_banner > .game_info > .btn_block > .button').its("length").then((length) => {
@@ -285,13 +277,13 @@ describe('SpinBounty', () => {
           for (let swipeCount = 0; swipeCount < expectedCount; swipeCount++) {
             cy.get(`.ds-track:first`).scrollTo(currentScrollLeft, 0, { duration: 250 });
             cy.wait(captureInterval);
+            cy.wait(1000);
             cy.screenshot(`SpinBountyMob/slide_swipe_${swipeCount + 1}_language_${lang}`, {
               capture: 'viewport',
             });
             currentScrollLeft += scrollDistance; // Обновляем currentScrollLeft с учетом scrollDistance
           }
         });
-      }
     });
   }
 });
@@ -316,6 +308,7 @@ describe('SuperCat', () => {
       for (let v = 0; v <= 9; v++) {
         cy.get('.slick-next').each(($button, index) => {
           cy.wrap($button).click({ force: true });
+          cy.wait(1000);
           cy.screenshot(`SuperCatMob/slide_${index + 1}_language_${lang}.png`, {
             capture: 'viewport',
           });
@@ -367,6 +360,7 @@ describe('Magic365', () => {
         for (let swipeCount = 0; swipeCount < expectedCount; swipeCount++) {
           cy.get(`.ds-track:first`).scrollTo(currentScrollLeft, 0, { duration: 250 });
           cy.wait(captureInterval);
+          cy.wait(1000);
           cy.screenshot(`Magic365Mob/slide_swipe_${swipeCount + 1}_language_${lang}`, {
             capture: 'viewport',
           });
@@ -428,6 +422,7 @@ describe('Viks', () => {
           cy.get($element).trigger('mouseup', { button: 0, clientX: endX, clientY: endY }, { force: true });
 
           cy.scrollTo('top');
+          cy.wait(1000);
           cy.screenshot(`ViksMob/slide_${i + 1}_language_${lang}`, {
             capture: 'viewport',
           });
@@ -446,12 +441,12 @@ describe('Viks', () => {
 describe('Spinado', () => {
   function loginSpinado() {
     cy.visit(`https://spinado.com`);
-    cy.get('.extend > .button').click({ force: true });
-    cy.get('#signinform_email > .form > .group-name-login').type("testmodal@gmail.com");
-    cy.get('#signinform_email > .form > .group-name-password').type("@gmail.comM123");
-    cy.get('#signinform_email > .form > :nth-child(4) > .button').click({ force: true });
+    cy.get('.panel_user > .primary').click({ force: true });
+    cy.get('[id*="login"]').eq(1).type("testmodal@gmail.com");
+    cy.get('[id*="password"]').eq(0).type("@gmail.comM123");
+    cy.get('#signinform > .button').click({ force: true });
     cy.wait(1000);
-    cy.get('.close > .icon-close').click({ force: true });
+    cy.get('.modal_header > .close > .icon').click({ force: true });
   }
 
   var languagesSpinado = ["ru", "en", "es", "pl", "pt", "kk"];
@@ -478,7 +473,7 @@ describe('Spinado', () => {
       cy.viewport(390, 844);
       cy.wait(1000);
 
-      cy.get('.page_main > :nth-child(1)').then(($element) => {
+      cy.get('.section_banners').then(($element) => {
         cy.scrollTo('top');
         const startX = $element[0].getBoundingClientRect().left + 10; // Начальная точка X
         const startY = $element[0].getBoundingClientRect().top + 10; // Начальная точка Y
@@ -489,12 +484,11 @@ describe('Spinado', () => {
         for (let i = 0; i < Math.min(swipeCount, expectedCount); i++) {
           cy.scrollTo('top');
           cy.get($element).trigger('mousedown', { button: 0, clientX: startX, clientY: startY }, { force: true });
-          cy.wait(1000);
           cy.get($element).trigger('mousemove', { button: 0, clientX: endX, clientY: endY }, { force: true });
-          cy.wait(1000);
           cy.get($element).trigger('mouseup', { button: 0, clientX: endX, clientY: endY }, { force: true });
 
           cy.scrollTo('top');
+          cy.wait(1000);
           cy.screenshot(`SpinadoMob/slide_${i + 1}_language_${lang}`, {
             capture: 'viewport',
           });

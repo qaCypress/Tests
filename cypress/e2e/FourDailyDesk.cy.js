@@ -79,7 +79,8 @@ describe('LuckyBird', () => {
           .invoke('text')
           .then((text) => {
             const paragraphCount = text.split('\n').filter(Boolean).length;
-            if (paragraphCount < 3) {
+            cy.log(paragraphCount);
+            if (paragraphCount !== 3) {
               cy.fail(`Ошибка: Некорректное количество абзацев на ${lang} языке`);
             }
             cy.wait(500);
@@ -106,7 +107,7 @@ describe('Slottica', () => {
   var languagesSlottica = ["ru", "en", "de", "es", "pl", "pt", "fi", "no", "sv", "ja", "kk", "fr", "hi", "bn", "az", "tr"];
   
   for (let lang of languagesSlottica) {
-    it.only(`Slottica Desk ${lang}`, () => {
+    it(`Slottica Desk ${lang}`, () => {
       cy.viewport(1920, 1080);
       loginSlottica();
       cy.visit(`https://slottica.com/${lang}`);
@@ -123,10 +124,10 @@ describe('Slottica', () => {
           .invoke('text')
           .then((text) => {
             const paragraphCount = text.split('\n').filter(Boolean).length;
+            cy.log(paragraphCount);
             if (paragraphCount > 3) {
               cy.fail(`Ошибка: Некорректное количество абзацов на ${lang} языке`);
             }
-            cy.log(paragraphCount);
             cy.wait(500);
             cy.get(`#slick-slide0${index} > :nth-child(1) > .item > .text_block > .button_row > .desktop`).click({ force: true });
             cy.go(-1);
@@ -137,23 +138,12 @@ describe('Slottica', () => {
 });
 
 describe('SlottyWay', () => {
-  function loginSlottyWay() {
-    cy.visit(`https://slottyway.com`);
-    cy.get('.login > :nth-child(2) > .button').click({ force: true });
-    cy.get('.group-name-login').type("new_test_eur@gmail.com");
-    cy.get('.group-name-password').type("new_test_eur@gmail.com");
-    cy.wait(500);
-    cy.get(':nth-child(8) > .button').click({ force: true });
-    cy.wait(500);
-    cy.get('.close > .icon-close2').click({ force: true });
-  }
-
   var languagesSlottyway = ["ru", "en", "de", "es", "pl", "pt", "fi", "no", "sv", "tr"];
 
   for (let lang of languagesSlottyway) {
     it(`SlottyWay Desk ${lang}`, () => {
       cy.viewport(1920, 1080);
-      loginSlottyWay();
+    
       cy.visit(`https://slottyway.com/${lang}`);
       cy.get('[id^=slick-slide-control]').each(($element, index) => {
         const slideControlSelectors = [`#slick-slide-control2${index}`, `#slick-slide-control0${index}`, `#slick-slide-control1${index}`];
@@ -169,6 +159,7 @@ describe('SlottyWay', () => {
           .invoke('text')
           .then((text) => {
             const paragraphCount = text.split('\n').filter(Boolean).length;
+            
             /*
             if (paragraphCount > 7) {
               cy.fail(`Ошибка: Некорректное количество абзацев на ${lang} языке`);
@@ -211,10 +202,11 @@ describe('Spinamba', () => {
             capture: 'runner',
           });
           cy.wait(500);
-          cy.get(`[id$=${index}] > .item > .overlay > :nth-child(1) > .text > .desktop`)
+          cy.get(`#slick-slide2${index + 1} > .item > .overlay > :nth-child(1) > .text > .desktop`)
             .invoke('text')
             .then((text) => {
               const paragraphCount = text.split('\n').filter(Boolean).length;
+              console.log(paragraphCount)
               if (paragraphCount < 3) {
                 cy.log(`Ошибка: Некорректное количество абзацев на ${lang} языке`);
               }
@@ -347,7 +339,7 @@ describe('Magic365', () => {
   }
 });
 
-describe.only('Viks', () => {
+describe('Viks', () => {
   function loginViks() {
     cy.visit(`https://viks.com/casino`);
     cy.get('.extend > .button').click({ force: true });
@@ -391,12 +383,12 @@ describe.only('Viks', () => {
 describe('Spinado', () => {
   function loginSpinado() {
     cy.visit(`https://spinado.com`);
-    cy.get('.extend > .button').click({ force: true });
-    cy.get('#signinform_email > .form > .group-name-login').type("testmodal@gmail.com");
-    cy.get('#signinform_email > .form > .group-name-password').type("@gmail.comM123");
-    cy.get('#signinform_email > .form > :nth-child(4) > .button').click({ force: true });
+    cy.get('.panel_user > .primary').click({ force: true });
+    cy.get('[id*="login"]').eq(1).type("testmodal@gmail.com");
+    cy.get('[id*="password"]').eq(0).type("@gmail.comM123");
+    cy.get('#signinform > .button').click({ force: true });
     cy.wait(1000);
-    cy.get('.close > .icon-close').click({ force: true });
+    cy.get('.modal_header > .close > .icon').click({ force: true });
   }
 
   var languagesSpinado = ["ru", "en", "es", "pl", "pt", "kk"];
@@ -406,23 +398,32 @@ describe('Spinado', () => {
       loginSpinado();
       cy.viewport(1920, 1080);
       cy.visit(`https://spinado.com/${lang}`);
-      var elementSelectorSpinado = "[id^=slick-slide-control0]";
 
-      cy.get(elementSelectorSpinado).each(($element, index, $list) => {
-        cy.get(`#slick-slide-control0${index}`).click({ force: true });
-        cy.wait(500);
-        cy.screenshot(`SpinadoDesk/slide_${index + 1}_language_${lang}`, {
-          capture: 'viewport',
-        });
-        cy.wait(500);
-        cy.get(`#slick-slide0${index} > :nth-child(1) > .item > .text_block > .text_row > .desktop`)
-          .invoke('text')
-          .then((text) => {
-            const paragraphCount = text.split('\n').filter(Boolean).length;
-            if (paragraphCount < 3) {
-              cy.log(`Ошибка: Некорректное количество абзацев на ${lang} языке`);
-            }
+      var elementSelectorSpinado = ".slick-dots";
+
+      cy.get(elementSelectorSpinado).then(($dots) => {
+        // Получение количества элементов .slick-dots
+        const numDots = $dots.find('li').length;
+
+        // Цикл, который выполняется не более чем количество элементов .slick-dots
+        for (let dex = 2; dex <= numDots; dex++) {
+          cy.get('.slick-dots > .slick-active').click({ force: true });
+          cy.get(`.slick-dots > :nth-child(${dex})`).click({ force: true });
+          cy.wait(500);
+          cy.screenshot(`SpinadoDesk/slide_${dex}_language_${lang}`, {
+            capture: 'viewport',
           });
+          
+          cy.wait(500);
+          cy.get(`#slick-slide0${dex - 1} > :nth-child(1) > .item_banner > .game_info > .text > .title > .subtitle`)
+            .invoke('text')
+            .then((text) => {
+              const paragraphCount = text.split('\n').filter(Boolean).length;
+              if (paragraphCount < 3) {
+                cy.log(`Ошибка: Некорректное количество абзацев на ${lang} языке`);
+              }
+            });
+        }
       });
     });
   }
