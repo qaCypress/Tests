@@ -278,7 +278,7 @@ Cypress.Commands.add('withdrawMagic365', (keys) => {
 
 Cypress.Commands.add('withdrawSpinado', (keys) => { 
     const withdrawFormsIds = []
-    cy.get('.payments_gallery_wrap')
+    cy.get('.modal_container')
       .then((body) => {
         if (body.find('form').length > 0) {
           cy.get('div.item')
@@ -299,7 +299,7 @@ Cypress.Commands.add('withdrawSpinado', (keys) => {
             })
         } else {
           cy.log('НІЧОГО НЕМА')
-          cy.findKey('#profile-modal > .content > .payments_gallery_wrap', keys)
+          cy.findKey('.modal_container', keys)
         }
       })
 })

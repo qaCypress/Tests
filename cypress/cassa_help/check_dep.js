@@ -410,7 +410,7 @@ Cypress.Commands.add('depMagic365', (keys) => {
 
 Cypress.Commands.add('depSpinado', (keys) => {
     let depositFormsIds = [];
-    cy.get('.payments_gallery').then((body) => {
+    cy.get('.modal_container').then((body) => {
       if(body.find('form').length > 0) {
         cy.get('.item')  
         .find('form')              

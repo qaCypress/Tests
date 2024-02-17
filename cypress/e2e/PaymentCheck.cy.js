@@ -116,7 +116,7 @@ describe('SlottyWay', {tags: '@SW'},() => {
       for(let i = 0; i < SlottyWayData.currency.length; i++) {
         it(SlottyWayData.currency[i],  () => {
           const savedKeys = Cypress.env('savedKeys');
-          cy.loginSlottyWay(`${SlottyWayData.url}/${SlottyWayData.lang[j]}#sign-in`, i)
+          cy.loginSlottyWay(`${SlottyWayData.url}`, i)
       
           cy.wait(3000)
           cy.get('.close > .icon-close2').click()
@@ -296,13 +296,13 @@ describe('Spinado', {tags: '@Spinado'},() => {
           cy.wait(3000)
           cy.visit(`${SpinadoData.url}/${SpinadoData.lang[j]}#cashbox-deposit`)
           cy.wait(3000)
-          cy.findKey('.popup_content', savedKeys)
+          cy.findKey('.modal_container', savedKeys)
     
           cy.depSpinado(savedKeys)
     
           cy.visit(`${SpinadoData.url}/${SpinadoData.lang[j]}#cashbox-withdraw`)
           cy.wait(2000)
-          cy.findKey('.popup_content', savedKeys)
+          cy.findKey('.modal_container', savedKeys)
     
           cy.withdrawSpinado(savedKeys) 
         })

@@ -12,12 +12,12 @@ describe('AllRight', () => {
     cy.writeFile('ProblemProviders.json', {})
   })
 
-    for(let i =0; i < AllRightData.providers.USD.length; i++) {
-        it(AllRightData.providers.USD[i],  () => {
+    for(let i =0; i < AllRightData.providers.BRL.length; i++) {
+        it(AllRightData.providers.BRL[i],  () => {
             
-            cy.loginAllright(`${AllRightData.url}/${AllRightData.lang[0]}#sign-in`, 4)
+            cy.loginAllright(`${AllRightData.url}/${AllRightData.lang[0]}#sign-in`, 12)
             cy.wait(2000)
-            cy.visit(`https://allrightcasino.com/ru/games/all/${AllRightData.providers.USD[i].toLowerCase()}?sort=priority`)
+            cy.visit(`https://allrightcasino.com/ru/games/all/${AllRightData.providers.BRL[i].toLowerCase()}?sort=priority`)
             cy.wait(2000)
     
 
@@ -30,7 +30,7 @@ describe('AllRight', () => {
                   cy.readFile('ProblemProviders.json').then(existingData => {
                     let newData = existingData || {}; 
                     newData.ProblemsProviders = newData.ProblemsProviders || []; 
-                    newData.ProblemsProviders.push(AllRightData.providers.USD[i]);
+                    newData.ProblemsProviders.push(AllRightData.providers.BRL[i]);
                     cy.writeFile('ProblemProviders.json', newData).then(() => {
                       cy.log('Data appended to ProblemProviders.json successfully.');
                     });
@@ -51,7 +51,7 @@ describe('AllRight', () => {
                     cy.readFile('ProblemProviders.json').then(existingData => {
                       let newData = existingData || {}; 
                       newData.ProblemsProviders = newData.ProblemsProviders || []; 
-                      newData.ProblemsProviders.push(AllRightData.providers.USD[i]);
+                      newData.ProblemsProviders.push(AllRightData.providers.BRL[i]);
                       cy.writeFile('ProblemProviders.json', newData).then(() => {
                         cy.log('Data appended to ProblemProviders.json successfully.');
                       });
