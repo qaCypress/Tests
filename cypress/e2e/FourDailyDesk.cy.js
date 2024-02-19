@@ -28,9 +28,9 @@ describe('AllRight', () => {
         cy.screenshot(`AllRightDesk/slide_${index + 1}_language_${lang}`, {
           capture: 'viewport',
         });
-
+  
         cy.wait(500);
-
+  
         cy.get(`#slick-slide0${index} > .item > .overlay > .banner_content > .text > .desktop`)
           .invoke('text')
           .then((text) => {
@@ -40,8 +40,13 @@ describe('AllRight', () => {
               cy.fail(`Ошибка: Некорректное количество абзацев на ${lang} языке`);
             }
             cy.wait(500);
-            cy.get(`#slick-slide0${index} > .item > .overlay > .banner_content > .button`).click({ force: true });
-            cy.go(-1)
+            if (lang === 'en' && index !== $list.length - 1) { // Проверяем, это язык "en" и не последний ли это элемент
+              cy.get(`#slick-slide0${index} > .item > .overlay > .banner_content > .button`).click({ force: true });
+              cy.go(-1);
+              cy.request(`https://allrightcasino.com/${lang}`).then(response => {
+  expect(response.status).not.to.eq(404);
+});
+            }
           });
       });
     });
@@ -84,8 +89,13 @@ describe('LuckyBird', () => {
               cy.fail(`Ошибка: Некорректное количество абзацев на ${lang} языке`);
             }
             cy.wait(500);
-            cy.get(`#slick-slide0${index} > .item > .overlay > .button_container > .transparent`).click({ force: true });
-            cy.go(-1);
+            if (lang === 'en' && index !== $list.length - 1) { // Проверяем, это язык "en" и не последний ли это элемент
+              cy.get(`#slick-slide0${index} > .item > .overlay > .button_container > .transparent`).click({ force: true });
+              cy.request(`https://luckybirdcasino.com/${lang}`).then(response => {
+  expect(response.status).not.to.eq(404);
+});
+              cy.go(-1);
+            }
           });
       });
     });
@@ -129,8 +139,13 @@ describe('Slottica', () => {
               cy.fail(`Ошибка: Некорректное количество абзацов на ${lang} языке`);
             }
             cy.wait(500);
-            cy.get(`#slick-slide0${index} > :nth-child(1) > .item > .text_block > .button_row > .desktop`).click({ force: true });
+            if (lang === 'en' && index !== $list.length - 1) { // Проверяем, это язык "en" и не последний ли это элемент
+              cy.get(`#slick-slide0${index} > :nth-child(1) > .item > .text_block > .button_row > .desktop`).click({ force: true });
+              cy.request(`https://slottica.com/${lang}`).then(response => {
+  expect(response.status).not.to.eq(404);
+});
             cy.go(-1);
+}
           });
       });
     });
@@ -145,6 +160,7 @@ describe('SlottyWay', () => {
       cy.viewport(1920, 1080);
     
       cy.visit(`https://slottyway.com/${lang}`);
+
       cy.get('[id^=slick-slide-control]').each(($element, index) => {
         const slideControlSelectors = [`#slick-slide-control2${index}`, `#slick-slide-control0${index}`, `#slick-slide-control1${index}`];
 
@@ -159,7 +175,6 @@ describe('SlottyWay', () => {
           .invoke('text')
           .then((text) => {
             const paragraphCount = text.split('\n').filter(Boolean).length;
-            
             /*
             if (paragraphCount > 7) {
               cy.fail(`Ошибка: Некорректное количество абзацев на ${lang} языке`);
@@ -202,7 +217,7 @@ describe('Spinamba', () => {
             capture: 'runner',
           });
           cy.wait(500);
-          cy.get(`#slick-slide2${index + 1} > .item > .overlay > :nth-child(1) > .text > .desktop`)
+          cy.get(`#slick-slide2${index} > .item > .overlay > :nth-child(1) > .text > .desktop`)
             .invoke('text')
             .then((text) => {
               const paragraphCount = text.split('\n').filter(Boolean).length;
@@ -210,6 +225,13 @@ describe('Spinamba', () => {
               if (paragraphCount < 3) {
                 cy.log(`Ошибка: Некорректное количество абзацев на ${lang} языке`);
               }
+              if (lang === 'en' && index !== $list.length - 1) { // Проверяем, это язык "en" и не последний ли это элемент
+                cy.get(`#slick-slide2${index} > .item > .overlay > :nth-child(1) > .button_container > .button`).click({ force: true });
+                cy.request(`https://spinamba.com/${lang}`).then(response => {
+    expect(response.status).not.to.eq(404);
+  });
+  cy.go(-1);
+}
             });
         });
     });
@@ -242,6 +264,7 @@ describe('SpinBounty', () => {
           const captureInterval = 1000; // Интервал между скриншотами в миллисекундах
           let currentScrollLeft = 0;
 
+          var index = 0;
           for (let swipeCount = 0; swipeCount < expectedCount; swipeCount++) {
             cy.get(`.ds-track:first`).scrollTo(currentScrollLeft, 0, { duration: 250 });
             cy.wait(captureInterval);
@@ -249,6 +272,17 @@ describe('SpinBounty', () => {
             cy.screenshot(`SpinBountyDesk/slide_swipe_${swipeCount + 1}_language_${lang}`, {
               capture: 'viewport',
             });
+            
+            cy.log(index)
+            cy.log(expectedCount)
+            if (lang === 'en' && index !== expectedCount - 1) { // Проверяем, это язык "en" и не последний ли это элемент
+              cy.get(`[num="${index}"] > .item_banner > .game_info > .btn_block > .button`).click({ force: true });
+              cy.request(`https://spinbounty.com/${lang}`).then(response => {
+  expect(response.status).not.to.eq(404);
+});
+cy.go(-1);
+}
+            index++;
             currentScrollLeft += scrollDistance; // Обновляем currentScrollLeft с учетом scrollDistance
           }
         });
@@ -273,26 +307,46 @@ describe('SuperCat', () => {
       loginSuperCat();
       cy.viewport(1920, 1080);
       cy.visit(`https://supercatcasino67.com/${lang}`);
-
-      cy.get('.slider-dots button').each(($button, index) => {
-        cy.wrap($button).click({ force: true });
-        cy.wait(500);
-        cy.screenshot(`SuperCatDesk/slide_${index + 1}_language_${lang}`, {
-          capture: 'viewport',
-        });
-
-        cy.wait(500);
-
-        cy.get('[tabindex="-1"] > .slider-item > .slider-item__header')
-          .invoke('text')
-          .then((text) => {
+      cy.wait(500);
+  
+      cy.get('ul.slider-dots button').its('length').then(length => {
+        cy.log(`Количество кнопок внутри элемента <ul> с классом slider-dots: ${length}`);
+      });
+  
+      cy.wait(500);
+  
+      let buttonsToClick = [];
+      cy.get('ul.slider-dots button').each(($button, index) => {
+        buttonsToClick.push(index);
+      }).then(() => {
+        buttonsToClick.forEach(index => {
+          cy.get('ul.slider-dots button').eq(index).click({ force: true });
+          cy.wait(500);
+  
+          cy.screenshot(`SuperCatDesk/slide_${index + 1}_language_${lang}`, {
+            capture: 'viewport',
+          });
+  
+          cy.wait(500);
+  
+          cy.get(`.slider-item > .slider-item__header`).invoke('text').then((text) => {
             const paragraphCount = text.split('\n').filter(Boolean).length;
             if (paragraphCount < 3) {
               cy.log(`Ошибка: Некорректное количество абзацев на ${lang} языке`);
             }
           });
+  
+cy.log(index);
+cy.log(buttonsToClick);
 
-        cy.wait(500);
+          if (lang === 'ru' && index !== buttonsToClick.length - 1) {
+            cy.get('.slider-item__button').first().click({ force: true });
+            cy.wait(2000);
+            cy.go(-1);
+          }
+  
+          cy.wait(500);
+        });
       });
     });
   }
@@ -324,6 +378,8 @@ describe('Magic365', () => {
         const captureInterval = 1000; // Интервал между скриншотами в миллисекундах
         let currentScrollLeft = 0;
 
+        var index = 0;
+
         for (let swipeCount = 0; swipeCount < expectedCount; swipeCount++) {
           cy.get(`.ds-track:first`).scrollTo(currentScrollLeft, 0, { duration: 250 });
           cy.wait(captureInterval);
@@ -331,7 +387,14 @@ describe('Magic365', () => {
           cy.screenshot(`Magic365Desk/slide_swipe_${swipeCount + 1}_language_${lang}`, {
             capture: 'viewport',
           });
-          cy.wait(500);
+          if (lang === 'en' && index !== expectedCount - 1) { // Проверяем, это язык "en" и не последний ли это элемент
+            cy.get(`[num="${index}"] > .item_banner > .game_info > .btn_block > .button`).click({ force: true });
+            cy.request(`https://magic365.com/${lang}`).then(response => {
+expect(response.status).not.to.eq(404);
+});
+cy.go(-1);
+}
+          index++;
           currentScrollLeft += scrollDistance; // Обновляем currentScrollLeft с учетом scrollDistance
         }
       });
@@ -374,6 +437,13 @@ describe('Viks', () => {
             if (paragraphCount < 3) {
               cy.log(`Ошибка: Некорректное количество абзацев на ${lang} языке`);
             }
+            if (lang === 'en' && index !== $list.length - 1) { // Проверяем, это язык "en" и не последний ли это элемент
+              cy.get(`#slick-slide0${index} > :nth-child(1) > .item > .text_block > .button_row > .desktop`).click({ force: true });
+              cy.request(`https://viks.com/${lang}`).then(response => {
+  expect(response.status).not.to.eq(404);
+});
+            cy.go(-1);
+}
           });
       });
     });
@@ -422,7 +492,18 @@ describe('Spinado', () => {
               if (paragraphCount < 3) {
                 cy.log(`Ошибка: Некорректное количество абзацев на ${lang} языке`);
               }
-            });
+
+              cy.log(dex);
+              cy.log(numDots);
+
+              if (lang === 'ru' && dex !== numDots - 1) { // Проверяем, это язык "ru" и текущий слайдер не является последним
+                  cy.get(`#slick-slide0${dex - 2} > :nth-child(1) > .item_banner > .game_info > .big`).click({ force: true });
+                  cy.request(`https://spinado.com/${lang}`).then(response => {
+                      expect(response.status).not.to.eq(404);
+                  });
+                  cy.go(-1);
+              }
+          });
         }
       });
     });
