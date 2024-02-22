@@ -12,12 +12,12 @@ describe('AllRight', () => {
     cy.writeFile('ProblemProviders.json', {})
   })
 
-    for(let i =0; i < AllRightData.providers.BRL.length; i++) {
-        it(AllRightData.providers.BRL[i],  () => {
+    for(let i =0; i < AllRightData.providers.GEL.length; i++) {
+        it(AllRightData.providers.GEL[i],  () => {
             
-            cy.loginAllright(`${AllRightData.url}/${AllRightData.lang[0]}#sign-in`, 12)
+            cy.loginAllright(`${AllRightData.url}/${AllRightData.lang[0]}#sign-in`, 21)
             cy.wait(2000)
-            cy.visit(`https://allrightcasino.com/ru/games/all/${AllRightData.providers.BRL[i].toLowerCase()}?sort=priority`)
+            cy.visit(`https://allrightcasino.com/ru/games/all/${AllRightData.providers.GEL[i].toLowerCase()}?sort=priority`)
             cy.wait(2000)
     
 
@@ -30,7 +30,7 @@ describe('AllRight', () => {
                   cy.readFile('ProblemProviders.json').then(existingData => {
                     let newData = existingData || {}; 
                     newData.ProblemsProviders = newData.ProblemsProviders || []; 
-                    newData.ProblemsProviders.push(AllRightData.providers.BRL[i]);
+                    newData.ProblemsProviders.push(AllRightData.providers.GEL[i]);
                     cy.writeFile('ProblemProviders.json', newData).then(() => {
                       cy.log('Data appended to ProblemProviders.json successfully.');
                     });
@@ -51,7 +51,7 @@ describe('AllRight', () => {
                     cy.readFile('ProblemProviders.json').then(existingData => {
                       let newData = existingData || {}; 
                       newData.ProblemsProviders = newData.ProblemsProviders || []; 
-                      newData.ProblemsProviders.push(AllRightData.providers.BRL[i]);
+                      newData.ProblemsProviders.push(AllRightData.providers.GEL[i]);
                       cy.writeFile('ProblemProviders.json', newData).then(() => {
                         cy.log('Data appended to ProblemProviders.json successfully.');
                       });
@@ -69,7 +69,50 @@ describe('AllRight', () => {
    
 })
 
+describe.only('LuckyBird', () => {
 
+  before('writeJson', () => {
+    cy.writeFile('ProblemProviders.json', {})
+  })
+
+  for(let i = 0; i < LuckyBirdData.providers.PLN.length; i++) {
+    it(LuckyBirdData.providers.PLN[i],  () => {
+        
+        cy.loginLuckyBird(`${LuckyBirdData.url}/${LuckyBirdData.lang[0]}#sign-in`, 1)
+        cy.wait(2000)
+        cy.visit(`https://luckybirdcasino.com/ru/games/all/${LuckyBirdData.providers.PLN[i].toLowerCase()}?sort=priority`)
+        cy.wait(2000)
+
+  
+        cy.get('.item').find('[class="button button_new primary fluid"]').invoke('attr', 'href').as('sho')
+  
+        cy.get(`@sho`).then(href => { 
+          cy.request({url: `${LuckyBirdData.url}${href}`}).then((response) => {
+              if (response.status != 404 || response.status != 500) {
+
+                 cy.visit(`${LuckyBirdData.url}${href}`);
+               } else {
+                cy.readFile('ProblemProviders.json').then(existingData => {
+                  let newData = existingData || {}; 
+                  newData.ProblemsProviders = newData.ProblemsProviders || []; 
+                  newData.ProblemsProviders.push(LuckyBirdData.providers.PLN[i]);
+                  cy.writeFile('ProblemProviders.json', newData).then(() => {
+                    cy.log('Data appended to ProblemProviders.json successfully.');
+                  });
+                });
+
+
+                 cy.fail(`Статус код неудачний - ${response.status}`);
+               }
+             });
+        })
+        cy.wait(1000)
+        //cy.get('.close > .icon-close').click();
+      })
+}
+
+
+})
 
 
 
