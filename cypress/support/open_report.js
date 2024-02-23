@@ -1,11 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const opn = require('open');
 
 const reportsDirectory = 'cypress/reports'; // Replace with the path to your report directory
 
 // Function to get the latest report file
-function getLatestReport() {
+async function getLatestReport() {
   const files = fs.readdirSync(reportsDirectory);
   const htmlReports = files.filter((file) => file.endsWith('.html'));
 
@@ -27,5 +26,15 @@ function getLatestReport() {
 }
 
 // Get the latest report and open it in the default browser
-const latestReportFile = getLatestReport();
-opn(latestReportFile);
+async function openLatestReport() {
+  try {
+    const latestReportFile = await getLatestReport();
+    const { default: opn } = await import('open');
+    await opn(latestReportFile);
+  } catch (error) {
+    console.error('Error:', error);
+    process.exit(1);
+  }
+}
+
+openLatestReport();

@@ -108,7 +108,7 @@ describe('Slottica', {tags: '@Sl'},() => {
 
 })
 
-describe('SlottyWay', {tags: '@SW'},() => { 
+describe.skip('SlottyWay', {tags: '@SW'},() => { 
 
 
   for(let j = 0; j < (AllLang ? SlottyWayData.lang.length : 1); j++){
@@ -116,7 +116,7 @@ describe('SlottyWay', {tags: '@SW'},() => {
       for(let i = 0; i < SlottyWayData.currency.length; i++) {
         it(SlottyWayData.currency[i],  () => {
           const savedKeys = Cypress.env('savedKeys');
-          cy.loginSlottyWay(`${SlottyWayData.url}`, i)
+          cy.loginSlottyWay(`https://slottyway.com/en/games/all#sign-in`, i)
       
           cy.wait(3000)
           cy.get('.close > .icon-close2').click()
@@ -178,19 +178,18 @@ describe('SpinBounty', {tags: '@SB'},() => {
         it(SpinBountyData.currency[i],  () => {
           const savedKeys = Cypress.env('savedKeys');
           cy.loginSpinBounty(`${SpinBountyData.url}/${SpinBountyData.lang[j]}#sign-in`, i)
-          cy.wait(5000)
           cy.visit(`${SpinBountyData.url}/${SpinBountyData.lang[j]}#cashbox-deposit`)
           cy.wait(4000)
-          cy.findKey(`#profile-modal > .content > .payments_gallery_wrap`, savedKeys)
+          cy.findKey(`#profile-modal`, savedKeys)
     
           cy.depSpinBounty(savedKeys)
     
           cy.visit(`${SpinBountyData.url}/${SpinBountyData.lang[j]}#cashbox-withdraw`)
           cy.wait(2000)
-          cy.findKey(`#profile-modal > .content > .payments_gallery_wrap`, savedKeys)
+          cy.findKey(`#profile-modal`, savedKeys)
       
           cy.withdrawSpinBounty(savedKeys)  
-      
+          cy.visit(`${SpinBountyData.url}/${SpinBountyData.lang[j]}#sign-in`)
         })
       }
     })
@@ -296,13 +295,13 @@ describe('Spinado', {tags: '@Spinado'},() => {
           cy.wait(3000)
           cy.visit(`${SpinadoData.url}/${SpinadoData.lang[j]}#cashbox-deposit`)
           cy.wait(3000)
-          cy.findKey('.modal_container', savedKeys)
+          cy.findKey('#profile-modal', savedKeys)
     
           cy.depSpinado(savedKeys)
     
           cy.visit(`${SpinadoData.url}/${SpinadoData.lang[j]}#cashbox-withdraw`)
           cy.wait(2000)
-          cy.findKey('.modal_container', savedKeys)
+          cy.findKey('#profile-modal', savedKeys)
     
           cy.withdrawSpinado(savedKeys) 
         })

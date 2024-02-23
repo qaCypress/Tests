@@ -19,6 +19,7 @@ Cypress.Commands.add('loginLuckyBird', (link, i) => {
 
 Cypress.Commands.add('loginSlottica', (link, i) => { 
     cy.visit(link)
+    cy.wait(3000)
     cy.get('input[type="email"]').type(SlotticaData.login[i])
     cy.get('input[type="password"]').first().type(SlotticaData.login[i])
     cy.get('#signinform_email > .form > :nth-child(4) > .button').click()
@@ -42,6 +43,7 @@ Cypress.Commands.add('loginSpinamba', (link, i) => {
 
 Cypress.Commands.add('loginSpinBounty', (link, i) => { 
     cy.visit(link)
+    cy.wait(3000)
     cy.get('input[type="email"]').type(SpinBountyData.login[i])
     cy.get('input[type="password"]').first().type(SpinBountyData.login[i])
     cy.get('#signinform > .submit').click()

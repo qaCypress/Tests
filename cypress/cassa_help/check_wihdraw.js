@@ -155,7 +155,7 @@ Cypress.Commands.add('withdrawSpinamba', (keys) => {
 Cypress.Commands.add('withdrawSpinBounty', (keys) => { 
   let withdrawFormsIds = [];
 
-  cy.get('.payments_gallery_wrap')
+  cy.get('#profile-modal')
   .then((body) => {
       if(body.find('form').length > 0) {
         cy.get('div.item')  
@@ -177,7 +177,7 @@ Cypress.Commands.add('withdrawSpinBounty', (keys) => {
         });
       } else {
           cy.log('НІЧОГО НЕМА')
-          cy.findKey(`#profile-modal > .content > .payments_gallery_wrap`, keys)
+          cy.findKey(`#profile-modal`, keys)
       }
   })
 })
@@ -250,7 +250,7 @@ Cypress.Commands.add('withdrawSuperCat', (keys) => {
 Cypress.Commands.add('withdrawMagic365', (keys) => { 
     const withdrawFormsIds = []
 
-    cy.get('.payments_gallery_wrap')
+    cy.get('#profile-modal')
       .then((body) => {
         if (body.find('form').length > 0) {
           cy.get('div.item')
@@ -271,7 +271,7 @@ Cypress.Commands.add('withdrawMagic365', (keys) => {
             })
         } else {
           cy.log('НІЧОГО НЕМА')
-          cy.findKey('#profile-modal > .content > .payments_gallery_wrap', keys)
+          cy.findKey('#profile-modal', keys)
         }
       })
 })

@@ -221,7 +221,7 @@ Cypress.Commands.add('depSpinBounty', (keys) => {
   let depositFormsIds = [];
 
 
-  cy.get('.payments_gallery_wrap')
+  cy.get('#profile-modal')
   .then((body) => {
       if(body.find('form').length > 0) {
         cy.log('Кіно буде')
@@ -255,7 +255,7 @@ Cypress.Commands.add('depSpinBounty', (keys) => {
         })  
       } else {
           cy.log('НІЧОГО НЕМА')
-          cy.findKey(`#profile-modal > .content > .payments_gallery_wrap`, keys)
+          cy.findKey(`#profile-modal`, keys)
       }
   })
 })
@@ -374,7 +374,7 @@ Cypress.Commands.add('depSuperCat', (keys) => {
 
 Cypress.Commands.add('depMagic365', (keys) => {
     const depositFormsIds = []
-    cy.get('.payments_gallery_wrap')
+    cy.get('#profile-modal')
       .then((body) => {
         if (body.find('form').length > 0) {
           cy.get('.item')
@@ -403,7 +403,7 @@ Cypress.Commands.add('depMagic365', (keys) => {
             })
         } else {
           cy.log('НІЧОГО НЕМА')
-          cy.findKey('#profile-modal > .content > .payments_gallery_wrap', keys)
+          cy.findKey('#profile-modal', keys)
         }
       })
 });
