@@ -21,7 +21,7 @@ module.exports = defineConfig({
 
   "retries": {
     "runMode": 1,
-    "openMode": 1
+    "openMode": 0
   },
   reporterOptions: {
     reportDir: "cypress/reports",
