@@ -60,13 +60,13 @@ describe('LuckyBird', {tags: '@LB'}, () => {
     
           cy.wait(3000)
           cy.visit(`${LuckyBirdData.url}/${LuckyBirdData.lang[j]}#cashbox-deposit`)
-          cy.findKey(`.cashbox_content > .payment__gallery`, savedKeys)
+          cy.findKey(`.cashbox_content`, savedKeys)
       
           cy.depLuckyBird(savedKeys)
     
           cy.visit(`${LuckyBirdData.url}/en#cashbox-withdraw`)
           cy.wait(3000)
-          cy.findKey(`.cashbox_content > .payment__gallery`, savedKeys)  
+          cy.findKey(`.cashbox_content`, savedKeys)  
       
           cy.withdrawLuckyBird(savedKeys)
         })

@@ -81,7 +81,7 @@ Cypress.Commands.add('depLuckyBird', (keys) => {
         })  
       } else {
           cy.log('НІЧОГО НЕМА')
-          cy.findKey(`.cashbox_content > .payment__gallery`, keys)  
+          cy.findKey(`.cashbox_content`, keys)  
       }
   })
 })

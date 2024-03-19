@@ -443,5 +443,5 @@ export const SpinadoData = {
 
     login: ['cypress_test_brl@gmail.com'],
 
-    passwords: ['111111']
+    passwords: ['cypress_test_brl@gmail.com']
 }

@@ -75,12 +75,12 @@ describe.only('LuckyBird', () => {
     cy.writeFile('ProblemProviders.json', {})
   })
 
-  for(let i = 0; i < LuckyBirdData.providers.MXN.length; i++) {
-    it(LuckyBirdData.providers.MXN[i],  () => {
+  for(let i = 0; i < LuckyBirdData.providers.PEN.length; i++) {
+    it(LuckyBirdData.providers.PEN[i],  () => {
         
-        cy.loginLuckyBird(`${LuckyBirdData.url}/${LuckyBirdData.lang[0]}#sign-in`, 7)
+        cy.loginLuckyBird(`${LuckyBirdData.url}/${LuckyBirdData.lang[0]}#sign-in`, 8)
         cy.wait(2000)
-        cy.visit(`https://luckybirdcasino.com/ru/games/all/${LuckyBirdData.providers.MXN[i].toLowerCase()}?sort=priority`)
+        cy.visit(`https://luckybirdcasino.com/ru/games/all/${LuckyBirdData.providers.PEN[i].toLowerCase()}?sort=priority`)
         cy.wait(2000)
 
   
@@ -95,7 +95,7 @@ describe.only('LuckyBird', () => {
                 cy.readFile('ProblemProviders.json').then(existingData => {
                   let newData = existingData || {}; 
                   newData.ProblemsProviders = newData.ProblemsProviders || []; 
-                  newData.ProblemsProviders.push(LuckyBirdData.providers.MXN[i]);
+                  newData.ProblemsProviders.push(LuckyBirdData.providers.PEN[i]);
                   cy.writeFile('ProblemProviders.json', newData).then(() => {
                     cy.log('Data appended to ProblemProviders.json successfully.');
                   });
