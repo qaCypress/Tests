@@ -290,7 +290,7 @@ describe('SpinBounty', () => {
 
 describe('SuperCat', () => {
   function loginSuperCat() {
-    cy.visit(`https://supercatcasino67.com`);
+    cy.visit(`https://92supercatcasino.com`);
     cy.get('.guest-header > .button-outlined').click({ force: true });
     cy.get(':nth-child(1) > .form-control').type("new_test_eur@gmail.com");
     cy.get(':nth-child(2) > .form-control').type("new_test_eur@gmail.com");
@@ -304,7 +304,7 @@ describe('SuperCat', () => {
     it(`SuperCat Mob ${lang}`, () => {
       loginSuperCat();
       cy.viewport(390, 844);
-      cy.visit(`https://supercatcasino67.com/${lang}`);
+      cy.visit(`https://92supercatcasino.com/${lang}`);
       for (let v = 0; v <= 9; v++) {
         cy.get('.slick-next').each(($button, index) => {
           cy.wrap($button).click({ force: true });
