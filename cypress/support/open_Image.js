@@ -34,13 +34,18 @@ arrPlatformk.forEach(element => {
           <body>
             <h1>Screenshots for ${project}</h1>
             <div id="screenshots">
-              ${imageFiles.map(file => `<img src="file://${path.join(absoluteFolderPath, file)}" alt="${file}">`).join('\n')}
+              ${imageFiles.map(file => `
+                <div>
+                  <img src="./${file}" alt="${file}" style="max-width: 100%;">
+                  <p>${file}</p>
+                </div>
+              `).join('\n')}
             </div>
           </body>
           </html>
         `;
         
-        const htmlFilePath = path.join(absoluteFolderPath, 'screenshots.html');
+        const htmlFilePath = path.join(folderPath, 'screenshots.html');
         fs.writeFileSync(htmlFilePath, htmlContent);
         htmlFilePaths.push(htmlFilePath);
       }
