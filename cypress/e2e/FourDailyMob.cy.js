@@ -17,7 +17,8 @@ describe('AllRight', () => {
 
   for (let lang of languagesAllright) {
      it(`AllRight Mob ${lang}`, () => {
-      cy.viewport(390, 844);
+      cy.viewport(428, 926);
+ // Використання приблизно половини реального розміру екрану
       loginAllright();
       cy.wait(1000);
       cy.visit(`https://allrightcasino.com/${lang}`);
@@ -59,7 +60,8 @@ describe('LuckyBird', () => {
   for (let lang of languagesLuckyBird) {
 
     it(`LuckyBird Mob ${lang}`, () => {
-      cy.viewport(390, 844);
+      cy.viewport(428, 926);
+ // Використання приблизно половини реального розміру екрану
       loginLuckyBird();
       cy.visit(`https://luckybirdcasino.com/${lang}`);
       const elementSelector = "[id^=slick-slide-control0]";
@@ -105,12 +107,14 @@ describe('Slottica', () => {
       let expectedCount;
       let swipeCount = 1;
 
-      cy.viewport(1920, 1080);
+      cy.viewport(1284, 2778); // Встановлюємо розширення для iPhone 14 Pro Max
+;
       cy.get("[id^=slick-slide-control0]").its("length").then((length) => {
         expectedCount = length;
       });
 
-      cy.viewport(390, 844);
+      cy.viewport(428, 926);
+ // Використання приблизно половини реального розміру екрану
 
       cy.get(':nth-child(1) > .no_container').then(($element) => {
         cy.scrollTo('top');
@@ -148,7 +152,8 @@ describe('SlottyWay', () => {
     
 
     it(`SlottyWay Mob ${lang}`, () => {
-      cy.viewport(390, 844);
+      cy.viewport(428, 926);
+ // Використання приблизно половини реального розміру екрану
       
       cy.visit(`https://slottyway.com/${lang}`);
 
@@ -215,7 +220,8 @@ describe('Spinamba', () => {
 
     it(`Spinamba Mob ${lang}`, () => {
       loginSpinamba();
-      cy.viewport(390, 844);
+      cy.viewport(428, 926);
+ // Використання приблизно половини реального розміру екрану
         cy.visit(`https://spinamba.com/${lang}`);
 
         const elementSelectorSpinamba = "[id^=slick-slide-control]";
@@ -262,7 +268,8 @@ describe('SpinBounty', () => {
   for (let lang of languagesSpinBounty) {
 
     it(`SpinBounty Mob ${lang}`, () => {
-      cy.viewport(390, 844);
+      cy.viewport(428, 926);
+ // Використання приблизно половини реального розміру екрану
       loginSpinBounty();
     
         cy.visit(`https://spinbounty.com/${lang}`);
@@ -303,7 +310,8 @@ describe('SuperCat', () => {
   for (let lang of languagesSuperCat) {
     it(`SuperCat Mob ${lang}`, () => {
       loginSuperCat();
-      cy.viewport(390, 844);
+      cy.viewport(428, 926);
+ // Використання приблизно половини реального розміру екрану
       cy.visit(`https://92supercatcasino.com/${lang}`);
       for (let v = 0; v <= 9; v++) {
         cy.get('.slick-next').each(($button, index) => {
@@ -347,7 +355,8 @@ describe('Magic365', () => {
 
     it(`Magic365 Mob ${lang}`, () => {
       loginMagic365();
-      cy.viewport(390, 844);
+      cy.viewport(428, 926);
+ // Використання приблизно половини реального розміру екрану
       cy.visit(`https://magic365.com/${lang}`);
       
       cy.get('.item_banner > .game_info > .btn_block > .button').its("length").then((length) => {
@@ -387,7 +396,8 @@ describe('Viks', () => {
 
   for (let lang of languagesViks) {
      it(`Viks Mob ${lang}`, () => {
-      cy.viewport(1920, 1080);
+      cy.viewport(1284, 2778); // Встановлюємо розширення для iPhone 14 Pro Max
+;
       loginViks();
       cy.visit(`https://viks.com/${lang}/casino`);
       cy.wait(500);
@@ -402,7 +412,8 @@ describe('Viks', () => {
         expectedCount = length; // Присвоюємо значення expectedCount
       });
 
-      cy.viewport(390, 844);
+      cy.viewport(428, 926);
+ // Використання приблизно половини реального розміру екрану
       cy.wait(500);
 
       cy.get(':nth-child(1) > .no_container').then(($element) => {
@@ -454,7 +465,8 @@ describe('Spinado', () => {
   for (let lang of languagesSpinado) {
     it(`Spinado Mob ${lang}`, () => {
       cy.visit(`https://spinado.com/${lang}`);
-      cy.viewport(1920, 1080);
+      cy.viewport(1284, 2778); // Встановлюємо розширення для iPhone 14 Pro Max
+;
       loginSpinado();
       cy.wait(1000);
       cy.visit(`https://spinado.com/${lang}`);
@@ -464,13 +476,15 @@ describe('Spinado', () => {
       let expectedCount; // Переменная для хранения значения expectedCount
       let swipeCount = 1; // Начальное количество свайпов
 
-      cy.viewport(1920, 1080);
+      cy.viewport(1284, 2778); // Встановлюємо розширення для iPhone 14 Pro Max
+;
       cy.wait(1000);
       cy.get("[id^=slick-slide-control0]").its("length").then((length) => {
         expectedCount = length; // Присваиваем значение expectedCount
       });
 
-      cy.viewport(390, 844);
+      cy.viewport(428, 926);
+ // Використання приблизно половини реального розміру екрану
       cy.wait(1000);
 
       cy.get('.section_banners').then(($element) => {
