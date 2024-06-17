@@ -30,6 +30,17 @@ arrPlatformk.forEach(element => {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Screenshots for ${project}</title>
+            <style>
+              #screenshots {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                direction: rtl; /* Встановлюємо напрям тексту справа наліво */
+              }
+              #screenshots > div {
+                direction: ltr; /* Встановлюємо напрям тексту зліва направо для вмісту всередині блоків */
+              }
+            </style>
           </head>
           <body>
             <h1>Screenshots for ${project}</h1>
